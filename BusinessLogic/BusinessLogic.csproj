@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="ReportingPeriodRoot\Interfaces\" />
+    <Folder Include="ReportingPeriodRoot\DomainModels\" />
+    <Folder Include="SupplierRoot\DomainModels\" />
+    <Folder Include="SupplierRoot\Interfaces\" />
+  </ItemGroup>
+
+</Project>
