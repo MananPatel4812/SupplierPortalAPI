@@ -8,19 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Manan patel\\.nuget\\packages\\": {}
+    "C:\\Users\\HP\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\ASPDOTNETCORE\\SupplierPortalAPI\\BusinessLogic\\BusinessLogic.csproj",
+      "projectUniqueName": "E:\\Bigscal\\ICT_4_SupplierPortal\\BusinessLogic\\BusinessLogic.csproj",
       "projectName": "BusinessLogic",
-      "projectPath": "E:\\ASPDOTNETCORE\\SupplierPortalAPI\\BusinessLogic\\BusinessLogic.csproj",
-      "packagesPath": "C:\\Users\\Manan patel\\.nuget\\packages\\",
-      "outputPath": "E:\\ASPDOTNETCORE\\SupplierPortalAPI\\BusinessLogic\\obj\\",
+      "projectPath": "E:\\Bigscal\\ICT_4_SupplierPortal\\BusinessLogic\\BusinessLogic.csproj",
+      "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+      "outputPath": "E:\\Bigscal\\ICT_4_SupplierPortal\\BusinessLogic\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Manan patel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -61,7 +61,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.405\\RuntimeIdentifierGraph.json"
       }
     }
   }

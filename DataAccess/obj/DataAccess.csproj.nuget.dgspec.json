@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\ASPDOTNETCORE\\SupplierPortalAPI\\DataAccess\\DataAccess.csproj": {}
+    "E:\\Bigscal\\ICT_4_SupplierPortal\\DataAccess\\DataAccess.csproj": {}
   },
   "projects": {
-    "E:\\ASPDOTNETCORE\\SupplierPortalAPI\\DataAccess\\DataAccess.csproj": {
+    "E:\\Bigscal\\ICT_4_SupplierPortal\\DataAccess\\DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\ASPDOTNETCORE\\SupplierPortalAPI\\DataAccess\\DataAccess.csproj",
+        "projectUniqueName": "E:\\Bigscal\\ICT_4_SupplierPortal\\DataAccess\\DataAccess.csproj",
         "projectName": "DataAccess",
-        "projectPath": "E:\\ASPDOTNETCORE\\SupplierPortalAPI\\DataAccess\\DataAccess.csproj",
-        "packagesPath": "C:\\Users\\Manan patel\\.nuget\\packages\\",
-        "outputPath": "E:\\ASPDOTNETCORE\\SupplierPortalAPI\\DataAccess\\obj\\",
+        "projectPath": "E:\\Bigscal\\ICT_4_SupplierPortal\\DataAccess\\DataAccess.csproj",
+        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+        "outputPath": "E:\\Bigscal\\ICT_4_SupplierPortal\\DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Manan patel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -77,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.405\\RuntimeIdentifierGraph.json"
         }
       }
     }

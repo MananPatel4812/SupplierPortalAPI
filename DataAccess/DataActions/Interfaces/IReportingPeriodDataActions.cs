@@ -15,19 +15,9 @@ namespace DataAccess.DataActions.Interfaces
 
         Task<IEnumerable<ReportingPeriodStatus>> GetReportingPeriodStatus();
 
-        Task<bool> AddReportingPeriod(ReportingPeriod reportingPeriod);
+        Task<int> AddReportingPeriod(ReportingPeriod reportingPeriod);
 
-        Task<bool> UpdateReportingPeriod(ReportingPeriod reportingPeriod);//
-
-        Task<bool> AddReportingPeriodFacilityDocument(ReportingPeriodFacilityDocument reportingPeriodFacilityDocument);
-
-        Task<bool> UpdateReportingPeriodFacilityDocument(ReportingPeriodFacilityDocument reportingPeriodFacilityDocument);
-
-        Task<bool> AddReportingPeriodSupplierDocument(ReportingPeriodSupplierDocument reportingPeriodSupplierDocument);
-
-        Task<bool> UpdateReportingPeriodSupplierDocument(ReportingPeriodSupplierDocument reportingPeriodSupplierDocument);
-
-        Task<IEnumerable<ReportingPeriodFacility>> GetReportingPeriodFacilities(int SupplierId,int ReportingPeriodId);
+        Task<IEnumerable<ReportingPeriodFacility>> GetReportingPeriodFacilities(int SupplierId, int ReportingPeriodId);
 
         Task<IEnumerable<ReportingPeriodFacilityDocument>> GetReportingPeriodFacilitiesDocument(int DocumentId);
 
@@ -46,5 +36,9 @@ namespace DataAccess.DataActions.Interfaces
         Task<IEnumerable<DocumentType>> GetDocumentType();
 
         Task<IEnumerable<FacilityRequiredDocumentType>> GetFacilityRequiredDocumentType();
+
+
+
+
     }
 }

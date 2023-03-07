@@ -1,13 +1,12 @@
-﻿using DataAccess.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.Factories.Interface;
-
-public interface IReportingPeriodFactory
+namespace Services.Factories.Interface
 {
-    //ReportingPeriod CreateReportingperiod(string CollectionTimePeriod,);
+    public interface IReportingPeriodFactory
+    {
+    }
 }

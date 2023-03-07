@@ -1,0 +1,12 @@
+E:\Bigscal\ICT_4_SupplierPortal\BusinessLogic\bin\Debug\net6.0\BusinessLogic.deps.json
+E:\Bigscal\ICT_4_SupplierPortal\BusinessLogic\bin\Debug\net6.0\BusinessLogic.dll
+E:\Bigscal\ICT_4_SupplierPortal\BusinessLogic\bin\Debug\net6.0\BusinessLogic.pdb
+E:\Bigscal\ICT_4_SupplierPortal\BusinessLogic\obj\Debug\net6.0\BusinessLogic.csproj.AssemblyReference.cache
+E:\Bigscal\ICT_4_SupplierPortal\BusinessLogic\obj\Debug\net6.0\BusinessLogic.GeneratedMSBuildEditorConfig.editorconfig
+E:\Bigscal\ICT_4_SupplierPortal\BusinessLogic\obj\Debug\net6.0\BusinessLogic.AssemblyInfoInputs.cache
+E:\Bigscal\ICT_4_SupplierPortal\BusinessLogic\obj\Debug\net6.0\BusinessLogic.AssemblyInfo.cs
+E:\Bigscal\ICT_4_SupplierPortal\BusinessLogic\obj\Debug\net6.0\BusinessLogic.csproj.CoreCompileInputs.cache
+E:\Bigscal\ICT_4_SupplierPortal\BusinessLogic\obj\Debug\net6.0\BusinessLogic.dll
+E:\Bigscal\ICT_4_SupplierPortal\BusinessLogic\obj\Debug\net6.0\refint\BusinessLogic.dll
+E:\Bigscal\ICT_4_SupplierPortal\BusinessLogic\obj\Debug\net6.0\BusinessLogic.pdb
+E:\Bigscal\ICT_4_SupplierPortal\BusinessLogic\obj\Debug\net6.0\ref\BusinessLogic.dll
