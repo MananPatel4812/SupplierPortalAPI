@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "iE67znFw++8Zy4vuBdouiii9n5HMrZzt/VjKSl8xeE9BEfUtg7j5iYUgRX+2eVZTCK6K6FxhtymoIy4tnbyU2Q==",
+  "dgSpecHash": "s39fmbp6ESUHDHXyuUyPZv61i5HpVPEY7HCtPGIdMDNShZigJGouwfxel5/rA1Vkk1BRcNfCf/o+Y65xcYwuUg==",
   "success": true,
-  "projectFilePath": "E:\\ASPDOTNETCORE\\SupplierPortalAPI\\BusinessLogic\\BusinessLogic.csproj",
+  "projectFilePath": "E:\\SupplierPortalAPI\\BusinessLogic\\BusinessLogic.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

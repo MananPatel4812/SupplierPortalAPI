@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vAhXTYalAwTm8ItSMXfm58LXsVvNWVfS0VXxAhFt4PExEbSAW6b0oTgSbmXZB8LGq04Zt1w/9IdKZjpz+4s7/g==",
+  "dgSpecHash": "E1Yzmtr2gODZGkU3Bj1dbymKZxtDc6i4H5J/uHBRFaMA1pAnJIFGRUaBjijzdvczikg02QPftSPfMyIUq2fnKg==",
   "success": true,
-  "projectFilePath": "E:\\ASPDOTNETCORE\\SupplierPortalAPI\\DataAccess\\DataAccess.csproj",
+  "projectFilePath": "E:\\SupplierPortalAPI\\DataAccess\\DataAccess.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Manan patel\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Manan patel\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

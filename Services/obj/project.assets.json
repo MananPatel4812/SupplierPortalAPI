@@ -1934,11 +1934,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\ASPDOTNETCORE\\SupplierPortalAPI\\Services\\Services.csproj",
+      "projectUniqueName": "E:\\SupplierPortalAPI\\Services\\Services.csproj",
       "projectName": "Services",
-      "projectPath": "E:\\ASPDOTNETCORE\\SupplierPortalAPI\\Services\\Services.csproj",
+      "projectPath": "E:\\SupplierPortalAPI\\Services\\Services.csproj",
       "packagesPath": "C:\\Users\\Manan patel\\.nuget\\packages\\",
-      "outputPath": "E:\\ASPDOTNETCORE\\SupplierPortalAPI\\Services\\obj\\",
+      "outputPath": "E:\\SupplierPortalAPI\\Services\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Manan patel\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1955,8 +1955,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "E:\\ASPDOTNETCORE\\SupplierPortalAPI\\DataAccess\\DataAccess.csproj": {
-              "projectPath": "E:\\ASPDOTNETCORE\\SupplierPortalAPI\\DataAccess\\DataAccess.csproj"
+            "E:\\SupplierPortalAPI\\DataAccess\\DataAccess.csproj": {
+              "projectPath": "E:\\SupplierPortalAPI\\DataAccess\\DataAccess.csproj"
             }
           }
         }
