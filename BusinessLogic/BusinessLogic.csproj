@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="ReportingPeriodRoot\Interfaces\" />
-    <Folder Include="ReportingPeriodRoot\DomainModels\" />
     <Folder Include="SupplierRoot\DomainModels\" />
     <Folder Include="SupplierRoot\Interfaces\" />
   </ItemGroup>

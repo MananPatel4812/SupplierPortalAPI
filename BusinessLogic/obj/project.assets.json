@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\ASPDOTNETCORE\\SupplierPortalAPI\\BusinessLogic\\BusinessLogic.csproj",
+      "projectUniqueName": "E:\\SupplierPortalAPI\\BusinessLogic\\BusinessLogic.csproj",
       "projectName": "BusinessLogic",
-      "projectPath": "E:\\ASPDOTNETCORE\\SupplierPortalAPI\\BusinessLogic\\BusinessLogic.csproj",
+      "projectPath": "E:\\SupplierPortalAPI\\BusinessLogic\\BusinessLogic.csproj",
       "packagesPath": "C:\\Users\\Manan patel\\.nuget\\packages\\",
-      "outputPath": "E:\\ASPDOTNETCORE\\SupplierPortalAPI\\BusinessLogic\\obj\\",
+      "outputPath": "E:\\SupplierPortalAPI\\BusinessLogic\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Manan patel\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,4 +1,4 @@
-﻿using BusinessLogic.ReferenceLookups;
+using BusinessLogic.ReferenceLookups;
 using BusinessLogic.SupplierRoot.DomainModels;
 using System;
 using System.Collections.Generic;
@@ -99,4 +99,8 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         }
 
     }
+namespace BusinessLogic.ReportingPeriodRoot.DomainModels;
+
+public class PeriodFacilityDocument
+{
 }

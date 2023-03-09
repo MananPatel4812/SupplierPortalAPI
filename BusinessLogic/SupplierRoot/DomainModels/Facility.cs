@@ -1,4 +1,4 @@
-﻿using DataAccess.Entities;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.SupplierRoot.DomainModels
 {
-    public class FacilityDomainModel
+    public class Facility
     {
          public int Id { get; set; }
          public string Name { get; set; }
@@ -16,16 +16,16 @@ namespace BusinessLogic.SupplierRoot.DomainModels
          public int? AssociatePipelineId { get; set; }
          public int ReportingTypeId { get; set; }
          public int SupplyChainStageId { get; set; }
-
+/*
         AssociatePipeline AssociatePipelines { get; set; }
         ReportingType ReportingTypes { get; set; }
-        SupplyChainStage SupplyChainStages { get; set; }
+        SupplyChainStage SupplyChainStages { get; set; }*/
 
 
-        public FacilityDomainModel()
+        public Facility()
         {   }
 
-        public FacilityDomainModel(string name, string description, bool isPrimary,
+        public Facility(string name, string description, bool isPrimary,
             int? associatePipelineId, int reportingTypeId, int supplyChainStageId )
         {
             Name = name;
@@ -36,7 +36,7 @@ namespace BusinessLogic.SupplierRoot.DomainModels
             SupplyChainStageId = supplyChainStageId;
         }
 
-        public FacilityDomainModel(int id, string name, string description, bool isPrimary,
+        public Facility(int id, string name, string description, bool isPrimary,
             int? associatePipelineId, int reportingTypeId, int supplyChainStageId): this(name, description,isPrimary,associatePipelineId,reportingTypeId,supplyChainStageId)
         {
             Id = id;   
