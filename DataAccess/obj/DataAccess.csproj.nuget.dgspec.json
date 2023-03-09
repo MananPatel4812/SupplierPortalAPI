@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\ASPDOTNETCORE\\SupplierPortalAPI\\DataAccess\\DataAccess.csproj": {}
+    "E:\\SupplierPortalAPI\\DataAccess\\DataAccess.csproj": {}
   },
   "projects": {
-    "E:\\ASPDOTNETCORE\\SupplierPortalAPI\\DataAccess\\DataAccess.csproj": {
+    "E:\\SupplierPortalAPI\\DataAccess\\DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\ASPDOTNETCORE\\SupplierPortalAPI\\DataAccess\\DataAccess.csproj",
+        "projectUniqueName": "E:\\SupplierPortalAPI\\DataAccess\\DataAccess.csproj",
         "projectName": "DataAccess",
-        "projectPath": "E:\\ASPDOTNETCORE\\SupplierPortalAPI\\DataAccess\\DataAccess.csproj",
+        "projectPath": "E:\\SupplierPortalAPI\\DataAccess\\DataAccess.csproj",
         "packagesPath": "C:\\Users\\Manan patel\\.nuget\\packages\\",
-        "outputPath": "E:\\ASPDOTNETCORE\\SupplierPortalAPI\\DataAccess\\obj\\",
+        "outputPath": "E:\\SupplierPortalAPI\\DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Manan patel\\AppData\\Roaming\\NuGet\\NuGet.Config",
