@@ -1,4 +1,5 @@
-﻿using DataAccess.Entities;
+﻿using BusinessLogic.ReferenceLookups;
+using BusinessLogic.SupplierRoot.DomainModels;
 
 namespace BusinessLogic.SupplierRoot.Interfaces
 {
@@ -17,8 +18,8 @@ namespace BusinessLogic.SupplierRoot.Interfaces
         Facility AddSupplierFacility(int Id, string name, string description, bool isPrimary, AssociatePipeline AssociatePipeline, ReportingType ReportingType, SupplyChainStage SupplyChainStage);
         Facility UpdateSupplierFacility(int Id,string name, string description, bool isPrimary, AssociatePipeline AssociatePipeline, ReportingType ReportingType, SupplyChainStage SupplyChainStage);
 
-        Contact AddSupplierContact(int Id, Supplier Supplier, User User);
+       /* Contact AddSupplierContact(int Id, Supplier Supplier, User User);
         Contact UpdateSupplierContact(int Id, Supplier Supplier, User User);
-
+*/
     }
 }
