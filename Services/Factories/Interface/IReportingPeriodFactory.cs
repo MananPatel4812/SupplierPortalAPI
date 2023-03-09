@@ -1,4 +1,5 @@
-﻿using DataAccess.Entities;
+﻿using BusinessLogic.ReferenceLookups;
+using BusinessLogic.ReportingPeriodRoot.DomainModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,5 @@ namespace Services.Factories.Interface;
 
 public interface IReportingPeriodFactory
 {
-    //ReportingPeriod CreateReportingperiod(string CollectionTimePeriod,);
+    //ReportingPeriod CreateNewReportingperiod(string CollectionTimePeriod,ReportingPeriodType reportingPeriodType,ReportingPeriodStatus reportingPeriodStatus,DateTime startDate,DateTime endDate, bool active);
 }

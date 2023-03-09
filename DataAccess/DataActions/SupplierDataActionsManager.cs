@@ -1,5 +1,5 @@
 ﻿using DataAccess.DataActions.Interfaces;
-using DataAccess.DataActionsContext;
+using DataAccess.DataActionContext;
 using DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 
