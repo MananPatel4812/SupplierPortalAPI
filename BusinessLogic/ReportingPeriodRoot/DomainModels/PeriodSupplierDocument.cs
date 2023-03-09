@@ -14,8 +14,8 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         private HashSet<DocumentStatus> DocumentStatuses;
         private HashSet<DocumentType> DocumentTypes;
 
-        public PeriodSupplierDocument(int reportingPeriodSupplierId,string version,string displayName,
-                    string storedName,string path,string validationError)
+        public PeriodSupplierDocument(int reportingPeriodSupplierId, string version, string displayName,
+                    string storedName, string path, string validationError)
         {
             ReportingPeriodSupplierId = reportingPeriodSupplierId;
             Version = version;
@@ -29,8 +29,8 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
             Suppliers = new HashSet<Supplier>();
         }
 
-        public PeriodSupplierDocument(int id,int reportingPeriodSupplierId,string version,string displayName,
-                       string storedName,string path,string validationError) : this(reportingPeriodSupplierId,version,displayName,storedName,path,validationError)
+        public PeriodSupplierDocument(int id, int reportingPeriodSupplierId, string version, string displayName,
+                       string storedName, string path, string validationError) : this(reportingPeriodSupplierId, version, displayName, storedName, path, validationError)
         {
             Id = id;
         }
@@ -52,7 +52,7 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         {
             get
             {
-                if(Suppliers == null)
+                if (Suppliers == null)
                 {
                     return new List<Supplier>();
                 }
@@ -64,7 +64,7 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         {
             get
             {
-                if(DocumentStatuses == null)
+                if (DocumentStatuses == null)
                 {
                     return new List<DocumentStatus>();
                 }
@@ -76,7 +76,7 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         {
             get
             {
-                if(DocumentTypes == null)
+                if (DocumentTypes == null)
                 {
                     return new List<DocumentType>();
                 }
@@ -85,8 +85,4 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         }
 
     }
-namespace BusinessLogic.ReportingPeriodRoot.DomainModels;
-
-public class PeriodSupplierDocument
-{
 }

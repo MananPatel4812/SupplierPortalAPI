@@ -1,6 +1,4 @@
-﻿using BusinessLogic.ReferenceLookups;
-using BusinessLogic.ReportingPeriodRoot.DomainModels;
-
+﻿
 using Services.Factories.Interface;
 using System;
 using System.Collections.Generic;

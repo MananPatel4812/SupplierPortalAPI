@@ -33,7 +33,7 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         {
             get
             {
-                if(Facilities == null)
+                if (Facilities == null)
                 {
                     return new List<Facility>();
                 }
@@ -45,7 +45,7 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         {
             get
             {
-                if(FacilityReportingPeriodDataStatuses == null)
+                if (FacilityReportingPeriodDataStatuses == null)
                 {
                     return new List<FacilityReportingPeriodDataStatus>();
                 }
@@ -57,7 +57,7 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         {
             get
             {
-                if(ReportingTypes == null)
+                if (ReportingTypes == null)
                 {
                     return new List<ReportingType>();
                 }
@@ -65,8 +65,4 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
             }
         }
     }
-namespace BusinessLogic.ReportingPeriodRoot.DomainModels;
-
-public class PeriodFacility
-{
 }
