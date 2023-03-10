@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Services.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,7 @@ namespace Services.Interfaces
 {
     public interface ISupplierServices
     {
+        //string AddUpdateSupplier(SupplierDto supplierDto);
+        Task<string> AddUpdateUser(UserDto userDto);
     }
 }
