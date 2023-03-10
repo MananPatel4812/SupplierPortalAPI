@@ -19,9 +19,9 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
     }
 
     #region Add Methods
-    public async Task<bool> AddReportingPeriod(ReportingPeriod reportingPeriod)
+    public async Task<bool> AddReportingPeriod(ReportingPeriodEntity reportingPeriod)
     {
-        await _context.ReportingPeriods.AddAsync(reportingPeriod);
+        await _context.ReportingPeriodEntities.AddAsync(reportingPeriod);
 
         reportingPeriod.CreatedBy = "System";
         reportingPeriod.CreatedOn = DateTime.UtcNow;
@@ -30,9 +30,9 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
         return true;
     }
 
-    public async Task<bool> AddReportingPeriodFacilityDocument(ReportingPeriodFacilityDocument reportingPeriodFacilityDocument)
+    public async Task<bool> AddReportingPeriodFacilityDocument(ReportingPeriodFacilityDocumentEntity reportingPeriodFacilityDocument)
     {
-        await _context.ReportingPeriodFacilityDocuments.AddAsync(reportingPeriodFacilityDocument);
+        await _context.ReportingPeriodFacilityDocumentEntities.AddAsync(reportingPeriodFacilityDocument);
 
         reportingPeriodFacilityDocument.CreatedBy = "System";
         reportingPeriodFacilityDocument.CreatedOn = DateTime.UtcNow;
@@ -41,9 +41,9 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
         return true;
     }
 
-    public async Task<bool> AddReportingPeriodSupplierDocument(ReportingPeriodSupplierDocument reportingPeriodSupplierDocument)
+    public async Task<bool> AddReportingPeriodSupplierDocument(ReportingPeriodSupplierDocumentEntity reportingPeriodSupplierDocument)
     {
-        await _context.ReportingPeriodSupplierDocuments.AddAsync(reportingPeriodSupplierDocument);
+        await _context.ReportingPeriodSupplierDocumentEntities.AddAsync(reportingPeriodSupplierDocument);
 
         reportingPeriodSupplierDocument.CreatedBy = "System";
         reportingPeriodSupplierDocument.CreatedOn = DateTime.UtcNow;
@@ -55,9 +55,9 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
     #endregion
 
     #region Update Methods
-    public async Task<bool> UpdateReportingPeriod(ReportingPeriod reportingPeriod)
+    public async Task<bool> UpdateReportingPeriod(ReportingPeriodEntity reportingPeriod)
     {
-        var existingperiod = await _context.ReportingPeriods.FirstOrDefaultAsync(x => x.Id == reportingPeriod.Id);
+        var existingperiod = await _context.ReportingPeriodEntities.FirstOrDefaultAsync(x => x.Id == reportingPeriod.Id);
         
         if (existingperiod == null)
         {
@@ -68,11 +68,11 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
         existingperiod.ReportingPeriodStatusId = reportingPeriod.ReportingPeriodStatusId;
         existingperiod.StartDate = reportingPeriod.StartDate;
         existingperiod.EndDate = reportingPeriod.EndDate;
-        existingperiod.Active = reportingPeriod.Active;
+        existingperiod.IsActive = reportingPeriod.IsActive;
         existingperiod.UpdatedOn = DateTime.UtcNow;
         existingperiod.UpdatedBy = "System";
 
-        _context.ReportingPeriods.Update(existingperiod);
+        _context.ReportingPeriodEntities.Update(existingperiod);
         await _context.SaveChangesAsync();
 
         return true;
@@ -80,9 +80,9 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
 
 
 
-    public async Task<bool> UpdateReportingPeriodFacilityDocument(ReportingPeriodFacilityDocument reportingPeriodFacilityDocument)
+    public async Task<bool> UpdateReportingPeriodFacilityDocument(ReportingPeriodFacilityDocumentEntity reportingPeriodFacilityDocument)
     {
-        var existingfacilitydocument = await _context.ReportingPeriodFacilityDocuments.FirstOrDefaultAsync(x => x.Id == reportingPeriodFacilityDocument.Id);
+        var existingfacilitydocument = await _context.ReportingPeriodFacilityDocumentEntities.FirstOrDefaultAsync(x => x.Id == reportingPeriodFacilityDocument.Id);
 
         if (existingfacilitydocument == null)
         {
@@ -100,7 +100,7 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
         existingfacilitydocument.UpdatedBy = "System";
         existingfacilitydocument.UpdatedOn = DateTime.UtcNow;
 
-        _context.ReportingPeriodFacilityDocuments.Update(existingfacilitydocument);
+        _context.ReportingPeriodFacilityDocumentEntities.Update(existingfacilitydocument);
         await _context.SaveChangesAsync();
 
         return true;
@@ -108,9 +108,9 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
 
 
 
-    public async Task<bool> UpdateReportingPeriodSupplierDocument(ReportingPeriodSupplierDocument reportingPeriodSupplierDocument)
+    public async Task<bool> UpdateReportingPeriodSupplierDocument(ReportingPeriodSupplierDocumentEntity reportingPeriodSupplierDocument)
     {
-        var existingsupplierdocument = await _context.ReportingPeriodSupplierDocuments.FirstOrDefaultAsync(x => x.Id == reportingPeriodSupplierDocument.Id);
+        var existingsupplierdocument = await _context.ReportingPeriodSupplierDocumentEntities.FirstOrDefaultAsync(x => x.Id == reportingPeriodSupplierDocument.Id);
 
         if (existingsupplierdocument == null)
         {
@@ -128,7 +128,7 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
         existingsupplierdocument.UpdatedBy = "System";
         existingsupplierdocument.UpdatedOn = DateTime.UtcNow;
 
-        _context.ReportingPeriodSupplierDocuments.Update(existingsupplierdocument);
+        _context.ReportingPeriodSupplierDocumentEntities.Update(existingsupplierdocument);
         await _context.SaveChangesAsync();
 
         return true;
@@ -136,9 +136,9 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
     #endregion
 
     #region Get Methods
-    public async Task<IEnumerable<ReportingPeriodFacility>> GetReportingPeriodFacilities(int SupplierId, int ReportingPeriodId)
+    public async Task<IEnumerable<ReportingPeriodFacilityEntity>> GetReportingPeriodFacilities(int SupplierId, int ReportingPeriodId)
     {
-        return await _context.ReportingPeriodFacilities
+        return await _context.ReportingPeriodFacilityEntities
                                     .Include(x => x.Facility)
                                     .Include(x => x.FacilityReportingPeriodDataStatus)
                                     .Include(x => x.ReportingType)
@@ -146,74 +146,74 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
                                     .ToListAsync();
     }
 
-    public async Task<IEnumerable<ReportingPeriodFacilityDocument>> GetReportingPeriodFacilitiesDocument(int DocumentId)
+    public async Task<IEnumerable<ReportingPeriodFacilityDocumentEntity>> GetReportingPeriodFacilitiesDocument(int DocumentId)
     {
-        return await _context.ReportingPeriodFacilityDocuments
+        return await _context.ReportingPeriodFacilityDocumentEntities
                                 .Include(x => x.ReportingPeriodFacility)
                                 .Include(x => x.DocumentStatus)
                                 .Include(x => x.DocumentType)
                                 .ToListAsync();
     }
 
-    public async Task<IEnumerable<ReportingPeriodSupplierDocument>> GetReportingPeriodSuppliersDocument(int DocumentId)
+    public async Task<IEnumerable<ReportingPeriodSupplierDocumentEntity>> GetReportingPeriodSuppliersDocument(int DocumentId)
     {
-        return await _context.ReportingPeriodSupplierDocuments
+        return await _context.ReportingPeriodSupplierDocumentEntities
                                     .Include(x => x.ReportingPeriodSupplier)
                                     .Include(x => x.DocumentStatus)
                                     .Include(x => x.DocumentType)
                                     .ToListAsync();
     }
 
-    public async Task<IEnumerable<ReportingPeriod>> GetReportingPeriods(int ReportingPeriodId)
+    public async Task<IEnumerable<ReportingPeriodEntity>> GetReportingPeriods(int ReportingPeriodId)
     {
-        return await _context.ReportingPeriods
+        return await _context.ReportingPeriodEntities
                                 .Include(x => x.ReportingPeriodType)
                                 .Include(x => x.ReportingPeriodStatus)
                                 .ToListAsync();
     }
 
-    public async Task<IEnumerable<ReportingPeriodStatus>> GetReportingPeriodStatus()
+    public async Task<IEnumerable<ReportingPeriodStatusEntity>> GetReportingPeriodStatus()
     {
-        return await _context.ReportingPeriodStatuses.ToListAsync();
+        return await _context.ReportingPeriodStatusEntities.ToListAsync();
     }
 
-    public async Task<IEnumerable<ReportingPeriodSupplier>> GetReportingPeriodSuppliers(int ReportingPeriodId)
+    public async Task<IEnumerable<ReportingPeriodSupplierEntity>> GetReportingPeriodSuppliers(int ReportingPeriodId)
     {
-        return await _context.ReportingPeriodSuppliers
+        return await _context.ReportingPeriodSupplierEntities
                                 .Include(x => x.Supplier)
                                 .Include(x => x.ReportingPeriod)
                                 .Include(x => x.SupplierReportingPeriodStatus)
                                 .ToListAsync();
     }
 
-    public async Task<IEnumerable<ReportingPeriodType>> GetReportingPeriodTypes()
+    public async Task<IEnumerable<ReportingPeriodTypeEntity>> GetReportingPeriodTypes()
     {
-        return await _context.ReportingPeriodTypes.ToListAsync();
+        return await _context.ReportingPeriodTypeEntities.ToListAsync();
     }
 
-    public async Task<IEnumerable<DocumentRequiredStatus>> GetDocumentRequiredStatus()
+    public async Task<IEnumerable<DocumentRequiredStatusEntity>> GetDocumentRequiredStatus()
     {
-        return await _context.DocumentRequiredStatuses.ToListAsync();
+        return await _context.DocumentRequiredStatusEntities.ToListAsync();
     }
 
-    public async Task<IEnumerable<DocumentStatus>> GetDocumentStatus()
+    public async Task<IEnumerable<DocumentStatusEntity>> GetDocumentStatus()
     {
-        return await _context.DocumentStatuses.ToListAsync();
+        return await _context.DocumentStatusEntities.ToListAsync();
     }
 
-    public async Task<IEnumerable<DocumentType>> GetDocumentType()
+    public async Task<IEnumerable<DocumentTypeEntity>> GetDocumentType()
     {
-        return await _context.DocumentTypes.ToListAsync();
+        return await _context.DocumentTypeEntities.ToListAsync();
     }
 
-    public async Task<IEnumerable<FacilityReportingPeriodDataStatus>> GetFacilityReportingPeriodDataStatus()
+    public async Task<IEnumerable<FacilityReportingPeriodDataStatusEntity>> GetFacilityReportingPeriodDataStatus()
     {
-        return await _context.FacilityReportingPeriodDataStatuses.ToListAsync();
+        return await _context.FacilityReportingPeriodDataStatusEntities.ToListAsync();
     }
 
-    public async Task<IEnumerable<FacilityRequiredDocumentType>> GetFacilityRequiredDocumentType()
+    public async Task<IEnumerable<FacilityRequiredDocumentTypeEntity>> GetFacilityRequiredDocumentType()
     {
-        return await _context.FacilityRequiredDocumentTypes
+        return await _context.FacilityRequiredDocumentTypeEntities
                                     .Include(x => x.ReportingType)
                                     .Include(x => x.SupplyChainStage)
                                     .Include(x => x.DocumentType)
@@ -221,9 +221,9 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
                                     .ToListAsync();
     }
 
-    public async Task<IEnumerable<SupplierReportingPeriodStatus>> GetSupplierReportingPeriodStatus()
+    public async Task<IEnumerable<SupplierReportingPeriodStatusEntity>> GetSupplierReportingPeriodStatus()
     {
-        return await _context.SupplierReportingPeriodStatuses.ToListAsync();
+        return await _context.SupplierReportingPeriodStatusEntities.ToListAsync();
     }
 
     #endregion

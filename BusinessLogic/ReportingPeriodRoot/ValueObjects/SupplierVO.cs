@@ -12,7 +12,7 @@ public class SupplierVO
 	{
 		SupplierId=id;
 		SupplierName = name;
-		IsActive = active;
+		Active = active;
         Facilities = facilities;
 	}
 
@@ -20,7 +20,7 @@ public class SupplierVO
 
 	public string SupplierName { get; set;}
 
-	public bool IsActive { get; set;}
+	public bool Active { get; set;}
 
 	public IEnumerable<FacilityVO> Facilities { get; set;}
 }

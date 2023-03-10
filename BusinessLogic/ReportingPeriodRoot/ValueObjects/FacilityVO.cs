@@ -9,13 +9,13 @@ namespace BusinessLogic.ReportingPeriodRoot.ValueObjects;
 
 public class FacilityVO
 {
-    public FacilityVO(int id,int supllierid,string facilityname,string? GHGRPFacilityid,bool active,SupplyChainStage supplyChainStage=null, ReportingType reportingType=null) {
+    public FacilityVO(int id,int supplierid,string facilityname,string? GHGRPFacilityid,bool active,SupplyChainStage supplyChainStage=null, ReportingType reportingType=null) {
         
         Id = id;
-        SupplierId= supllierid;
-        Facilityname= facilityname;
-        GHGRPFacilityid = GHGRPFacilityid;
-        Isactive= active;
+        SupplierId= supplierid;
+        FacilityName= facilityname;
+        GHGRPFacilityId = GHGRPFacilityid;
+        IsActive= active;
         SupplyChainStage = supplyChainStage ?? null;
         ReportingType = reportingType ?? null;
     
@@ -25,11 +25,11 @@ public class FacilityVO
 
     public int SupplierId { get; private set; }
 
-    public string Facilityname { get; private set; }
+    public string FacilityName { get; private set; }
 
-    public string? GHGRPFacilityid { get;private set; }
+    public string? GHGRPFacilityId { get;private set; }
 
-    public bool Isactive { get; private set; }
+    public bool IsActive { get; private set; }
 
     public SupplyChainStage? SupplyChainStage { get; private set;}
 

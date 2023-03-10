@@ -6,22 +6,24 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.SupplierRoot.DomainModels
 {
+
     public class Contact
     {
-        public int Id { get; set; }
-        public int SupplierId { get; set; }
-        public int UserId { get; set; }
+        public int Id { get; private set; }
+        public int SupplierId { get; private set; }
+        public int UserId { get; private set; }
 
-        public Contact()
-        {  }
 
-        public Contact(int supplierId, int userId)
+        internal Contact()
+        { }
+
+        internal Contact(int supplierId, int userId)
         {
             SupplierId = supplierId;
             UserId = userId;
         }
 
-        public Contact(int id, int supplierId, int userId): this(supplierId, userId)
+        internal Contact(int id, int supplierId, int userId) : this(supplierId, userId)
         {
             Id = id;
         }
