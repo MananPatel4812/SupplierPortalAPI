@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.ReferenceLookups;
+using BusinessLogic.ReportingPeriodRoot.ValueObjects;
 using BusinessLogic.SupplierRoot.Interfaces;
 
 namespace BusinessLogic.SupplierRoot.DomainModels
@@ -62,16 +63,16 @@ namespace BusinessLogic.SupplierRoot.DomainModels
             }
         }
 
-       /* public Contact UpdateSupplierContact(int Id, Supplier Supplier, User User)
-        {
-            throw new NotImplementedException();
-        }*/
-/*
-        public Contact AddSupplierContact(int Id, Supplier Supplier, User User)
+        public Contact UpdateSupplierContact(int Id, Supplier Supplier, UserVO userVO)
         {
             throw new NotImplementedException();
         }
-*/
+
+        public Contact AddSupplierContact(int Id, Supplier Supplier, UserVO userVO)
+        {
+            throw new NotImplementedException();
+        }
+
         public Facility AddSupplierFacility(int Id, string name, string description, bool isPrimary, AssociatePipeline AssociatePipeline, ReportingType ReportingType, SupplyChainStage SupplyChainStage)
         {
             throw new NotImplementedException();

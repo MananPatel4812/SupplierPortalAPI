@@ -9,7 +9,7 @@ namespace BusinessLogic.ReportingPeriodRoot.ValueObjects;
 
 public class FacilityRequirementTypeDTO
 {
-    public int id { get; set; }
+    public int Id { get; set; }
 
     public int ReportingPeriodId { get; set; }
 
@@ -19,14 +19,11 @@ public class FacilityRequirementTypeDTO
 
     public int DocumentRequirementStatusId { get; set; }
 
-    public bool Active { get; set; }
-
-    public FacilityRequirementTypeDTO(int reportingPeriodId, int supplyChainStageId, int documentTypeId, int documentRequirementStatusId, bool active)
+    public FacilityRequirementTypeDTO(int reportingPeriodId, int supplyChainStageId, int documentTypeId, int documentRequirementStatusId)
     {
         ReportingPeriodId = reportingPeriodId;
         SupplyChainStageId = supplyChainStageId;
         DocumentTypeId = documentTypeId;
         DocumentRequirementStatusId = documentRequirementStatusId;
-        Active = active;
     }
 }
