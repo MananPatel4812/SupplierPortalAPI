@@ -5,7 +5,7 @@ using System.Net;
 
 namespace SupplierPortalAPI.Infrastructure.Middleware;
 
-public static class ExceptionMiddelware
+public static class ExceptionMiddleware
 {
     public static void AddExceptionHandler(this IApplicationBuilder app)
     {

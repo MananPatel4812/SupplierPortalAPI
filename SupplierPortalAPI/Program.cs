@@ -19,7 +19,7 @@ builder.BuilderDbContext();
 builder.SecutitySchema();
 builder.AddSwaggerBuilder();
 builder.Services.ConfigureCors();
-
+builder.Services.AddDependancy(builder.Configuration);
 
 //serilog
 var _loggrer = new LoggerConfiguration()

@@ -1,7 +1,7 @@
 ﻿using DataAccess.DataActions.Interfaces;
 using DataAccess.DataActionContext;
-using DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
+using DataAccess.Entities;
 
 namespace DataAccess.DataActions
 {
