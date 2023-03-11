@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Services.DTOs;
+using Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace Services;
 
-public class ReportingPeriodServices
+public class ReportingPeriodServices : IReportingPeriodServices
 {
+    public Task<string> AddReportingPeriod(ReportingPeriodDto reportingPeriodDto)
+    {
+        throw new NotImplementedException();
+    }
 }
