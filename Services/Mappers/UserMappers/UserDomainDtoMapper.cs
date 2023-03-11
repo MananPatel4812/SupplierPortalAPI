@@ -16,12 +16,12 @@ namespace Services.Mappers.UserMappers
             var userDtos = new List<UserDto>();
             foreach (var user in users)
             {
-                userDtos.Add(ConvertUserToDto(user));
+                userDtos.Add(ConvertUserDomainToDto(user));
             }
             return userDtos;
         }
 
-        public UserDto ConvertUserToDto(User user)
+        public UserDto ConvertUserDomainToDto(User user)
         {
             return new UserDto(user.Id, user.Name, user.Email, user.ContactNo, user.RoleId, user.IsActive);
         }
