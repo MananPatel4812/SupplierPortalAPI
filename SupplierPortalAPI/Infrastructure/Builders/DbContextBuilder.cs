@@ -8,7 +8,7 @@ internal static class DbContextBuilder
     internal static WebApplicationBuilder BuilderDbContext(this WebApplicationBuilder builder)
     {
         builder.Services.AddDbContext<SupplierPortalDBContext>(o => o.UseSqlServer(
-        builder.Configuration.GetConnectionString("SupplierConnection")));
+        builder.Configuration.GetConnectionString("SupplierConnnection")));
         return builder;
     }
 
