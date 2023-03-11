@@ -1,16 +1,17 @@
 ﻿using BusinessLogic.SupplierRoot.DomainModels;
 using DataAccess.Entities;
 using Services.Mappers.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.Mappers.UserMappers
 {
     public class UserEntityDomainMapper: IUserEntityDomainMapper
     {
+        public User ConvertUserEntityToDomain(UserEntity userEntity)
+        {
+            var user = new User(userEntity.Id, userEntity.Name, userEntity.Email, userEntity.ContactNo, userEntity.RoleId, userEntity.IsActive);
+            return user;
+        }
+
         public UserEntity ConvertUserToEntity(User user)
         {
             var entity = new UserEntity();

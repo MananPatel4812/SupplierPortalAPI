@@ -1,10 +1,4 @@
-﻿using DataAccess.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace BusinessLogic.SupplierRoot.DomainModels
 {
     public class User
@@ -34,14 +28,48 @@ namespace BusinessLogic.SupplierRoot.DomainModels
         {
             Id = id;
         }
-/*
-        public User AddUser(User user)
+
+        public void UpdateUser(string name, string email, string contactNo, int roleId, bool isActive)
         {
-            //add User
-            var users = new User(user.Id, user.Name, user.Email, user.ContactNo, user.RoleId, user.IsActive);
-            
-            return users;
-        }*/
+           
+             UpdateName(name);
+             UpdateEmail(email);
+             UpdateContact(contactNo);
+             UpdateRole(roleId);
+             UpdateIsActive(isActive);
+
+        }
+
+        public void UpdateName(string name)
+        {
+            if(string.IsNullOrWhiteSpace(name))
+            {
+                throw new Exception("Name is required");
+            }
+            else
+                Name = name;
+                
+        }
+
+        public void UpdateEmail(string email)
+        {
+            Email = email;
+        }
+
+        public void UpdateContact(string contactNo)
+        {
+            ContactNo = contactNo;
+        }
+
+        public void UpdateRole(int roleId)
+        {
+            RoleId = roleId;
+        }
+
+        public void UpdateIsActive(bool isActive)
+        {
+            IsActive = isActive;
+        }
 
     }
 }
