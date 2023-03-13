@@ -21,7 +21,7 @@ public class ReportingPeriodFactory : IReportingPeriodFactory
     {
         _logger = loggerFactory.CreateLogger<ReportingPeriodFactory>();
     }
-    public ReportingPeriod CreateNewReportingPeriod(string CollectionTimePeriod, ReportingPeriodType reportingPeriodType, ReportingPeriodStatus reportingPeriodStatus, DateTime startDate, DateTime endDate, bool active)
+    public ReportingPeriod CreateNewReportingPeriod(ReportingPeriodType reportingPeriodType,string CollectionTimePeriod, ReportingPeriodStatus reportingPeriodStatus, DateTime startDate, DateTime? endDate, bool active)
     {
         var type = reportingPeriodType;
         var status= reportingPeriodStatus;

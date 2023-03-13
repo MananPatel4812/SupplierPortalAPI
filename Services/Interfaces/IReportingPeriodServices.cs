@@ -1,4 +1,5 @@
-﻿using Services.DTOs;
+﻿using BusinessLogic.ReferenceLookups;
+using Services.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,5 @@ namespace Services.Interfaces;
 
 public interface IReportingPeriodServices
 {
-    Task<string> AddReportingPeriod(ReportingPeriodDto reportingPeriodDto);
+    Task<string> AddReportingPeriod(ReportingPeriodDto reportingPeriodDto, ReportingPeriodType reportingPeriodType, ReportingPeriodStatus reportingPeriodStatus);
 }

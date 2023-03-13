@@ -226,6 +226,23 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
         return await _context.SupplierReportingPeriodStatusEntities.ToListAsync();
     }
 
+    protected void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            if (_context != null)
+            {
+                _context.Dispose();
+            }
+        }
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
     #endregion
 
 }
