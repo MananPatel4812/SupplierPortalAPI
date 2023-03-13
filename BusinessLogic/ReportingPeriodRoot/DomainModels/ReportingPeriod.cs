@@ -27,7 +27,6 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         public ReportingPeriod(int id, string displayName, ReportingPeriodType types, string collectionTimePeriod, ReportingPeriodStatus status, DateTime startDate, DateTime? endDate, bool isActive) : this(types, collectionTimePeriod, status, startDate, endDate, isActive)
         {
             Id = id;
-            DisplayName = displayName;
         }
         public ReportingPeriod()
         {

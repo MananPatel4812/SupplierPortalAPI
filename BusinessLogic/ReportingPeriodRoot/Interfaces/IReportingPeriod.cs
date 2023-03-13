@@ -36,6 +36,7 @@ namespace BusinessLogic.ReportingPeriodRoot.Interfaces
         PeriodSupplierDocument RemoveSupplementalDataDocumentToReportingPeriodSupplier(int supplierId,int documentId);
         IEnumerable<PeriodFacility> UpdateDataStatusToSubmittedForCompletePeriodFacility(int supplierId,FacilityReportingPeriodDataStatus facilityReportingPeriodDataStatus);
 
+        //IEnumerable<ReportingPeriodTypeEntity> RetrieveReportingPeriodType(ReportingPeriodType reportingPeriodType);
 
     }
 }

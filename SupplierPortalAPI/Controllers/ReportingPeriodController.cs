@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BusinessLogic.ReferenceLookups;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.DTOs;
 using Services.DTOs.ReadOnlyDTOs;
@@ -17,10 +18,11 @@ namespace SupplierPortalAPI.Controllers
             _services = services;
         }
         [HttpPost("AddReportingPeriod")]
-        public async Task<string> AddReportingPeriod(ReportingPeriodDto reportingPeriodDto)
+        public async Task<string> AddReportingPeriod([FromForm]ReportingPeriodDto reportingPeriodDto, ReportingPeriodType reportingPeriodType, ReportingPeriodStatus reportingPeriodStatus)
         {
-
-            return await _services.AddReportingPeriod(reportingPeriodDto);
+            //var reportingPeriodType = new ReportingPeriodType();
+            //var reportingPeriodStatus = new ReportingPeriodStatus();
+            return await _services.AddReportingPeriod(reportingPeriodDto,reportingPeriodType,reportingPeriodStatus);
         }
 
         [HttpPut("UpdateReportingPeriod")]
