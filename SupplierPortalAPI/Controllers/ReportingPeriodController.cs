@@ -22,5 +22,11 @@ namespace SupplierPortalAPI.Controllers
 
             return await _services.AddReportingPeriod(reportingPeriodDto);
         }
+
+        [HttpPut("UpdateReportingPeriod")]
+        public async Task<string> UpdateReportingPeriod(ReportingPeriodDto reportingPeriodDto)
+        {
+            return await _services.UpdateReportingPeriod(reportingPeriodDto);
+        }
     }
 }

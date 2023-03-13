@@ -57,24 +57,22 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
     #region Update Methods
     public async Task<bool> UpdateReportingPeriod(ReportingPeriodEntity reportingPeriod)
     {
-        var existingperiod = await _context.ReportingPeriodEntities.FirstOrDefaultAsync(x => x.Id == reportingPeriod.Id);
+        var existingReportingPeriod = await _context.ReportingPeriodEntities.FirstOrDefaultAsync(x => x.Id == reportingPeriod.Id);
         
-        if (existingperiod == null)
-        {
+        if (existingReportingPeriod == null)        
             throw new Exception("Existing ReportingPeriod not found");
-        }
-        existingperiod.ReportingPeriodTypeId = reportingPeriod.ReportingPeriodTypeId;
-        existingperiod.CollectionTimePeriod = reportingPeriod.CollectionTimePeriod;
-        existingperiod.ReportingPeriodStatusId = reportingPeriod.ReportingPeriodStatusId;
-        existingperiod.StartDate = reportingPeriod.StartDate;
-        existingperiod.EndDate = reportingPeriod.EndDate;
-        existingperiod.IsActive = reportingPeriod.IsActive;
-        existingperiod.UpdatedOn = DateTime.UtcNow;
-        existingperiod.UpdatedBy = "System";
 
-        _context.ReportingPeriodEntities.Update(existingperiod);
+        existingReportingPeriod.ReportingPeriodTypeId = reportingPeriod.ReportingPeriodTypeId;
+        existingReportingPeriod.CollectionTimePeriod = reportingPeriod.CollectionTimePeriod;
+        existingReportingPeriod.ReportingPeriodStatusId = reportingPeriod.ReportingPeriodStatusId;
+        existingReportingPeriod.StartDate = reportingPeriod.StartDate;
+        existingReportingPeriod.EndDate = reportingPeriod.EndDate;
+        existingReportingPeriod.IsActive = reportingPeriod.IsActive;
+        existingReportingPeriod.UpdatedOn = DateTime.UtcNow;
+        existingReportingPeriod.UpdatedBy = "System";
+
+        _context.ReportingPeriodEntities.Update(existingReportingPeriod);
         await _context.SaveChangesAsync();
-
         return true;
     }
 
@@ -228,4 +226,40 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
 
     #endregion
 
+    #region GetById
+    public ReportingPeriodEntity GetReportingPeriodById(int reportingPeriodId)
+    {
+        var reportingPeriod = _context.ReportingPeriodEntities.Where(x => x.Id == reportingPeriodId).FirstOrDefault();
+
+        if (reportingPeriod == null)
+            throw new ArgumentNullException("ReportingPeriod not found !");
+
+        return reportingPeriod;
+    }
+
+    public ReportingPeriodTypeEntity GetReportingPeriodTypeById(int reportingPeriodTypeId)
+    {
+        var reportingPeriodType = _context.ReportingPeriodTypeEntities.Where(x => x.Id == reportingPeriodTypeId).FirstOrDefault();
+        return reportingPeriodType;
+    }
+
+    #endregion
+    protected void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            if(_context != null)
+            {
+                _context.Dispose();
+            }
+        }
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    
 }

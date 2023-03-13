@@ -45,5 +45,7 @@ namespace Services.DTOs
             IsActive = isActive;
             this.reportingPeriodSupplierDtos = reportingPeriodSupplierDtos;
         }
+
+
     }
 }

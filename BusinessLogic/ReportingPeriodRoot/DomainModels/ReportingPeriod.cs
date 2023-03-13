@@ -99,6 +99,18 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
             }
         }
 
+        public void UpdateReportingPeriod(ReportingPeriod updateReportingPeriod)
+        {
+            ReportingPeriodType = updateReportingPeriod.ReportingPeriodType;
+            CollectionTimePeriod = updateReportingPeriod.CollectionTimePeriod;
+            ReportingPeriodStatus = updateReportingPeriod.ReportingPeriodStatus;
+            StartDate = updateReportingPeriod.StartDate;
+            EndDate = updateReportingPeriod.EndDate;
+            IsActive = updateReportingPeriod.IsActive;
+            UpdatedOn = DateTime.UtcNow;
+            UpdatedBy = "System";
+        }     
+
         public PeriodFacilityDocument AddDataSubmissionDocumentForReportingPeriod(int supplierId, int periodFacilityId, FacilityRequiredDocumentTypeEntity facilityRequiredDocumentType, IEnumerable<DocumentRequirementStatus> documentRequirementStatus)
         {
             throw new NotImplementedException();
