@@ -1,4 +1,4 @@
-﻿using BusinessLogic.ReferenceLookups;
+using BusinessLogic.ReferenceLookups;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +33,6 @@ public class ReportingPeriodDto
     public bool IsActive { get; set; }
 
     public List<ReportingPeriodSupplierDto> reportingPeriodSupplierDtos { get; set; }
-
 
     public ReportingPeriodDto(int? id, string displayName, int reportingPeriodTypeId, string reportingPeriodType, string collectionTimePeriod, int reportingPeriodStatusId, string reportingPeriodStatus, DateTime startDate, DateTime? endDate, bool isActive, List<ReportingPeriodSupplierDto> reportingPeriodSupplierDtos)
     {

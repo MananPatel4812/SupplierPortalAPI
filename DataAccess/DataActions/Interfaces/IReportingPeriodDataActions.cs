@@ -18,6 +18,8 @@ namespace DataAccess.DataActions.Interfaces
         Task<bool> AddReportingPeriod(ReportingPeriodEntity reportingPeriodEntity);
 
         Task<bool> UpdateReportingPeriod(ReportingPeriodEntity reportingPeriod);
+        ReportingPeriodEntity GetReportingPeriodById(int reportingPeriodId);
+        ReportingPeriodTypeEntity GetReportingPeriodTypeById(int reportingPeriodTypeId);
 
         Task<bool> AddReportingPeriodFacilityDocument(ReportingPeriodFacilityDocumentEntity reportingPeriodFacilityDocument);
 
