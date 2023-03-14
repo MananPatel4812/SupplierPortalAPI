@@ -17,18 +17,11 @@ namespace SupplierPortalAPI.Controllers
         {
             _services = services;
         }
-       /* [HttpPost("AddReportingPeriod")]
-        public async Task<string> AddReportingPeriod([FromForm]ReportingPeriodDto reportingPeriodDto, ReportingPeriodType reportingPeriodType, ReportingPeriodStatus reportingPeriodStatus)
+        [HttpPost("AddReportingPeriod")]
+        public async Task<string> AddReportingPeriod(ReportingPeriodDto reportingPeriodDto)
         {
-            //var reportingPeriodType = new ReportingPeriodType();
-            //var reportingPeriodStatus = new ReportingPeriodStatus();
-            return await _services.AddReportingPeriod(reportingPeriodDto,reportingPeriodType,reportingPeriodStatus);
+            return await _services.AddReportingPeriod(reportingPeriodDto);
         }
-*/
-        [HttpPut("UpdateReportingPeriod")]
-        public async Task<string> UpdateReportingPeriod(ReportingPeriodDto reportingPeriodDto)
-        {
-            return await _services.UpdateReportingPeriod(reportingPeriodDto);
-        }
+
     }
 }

@@ -17,67 +17,55 @@ namespace Services;
 
 public class ReportingPeriodServices : IReportingPeriodServices
 {
-    private readonly IReportingPeriodFactory _reportingPeriodFactory;
+    private IReportingPeriodFactory _reportingPeriodFactory;
     private readonly ILogger _logger;
-    private readonly IReportingPeriodDomainDtoMapper _reportingPeriodDomainMapper;
-    private readonly IReportingPeriodEntityDomainMapper _reportingPeriodEntityDomainMapper;
-    private readonly IReportingPeriodDataActions _reportingPeriodDataActions;
-    
-    public ReportingPeriodServices(IReportingPeriodFactory reportingPeriodFactory, ILoggerFactory loggerFactory, IReportingPeriodDomainDtoMapper reportingPeriodDomainMapper, IReportingPeriodEntityDomainMapper reportingPeriodEntityDomainMapper,IReportingPeriodDataActions reportingPeriodDataActions)
+    private IReportingPeriodDomainDtoMapper _reportingPeriodDomainMapper;
+    private IReportingPeriodEntityDomainMapper _reportingPeriodEntityDomainMapper;
+    private IReportingPeriodDataActions _reportingPeriodDataActions;
+    private IReferenceLookUpMapper _referenceLookUpMapper;
+
+    public ReportingPeriodServices(IReportingPeriodFactory reportingPeriodFactory, ILoggerFactory loggerFactory, IReportingPeriodDomainDtoMapper reportingPeriodDomainMapper, IReportingPeriodEntityDomainMapper reportingPeriodEntityDomainMapper, IReportingPeriodDataActions reportingPeriodDataActions, IReferenceLookUpMapper referenceLookUpMapper)
     {
         _reportingPeriodFactory = reportingPeriodFactory;
         _logger = loggerFactory.CreateLogger<SupplierServices>();
         _reportingPeriodDomainMapper = reportingPeriodDomainMapper;
         _reportingPeriodEntityDomainMapper = reportingPeriodEntityDomainMapper;
-        _reportingPeriodDataActions= reportingPeriodDataActions;
+        _reportingPeriodDataActions = reportingPeriodDataActions;
+        _referenceLookUpMapper = referenceLookUpMapper;
+
+
+    private IEnumerable<ReportingPeriodType> GetAndConvertReportingPeriodType()
+    {
+        var reportingPeriodTypeEntity = _reportingPeriodDataActions.GetReportingPeriodTypes();
+
+        return _referenceLookUpMapper.GetReportingPeriodTypesLookUp(reportingPeriodTypeEntity);
     }
 
-    public async Task<string> UpdateReportingPeriod(ReportingPeriodDto reportingPeriodDto)
+    private IEnumerable<ReportingPeriodStatus> GetAndConvertReportingPeriodStatus()
     {
+        var reportingPeriodStatusEntity = _reportingPeriodDataActions.GetReportingPeriodStatus();
 
-        if (reportingPeriodDto == null)
-            throw new Exception("ReportingPeriod details can not be null !");
-
-        //Fetch record by id
-        var reportingPeriod = RetrieveAndConvertReportingPeriod(reportingPeriodDto.Id ?? 0,reportingPeriodDto.ReportingPeriodTypeId,reportingPeriodDto.ReportingPeriodStatusId);
-        
-        reportingPeriod.UpdateReportingPeriod(reportingPeriod);
-
-        //Convert domain to entity
-        _reportingPeriodEntityDomainMapper.ConvertReportingPeriodDomainToEntity(reportingPeriod);
-        //return reportingPeriodEntity;
-        return "Success";
+        return _referenceLookUpMapper.GetReportingPeriodStatusesLookUp(reportingPeriodStatusEntity);
     }
-
-    private ReportingPeriod RetrieveAndConvertReportingPeriod(int reportingPeriodId,int reportingPeriodTypeId,int reportingPeriodStatusId)
+    public async Task<string> AddReportingPeriod(ReportingPeriodDto reportingPeriodDto)
     {
-        var reportingPeriodEntity = _reportingPeriodDataActions.GetReportingPeriodById(reportingPeriodId);
-        var reportingPeriodType = _reportingPeriodDataActions.GetReportingPeriodTypeById(reportingPeriodTypeId);
-        var reportingPeriodStatus = _reportingPeriodDataActions.GetReportingPeriodStatusById(reportingPeriodStatusId);
 
-        if (reportingPeriodEntity == null)
-            throw new ArgumentNullException("ReportingPeriod not found !");
+        var reportingPeriodTypes = GetAndConvertReportingPeriodType().FirstOrDefault(x => x.Id == reportingPeriodDto.ReportingPeriodTypeId);
+        var reportingPeriodStatuses = GetAndConvertReportingPeriodStatus().FirstOrDefault(x => x.Id == reportingPeriodDto.ReportingPeriodStatusId);
 
-        return ConfigureReportingPeriod(reportingPeriodEntity, (IEnumerable<ReportingPeriodType>)reportingPeriodType, (IEnumerable<ReportingPeriodStatus>)reportingPeriodStatus);
-    }
+        if (reportingPeriodStatuses is null)
+            throw new Exception("Unable to retrieve reporting period Status for the identifier");
 
-    private ReportingPeriod ConfigureReportingPeriod(ReportingPeriodEntity reportingPeriodEntity, IEnumerable<ReportingPeriodType> reportingPeriodTypes, IEnumerable<ReportingPeriodStatus> reportingPeriodStatuses)
-    {
-        var types = reportingPeriodTypes.Where(x => x.Id == reportingPeriodEntity.ReportingPeriodTypeId).ToList();
-        var status = reportingPeriodStatuses.Where(x => x.Id == reportingPeriodEntity.ReportingPeriodStatusId).ToList();
-        //Convert entity to domain
-        var reportingPeriodDomain = _reportingPeriodEntityDomainMapper.ConvertReportingPeriodEntityToDomain(reportingPeriodEntity,types,status);
-        return reportingPeriodDomain;
-    }
+        if (reportingPeriodTypes is null)
+            throw new Exception("Unable to retrieve reporting period Status for the identifier");
 
-    /*public async Task<string> AddReportingPeriod(ReportingPeriodDto reportingPeriodDto,ReportingPeriodType reportingPeriodType,ReportingPeriodStatus reportingPeriodStatus)
-    {
-        //var types = RetrieveReportingPeriodTypes();
-        var reportingPeriod = _reportingPeriodFactory.CreateNewReportingPeriod(reportingPeriodType, reportingPeriodDto.CollectionTimePeriod, reportingPeriodStatus, reportingPeriodDto.StartDate,reportingPeriodDto.EndDate, reportingPeriodDto.IsActive);
+        var reportingPeriod = _reportingPeriodFactory.CreateNewReportingPeriod(reportingPeriodTypes, reportingPeriodDto.CollectionTimePeriod, reportingPeriodStatuses, reportingPeriodDto.StartDate, reportingPeriodDto.EndDate, reportingPeriodDto.IsActive);
+
         var reportingPeriodEntity = _reportingPeriodEntityDomainMapper.ConvertReportingPeriodDomainToEntity(reportingPeriod);
         await _reportingPeriodDataActions.AddReportingPeriod(reportingPeriodEntity);
         return "Success";
+    }
+        
 
-    }*/
-  
+   
 }

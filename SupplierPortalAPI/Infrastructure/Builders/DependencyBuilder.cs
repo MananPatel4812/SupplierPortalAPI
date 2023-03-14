@@ -18,6 +18,8 @@ namespace SupplierPortalAPI.Infrastructure.Builders
         public static void AddDependancy(this IServiceCollection services, IConfiguration configuration)
         {
             //services.AddScoped<ISupplierServices, SupplierServices>();
+
+            //Supplier
             services.AddTransient<ISupplierServices, SupplierServices>();
             services.AddTransient<ISupplierDataActions,SupplierDataActionsManager>();
             services.AddTransient<ISupplierFactory, SupplierFactory>();
@@ -29,11 +31,14 @@ namespace SupplierPortalAPI.Infrastructure.Builders
             services.AddTransient<IUserDomainDtoMapper, UserDomainDtoMapper>();
             services.AddTransient<IUserEntityDomainMapper, UserEntityDomainMapper>();
             services.AddTransient<IUserFactory, UserFactory>();
+
+            //ReportingPeriod
             services.AddTransient<IReportingPeriodServices, ReportingPeriodServices>();
             services.AddTransient<IReportingPeriodDataActions,ReportingPeriodDataActionsManager>();
             services.AddTransient<IReportingPeriodFactory, ReportingPeriodFactory>();
             services.AddTransient<IReportingPeriodDomainDtoMapper, ReportingPeriodDomainDtoMapper>();
             services.AddTransient<IReportingPeriodEntityDomainMapper, ReportingPeriodEntityDomainMapper>();
+            services.AddTransient<IReferenceLookUpMapper, ReferenceLookupMapper>();
             //services.AddScoped<IServiceCollection, ServiceCollection>();    
         }
 
