@@ -19,8 +19,9 @@ namespace DataAccess.DataActions.Interfaces
 
         Task<bool> UpdateReportingPeriod(ReportingPeriodEntity reportingPeriod);
         ReportingPeriodEntity GetReportingPeriodById(int reportingPeriodId);
-        ReportingPeriodTypeEntity GetReportingPeriodTypeById(int reportingPeriodTypeId);
-
+        IEnumerable<ReportingPeriodTypeEntity> GetReportingPeriodTypeById(int reportingPeriodTypeId);
+        IEnumerable<ReportingPeriodStatusEntity> GetReportingPeriodStatusById(int reportingPeriodStatusId);
+        
         Task<bool> AddReportingPeriodFacilityDocument(ReportingPeriodFacilityDocumentEntity reportingPeriodFacilityDocument);
 
         Task<bool> UpdateReportingPeriodFacilityDocument(ReportingPeriodFacilityDocumentEntity reportingPeriodFacilityDocument);

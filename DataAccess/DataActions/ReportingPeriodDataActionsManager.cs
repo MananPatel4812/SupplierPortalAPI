@@ -224,23 +224,6 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
         return await _context.SupplierReportingPeriodStatusEntities.ToListAsync();
     }
 
-    protected void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            if (_context != null)
-            {
-                _context.Dispose();
-            }
-        }
-    }
-
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
     #endregion
 
     #region GetById
@@ -254,10 +237,17 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
         return reportingPeriod;
     }
 
-    public ReportingPeriodTypeEntity GetReportingPeriodTypeById(int reportingPeriodTypeId)
+    public IEnumerable<ReportingPeriodTypeEntity> GetReportingPeriodTypeById(int reportingPeriodTypeId)
     {
-        var reportingPeriodType = _context.ReportingPeriodTypeEntities.Where(x => x.Id == reportingPeriodTypeId).FirstOrDefault();
+        var reportingPeriodType = _context.ReportingPeriodTypeEntities.Where(x => x.Id == reportingPeriodTypeId).ToList();
+        
         return reportingPeriodType;
+    }
+
+    public IEnumerable<ReportingPeriodStatusEntity> GetReportingPeriodStatusById(int reportingPeriodStatusId)
+    {
+        var reportingPeriodStatus = _context.ReportingPeriodStatusEntities.Where(x => x.Id == reportingPeriodStatusId).ToList();
+        return reportingPeriodStatus;
     }
 
     #endregion
