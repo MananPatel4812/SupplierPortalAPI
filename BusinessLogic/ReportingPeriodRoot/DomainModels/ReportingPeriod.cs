@@ -2,6 +2,7 @@
 using BusinessLogic.ReportingPeriodRoot.Interfaces;
 using BusinessLogic.ValueConstants;
 using DataAccess.Entities;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,8 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         {
             ValidateReportingPeriod(collectionTimePeriod, startDate, endDate, types);
             DisplayName = GeneratedReportingPeriodName(types);
+            CollectionTimePeriod= collectionTimePeriod;
+            ReportingPeriodType = types;
             ReportingPeriodStatus = status;
             StartDate = startDate;
             EndDate = endDate;
@@ -108,7 +111,7 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
             IsActive = updateReportingPeriod.IsActive;
             UpdatedOn = DateTime.UtcNow;
             UpdatedBy = "System";
-        }     
+        }
 
         public PeriodFacilityDocument AddDataSubmissionDocumentForReportingPeriod(int supplierId, int periodFacilityId, FacilityRequiredDocumentTypeEntity facilityRequiredDocumentType, IEnumerable<DocumentRequirementStatus> documentRequirementStatus)
         {

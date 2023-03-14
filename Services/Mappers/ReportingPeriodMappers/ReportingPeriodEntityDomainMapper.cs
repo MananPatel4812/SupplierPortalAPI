@@ -28,6 +28,7 @@ public class ReportingPeriodEntityDomainMapper : IReportingPeriodEntityDomainMap
             StartDate = reportingPeriod.StartDate,
             EndDate = reportingPeriod.EndDate,
             IsActive = reportingPeriod.IsActive,
+            ReportingPeriodSupplierEntities = reportingPeriodSupplier.ToList(),
         };
     }
 

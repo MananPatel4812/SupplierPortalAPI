@@ -170,9 +170,9 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
                                 .ToListAsync();
     }
 
-    public async Task<IEnumerable<ReportingPeriodStatusEntity>> GetReportingPeriodStatus()
+    public IEnumerable<ReportingPeriodStatusEntity> GetReportingPeriodStatus()
     {
-        return await _context.ReportingPeriodStatusEntities.ToListAsync();
+        return _context.ReportingPeriodStatusEntities;
     }
 
     public async Task<IEnumerable<ReportingPeriodSupplierEntity>> GetReportingPeriodSuppliers(int ReportingPeriodId)
@@ -184,9 +184,9 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
                                 .ToListAsync();
     }
 
-    public async Task<IEnumerable<ReportingPeriodTypeEntity>> GetReportingPeriodTypes()
+    public IEnumerable<ReportingPeriodTypeEntity> GetReportingPeriodTypes()
     {
-        return await _context.ReportingPeriodTypeEntities.ToListAsync();
+        return _context.ReportingPeriodTypeEntities;
     }
 
     public async Task<IEnumerable<DocumentRequiredStatusEntity>> GetDocumentRequiredStatus()
@@ -223,24 +223,6 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
     {
         return await _context.SupplierReportingPeriodStatusEntities.ToListAsync();
     }
-
-    protected void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            if (_context != null)
-            {
-                _context.Dispose();
-            }
-        }
-    }
-
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
     #endregion
 
     #region GetById
@@ -261,11 +243,12 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
     }
 
     #endregion
+
     protected void Dispose(bool disposing)
     {
         if (disposing)
         {
-            if(_context != null)
+            if (_context != null)
             {
                 _context.Dispose();
             }
@@ -278,5 +261,5 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
         GC.SuppressFinalize(this);
     }
 
-    
+
 }
