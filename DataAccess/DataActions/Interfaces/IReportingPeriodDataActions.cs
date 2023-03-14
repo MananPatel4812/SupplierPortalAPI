@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.DataActions.Interfaces
 {
-    public interface IReportingPeriodDataActions
+    public interface IReportingPeriodDataActions : IDisposable
     {
         Task<IEnumerable<ReportingPeriodEntity>> GetReportingPeriods(int ReportingPeriodId);
 
@@ -15,10 +15,13 @@ namespace DataAccess.DataActions.Interfaces
 
         Task<IEnumerable<ReportingPeriodStatusEntity>> GetReportingPeriodStatus();
 
-        Task<bool> AddReportingPeriod(ReportingPeriodEntity reportingPeriod);
+        Task<bool> AddReportingPeriod(ReportingPeriodEntity reportingPeriodEntity);
 
         Task<bool> UpdateReportingPeriod(ReportingPeriodEntity reportingPeriod);
-
+        ReportingPeriodEntity GetReportingPeriodById(int reportingPeriodId);
+        IEnumerable<ReportingPeriodTypeEntity> GetReportingPeriodTypeById(int reportingPeriodTypeId);
+        IEnumerable<ReportingPeriodStatusEntity> GetReportingPeriodStatusById(int reportingPeriodStatusId);
+        
         Task<bool> AddReportingPeriodFacilityDocument(ReportingPeriodFacilityDocumentEntity reportingPeriodFacilityDocument);
 
         Task<bool> UpdateReportingPeriodFacilityDocument(ReportingPeriodFacilityDocumentEntity reportingPeriodFacilityDocument);
