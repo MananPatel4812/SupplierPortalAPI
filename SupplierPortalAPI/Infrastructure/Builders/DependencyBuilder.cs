@@ -3,8 +3,10 @@ using DataAccess.DataActions.Interfaces;
 using Services;
 using Services.Factories;
 using Services.Factories.Interface;
+using Services.Factories.Interfaces;
 using Services.Interfaces;
 using Services.Mappers.Interfaces;
+using Services.Mappers.SupplierMappers;
 using Services.Mappers.ReportingPeriodMappers;
 using Services.Mappers.UserMappers;
 
@@ -19,6 +21,12 @@ namespace SupplierPortalAPI.Infrastructure.Builders
 
             //Supplier
             services.AddTransient<ISupplierServices, SupplierServices>();
+            services.AddTransient<ISupplierDataActions,SupplierDataActionsManager>();
+            services.AddTransient<ISupplierFactory, SupplierFactory>();
+            services.AddTransient<ISupplierEntityDomainMapper, SupplierEntityDomainMapper>();
+
+            services.AddTransient<IUserDomainDtoMapper,UserDomainDtoMapper>();
+            services.AddTransient<IUserEntityDomainMapper,UserEntityDomainMapper>();
             services.AddTransient<IUserPersister, UserDataActionManager>();
             services.AddTransient<IUserDomainDtoMapper, UserDomainDtoMapper>();
             services.AddTransient<IUserEntityDomainMapper, UserEntityDomainMapper>();

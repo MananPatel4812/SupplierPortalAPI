@@ -1,4 +1,4 @@
-﻿using DataAccess.DataActionContext;
+using DataAccess.DataActionContext;
 using DataAccess.DataActions.Interfaces;
 using DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -236,10 +236,17 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
         return reportingPeriod;
     }
 
-    public ReportingPeriodTypeEntity GetReportingPeriodTypeById(int reportingPeriodTypeId)
+    public IEnumerable<ReportingPeriodTypeEntity> GetReportingPeriodTypeById(int reportingPeriodTypeId)
     {
-        var reportingPeriodType = _context.ReportingPeriodTypeEntities.Where(x => x.Id == reportingPeriodTypeId).FirstOrDefault();
+        var reportingPeriodType = _context.ReportingPeriodTypeEntities.Where(x => x.Id == reportingPeriodTypeId).ToList();
+        
         return reportingPeriodType;
+    }
+
+    public IEnumerable<ReportingPeriodStatusEntity> GetReportingPeriodStatusById(int reportingPeriodStatusId)
+    {
+        var reportingPeriodStatus = _context.ReportingPeriodStatusEntities.Where(x => x.Id == reportingPeriodStatusId).ToList();
+        return reportingPeriodStatus;
     }
 
     #endregion

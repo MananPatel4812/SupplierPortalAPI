@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.ReferenceLookups;
 using BusinessLogic.ReportingPeriodRoot.DomainModels;
+using BusinessLogic.SupplierRoot.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;

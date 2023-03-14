@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.SupplierRoot.DomainModels;
+using BusinessLogic.SupplierRoot.ValueObjects;
 using DataAccess.Entities;
 using Services.Mappers.Interfaces;
 
@@ -12,7 +13,7 @@ namespace Services.Mappers.UserMappers
             return user;
         }
 
-        public UserEntity ConvertUserToEntity(User user)
+        public UserEntity ConvertUserDomainToEntity(User user)
         {
             var entity = new UserEntity();
             entity.Id = user.Id;

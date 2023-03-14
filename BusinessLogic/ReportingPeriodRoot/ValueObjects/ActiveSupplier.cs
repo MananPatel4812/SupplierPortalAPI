@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.ReferenceLookups;
+using BusinessLogic.SupplierRoot.ValueObjects;
 
 namespace BusinessLogic.ReportingPeriodRoot.ValueObjects
 {
