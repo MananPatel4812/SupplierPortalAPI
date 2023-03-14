@@ -8,24 +8,24 @@ namespace Services.DTOs;
 
 public class SupplierDto
 {
-    public int? SupplierId { get; set; }
-    public string SupplierName { get; set; }
-    public string? Alias { get; set; }
-    public string? Email { get; set; }
+    public int? Id { get; set; }
+    public string Name { get; set; }
+    public string Alias { get; set; }
+    public string Email { get; set; }
     public string ContactNo { get; set; }
     public bool IsActive { get; set; }
 
-    public IEnumerable<FacilityDto>? Facilities;
-    public IEnumerable<ContactDto>? Contacts;
+    public IEnumerable<FacilityDto>? Facilities { get; set; }
+    public IEnumerable<ContactDto>? Contacts { get; set; }
 
-    public SupplierDto(int? id, string name, string? alias, string? email, string contactNo, bool active, IEnumerable<FacilityDto>? facilities, IEnumerable<ContactDto>? contacts)
+    public SupplierDto(int? id, string name, string alias, string email, string contactNo, bool isActive, IEnumerable<FacilityDto>? facilities, IEnumerable<ContactDto>? contacts)
     {
-        SupplierId = id;
-        SupplierName = name;
+        Id = id;
+        Name = name;
         Alias = alias;
         Email = email;
         ContactNo = contactNo;
-        IsActive = active;
+        IsActive = isActive;
         Facilities = facilities;
         Contacts = contacts;
     }

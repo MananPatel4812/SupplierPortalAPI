@@ -2,42 +2,43 @@
 
 namespace DataAccess.DataActions.Interfaces
 {
-    public interface ISupplierDataActions
+    public interface ISupplierDataActions: IDisposable
     {
         //User
-        Task<bool> AddUser(UserEntity user);
-        Task<IEnumerable<UserEntity>> GetAllUsers();
-        Task<IEnumerable<UserEntity>> GetAllUsersByRoleId(int RoleId);
-        Task<UserEntity> GetUserById(int UserId);
-        Task<bool> UpdateUser(UserEntity user, int UserId);
+        int AddUser(UserEntity user);
+        IEnumerable<UserEntity> GetAllUsers();
+        IEnumerable<UserEntity> GetAllUsersByRoleId(int RoleId);
+        UserEntity GetUserById(int userId);
+        int UpdateUser(UserEntity user);
+        bool IsUniqueUserEmail(string email);
 
         //Supplier
-        Task<bool> AddSupplier(SupplierEntity supplier);
-        Task<IEnumerable<SupplierEntity>> GetAllSuppliers();
-        Task<SupplierEntity> GetSupplierById(int SupplierId);
-        Task<bool> UpdateSupplier(SupplierEntity supplier, int SupplierId);
+        bool AddSupplier(SupplierEntity supplier);
+        IEnumerable<SupplierEntity> GetAllSuppliers();
+        SupplierEntity GetSupplierById(int SupplierId);
+        bool UpdateSupplier(SupplierEntity supplier);//, int SupplierId);
 
         //Contact
-        Task<bool> AddContact(ContactEntity contact);
-        Task<IEnumerable<ContactEntity>> GetAllContacts();
-        Task<IEnumerable<ContactEntity>> GetAllContactsBySupplier(int SupplierId);
-        Task<bool> UpdateContact(ContactEntity contact, int ContactId);
+        bool AddContact(ContactEntity contact);
+        IEnumerable<ContactEntity> GetAllContacts();
+        IEnumerable<ContactEntity> GetAllContactsBySupplier(int SupplierId);
+        bool UpdateContact(ContactEntity contact, int ContactId);
 
         //SupplyChainStages
-        Task<IEnumerable<SupplyChainStageEntity>> GetSupplyChainStages();
+        IEnumerable<SupplyChainStageEntity> GetSupplyChainStages();
 
         //Facility
-        Task<bool> AddFacility(FacilityEntity facility);
-        Task<IEnumerable<FacilityEntity>> GetAllFacilities();
-        Task<IEnumerable<FacilityEntity>> GetFacilitiesByReportingType(int ReportingTypeId);
-        Task<FacilityEntity> GetFacilityById(int FacilityId);
-        Task<bool> UpdateFacility(FacilityEntity facility, int FacilityId);
+        bool AddFacility(FacilityEntity facility);
+        IEnumerable<FacilityEntity> GetAllFacilities();
+        IEnumerable<FacilityEntity> GetFacilitiesByReportingType(int ReportingTypeId);
+        FacilityEntity GetFacilityById(int FacilityId);
+        bool UpdateFacility(FacilityEntity facility, int FacilityId);
 
         //AssociatePipeline
-        Task<bool> AddAssociatePipeline(AssociatePipelineEntity associatePipeline);
-        Task<IEnumerable<AssociatePipelineEntity>> GetAllAssociatePipeline();
-        Task<AssociatePipelineEntity> GetAssociatePipelineById(int AssociatePipelineId);
-        Task<bool> UpdateAssociatePipeline(AssociatePipelineEntity associatePipeline, int AssociatePipelineId);
+        bool AddAssociatePipeline(AssociatePipelineEntity associatePipeline);
+        IEnumerable<AssociatePipelineEntity> GetAllAssociatePipeline();
+        AssociatePipelineEntity GetAssociatePipelineById(int AssociatePipelineId);
+        bool UpdateAssociatePipeline(AssociatePipelineEntity associatePipeline, int AssociatePipelineId);
 
     }
 }

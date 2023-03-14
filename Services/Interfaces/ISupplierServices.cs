@@ -9,7 +9,11 @@ namespace Services.Interfaces
 {
     public interface ISupplierServices
     {
-        //string AddUpdateSupplier(SupplierDto supplierDto);
-        Task<string> AddUpdateUser(UserDto userDto);
+        string AddUpdateSupplier(SupplierDto supplierDto);
+        /*
+         * SupplierUserResultDto getSupplierDataForUsername();
+         * SupplierDto GetSupplier(int sid)
+         */
+        string AddUpdateUser(UserDto userDto);
     }
 }
