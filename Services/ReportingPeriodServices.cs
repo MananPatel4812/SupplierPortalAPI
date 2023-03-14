@@ -70,14 +70,4 @@ public class ReportingPeriodServices : IReportingPeriodServices
         return reportingPeriodDomain;
     }
 
-    /*public async Task<string> AddReportingPeriod(ReportingPeriodDto reportingPeriodDto,ReportingPeriodType reportingPeriodType,ReportingPeriodStatus reportingPeriodStatus)
-    {
-        //var types = RetrieveReportingPeriodTypes();
-        var reportingPeriod = _reportingPeriodFactory.CreateNewReportingPeriod(reportingPeriodType, reportingPeriodDto.CollectionTimePeriod, reportingPeriodStatus, reportingPeriodDto.StartDate,reportingPeriodDto.EndDate, reportingPeriodDto.IsActive);
-        var reportingPeriodEntity = _reportingPeriodEntityDomainMapper.ConvertReportingPeriodDomainToEntity(reportingPeriod);
-        await _reportingPeriodDataActions.AddReportingPeriod(reportingPeriodEntity);
-        return "Success";
-
-    }*/
-  
 }

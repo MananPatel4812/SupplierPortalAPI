@@ -108,6 +108,7 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
             IsActive = updateReportingPeriod.IsActive;
             UpdatedOn = DateTime.UtcNow;
             UpdatedBy = "System";
+
         }     
 
         public PeriodFacilityDocument AddDataSubmissionDocumentForReportingPeriod(int supplierId, int periodFacilityId, FacilityRequiredDocumentTypeEntity facilityRequiredDocumentType, IEnumerable<DocumentRequirementStatus> documentRequirementStatus)
