@@ -24,31 +24,31 @@ namespace BusinessLogic.SupplierRoot.DomainModels
             IsActive = isActive;
         }
 
-        public User(int id,string name,string email,string contactNo,int roleId,bool isActive) : this(name,email,contactNo,roleId,isActive)
+        public User(int id, string name, string email, string contactNo, int roleId, bool isActive) : this(name, email, contactNo, roleId, isActive)
         {
             Id = id;
         }
 
         public void UpdateUser(string name, string email, string contactNo, int roleId, bool isActive)
         {
-           
-             UpdateName(name);
-             UpdateEmail(email);
-             UpdateContact(contactNo);
-             UpdateRole(roleId);
-             UpdateIsActive(isActive);
+
+            UpdateName(name);
+            UpdateEmail(email);
+            UpdateContact(contactNo);
+            UpdateRole(roleId);
+            UpdateIsActive(isActive);
 
         }
 
         public void UpdateName(string name)
         {
-            if(string.IsNullOrWhiteSpace(name))
+            if (string.IsNullOrWhiteSpace(name))
             {
                 throw new Exception("Name is required");
             }
             else
                 Name = name;
-                
+
         }
 
         public void UpdateEmail(string email)
@@ -72,4 +72,5 @@ namespace BusinessLogic.SupplierRoot.DomainModels
         }
 
     }
+
 }

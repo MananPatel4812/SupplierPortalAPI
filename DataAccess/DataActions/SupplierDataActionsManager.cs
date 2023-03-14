@@ -15,163 +15,214 @@ namespace DataAccess.DataActions
         }
 
         //User
-        public async Task<bool> AddUser(UserEntity user)
+        public int AddUser(UserEntity userEntity)
         {
-            user.CreatedOn = DateTime.UtcNow;
-            user.UpdatedOn = null;
-            user.CreatedBy = "System";
-            user.UpdatedBy = null;
-            await _context.UserEntities.AddAsync(user);
-            var Answer = await _context.SaveChangesAsync();
-            return true;
+            var IsUniqueEmail = IsUniqueUserEmail(userEntity.Email);
+            if (IsUniqueEmail == false)
+            {
+                throw new Exception("Email-Id is already exists !!");
+            }
+            else
+            {
+                userEntity.CreatedOn = DateTime.UtcNow;
+                userEntity.CreatedBy = "System";
+                _context.UserEntities.Add(userEntity);
+                _context.SaveChanges();
+                return userEntity.Id;
+            }
         }
 
-        public async Task<IEnumerable<UserEntity>> GetAllUsers()
+
+        public IEnumerable<UserEntity> GetAllUsers()
         {
-            var AllUsers = await _context.UserEntities.ToListAsync();
+            var AllUsers = _context.UserEntities.ToList();
             return AllUsers;
         }
 
-        public async Task<IEnumerable<UserEntity>> GetAllUsersByRoleId(int RoleId)
+        public IEnumerable<UserEntity> GetAllUsersByRoleId(int RoleId)
         {
-            var AllUsersByRole = await _context.UserEntities.Where(x => x.RoleId == RoleId).ToListAsync();
+            var AllUsersByRole =  _context.UserEntities.Where(x => x.RoleId == RoleId).ToList();
             return AllUsersByRole;
         }
 
-        public async Task<UserEntity> GetUserById(int UserId)
+        public UserEntity GetUserById(int userId)
         {
-            var User = await _context.UserEntities.Include(x => x.Role).FirstOrDefaultAsync(x => x.Id == UserId);
-            return User;
+            var user = _context.UserEntities.Where(x => x.Id == userId).FirstOrDefault();
+
+            if (user == null)
+                throw new Exception("User not found !");
+
+            return user;
         }
 
-        public async Task<bool> UpdateUser(UserEntity user, int UserId)
+        protected void Dispose(bool disposing)
         {
-            var User = await _context.UserEntities.Where(x => x.Id == UserId).FirstOrDefaultAsync();
-            User.Name = user.Name;
-            User.Email = user.Email;
-            User.ContactNo = user.ContactNo;
-            User.RoleId = user.RoleId;
-            User.IsActive = user.IsActive;
-            User.CreatedOn = User.CreatedOn;
-            User.UpdatedOn = DateTime.UtcNow;
-            User.CreatedBy = User.CreatedBy;
-            User.UpdatedBy = "System";
+            if (disposing)
+            {
+                if (_context != null)
+                {
+                    _context.Dispose();
+                }
+            }
+        }
 
-            _context.UserEntities.Update(User);
-            await _context.SaveChangesAsync();
-            return true;
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        public int UpdateUser(UserEntity userEntity)
+        {
+            var entity = _context.UserEntities.FirstOrDefault(x => x.Id == userEntity.Id);
+
+            var IsUniqueEmail = IsUniqueUserEmail(userEntity.Email);
+            if (userEntity.Email != entity.Email)
+            {
+                if (IsUniqueEmail == false)
+                {
+                    throw new Exception("Email-Id is already exists !!");
+                }
+            }
+            else
+            {
+                entity.Name = userEntity.Name;
+                entity.Email = userEntity.Email;
+                entity.ContactNo = userEntity.ContactNo;
+                entity.RoleId = entity.RoleId;
+                entity.IsActive = userEntity.IsActive;
+                entity.UpdatedOn = DateTime.UtcNow;
+                entity.UpdatedBy = "System";
+
+                _context.UserEntities.Update(entity);
+                _context.SaveChanges();
+                return userEntity.Id;
+            }
+            return 0;
+
+        }
+
+        public bool IsUniqueUserEmail(string email)
+        {
+            var AllEmailId = _context.UserEntities.Where(x => x.Email == email).ToList();
+            if (AllEmailId.Count == 0)
+            {
+                return true;
+            }
+            else
+                return false;
         }
 
 
         //Supplier
-        public async Task<bool> AddSupplier(SupplierEntity supplier)
+        public bool AddSupplier(SupplierEntity supplier)
         {
             supplier.CreatedOn = DateTime.UtcNow;
             supplier.CreatedBy = "System";
-            supplier.UpdatedOn = null;
-            supplier.UpdatedBy = null;
-            await _context.SupplierEntities.AddAsync(supplier);
-            await _context.SaveChangesAsync();
+             _context.SupplierEntities.Add(supplier);
+             _context.SaveChanges();
             return true;
         }
 
-        public async Task<IEnumerable<SupplierEntity>> GetAllSuppliers()
+        /*
+         * 
+         */
+
+        public IEnumerable<SupplierEntity> GetAllSuppliers()
         {
-            var AllSuppliers = await _context.SupplierEntities.ToListAsync();
+            var AllSuppliers = _context.SupplierEntities.ToList();
             return AllSuppliers;
         }
 
-        public async Task<SupplierEntity> GetSupplierById(int SupplierId)
+        public SupplierEntity GetSupplierById(int SupplierId)
         {
-            var Supplier = await _context.SupplierEntities.FirstOrDefaultAsync(x => x.Id == SupplierId);
+            var Supplier = _context.SupplierEntities.FirstOrDefault(x => x.Id == SupplierId);
             return Supplier;
         }
 
-        public async Task<bool> UpdateSupplier(SupplierEntity supplier, int SupplierId)
+        public bool UpdateSupplier(SupplierEntity supplier)
         {
-            var Supplier = await _context.SupplierEntities.Where(x => x.Id == SupplierId).FirstOrDefaultAsync();
+            var Supplier = _context.SupplierEntities.Where(x => x.Id == supplier.Id).FirstOrDefault();
             Supplier.Name = supplier.Name;
             Supplier.Alias = supplier.Alias;
             Supplier.Email = supplier.Email;
             Supplier.ContactNo = supplier.ContactNo;
             Supplier.IsActive = supplier.IsActive;
-            Supplier.CreatedOn = Supplier.CreatedOn;
             Supplier.UpdatedOn = DateTime.UtcNow;
-            Supplier.CreatedBy = Supplier.CreatedBy;
             Supplier.UpdatedBy = "System";
 
             _context.SupplierEntities.Update(supplier);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return true;
         }
 
         //Contact
-        public async Task<bool> AddContact(ContactEntity contact)
+        public bool AddContact(ContactEntity contact)
         {
-            await _context.ContactEntities.AddAsync(contact);
-            await _context.SaveChangesAsync();
+             _context.ContactEntities.Add(contact);
+             _context.SaveChanges();
             return true;
         }
 
-        public async Task<IEnumerable<ContactEntity>> GetAllContacts()
+        public IEnumerable<ContactEntity> GetAllContacts()
         {
-            var AllContacts = await _context.ContactEntities.ToListAsync();
+            var AllContacts = _context.ContactEntities.ToList();
             return AllContacts;
         }
 
-        public async Task<IEnumerable<ContactEntity>> GetAllContactsBySupplier(int SupplierId)
+        public IEnumerable<ContactEntity> GetAllContactsBySupplier(int SupplierId)
         {
-            var SupplierContacts = await _context.ContactEntities.Include(x => x.Supplier).Include(x => x.User).Where(x => x.SupplierId == SupplierId).ToListAsync();
+            var SupplierContacts = _context.ContactEntities.Include(x => x.Supplier).Include(x => x.User).Where(x => x.SupplierId == SupplierId).ToList();
             return SupplierContacts;
         }
 
-        public async Task<bool> UpdateContact(ContactEntity contact, int ContactId)
+        public bool UpdateContact(ContactEntity contact, int ContactId)
         {
-            var Contact = await _context.ContactEntities.Where(x => x.Id == ContactId).FirstOrDefaultAsync();
+            var Contact = _context.ContactEntities.Where(x => x.Id == ContactId).FirstOrDefault();
             Contact.SupplierId = contact.SupplierId;
             Contact.UserId = contact.UserId;
 
             _context.ContactEntities.Update(Contact);
-            await _context.SaveChangesAsync();
+             _context.SaveChanges();
             return true;
         }
 
         //SupplyChainStages
-        public async Task<IEnumerable<SupplyChainStageEntity>> GetSupplyChainStages()
+        public IEnumerable<SupplyChainStageEntity> GetSupplyChainStages()
         {
-            var SupplyChainStages = await _context.SupplyChainStageEntities.ToListAsync();
+            var SupplyChainStages = _context.SupplyChainStageEntities.ToList();
             return SupplyChainStages;
         }
 
         //Facility
-        public async Task<bool> AddFacility(FacilityEntity facility)
+        public bool AddFacility(FacilityEntity facility)
         {
-            await _context.FacilityEntities.AddAsync(facility);
-            await _context.SaveChangesAsync();
+             _context.FacilityEntities.Add(facility);
+            _context.SaveChanges();
             return true;
         }
 
-        public async Task<IEnumerable<FacilityEntity>> GetAllFacilities()
+        public IEnumerable<FacilityEntity> GetAllFacilities()
         {
-            var AllFacility = await _context.FacilityEntities.Include(x => x.AssociatePipeline).Include(x => x.ReportingType).Include(x => x.SupplyChainStage).ToListAsync();
+            var AllFacility = _context.FacilityEntities.Include(x => x.AssociatePipeline).Include(x => x.ReportingType).Include(x => x.SupplyChainStage).ToList();
             return AllFacility;
         }
 
-        public async Task<IEnumerable<FacilityEntity>> GetFacilitiesByReportingType(int ReportingTypeId)
+        public IEnumerable<FacilityEntity> GetFacilitiesByReportingType(int ReportingTypeId)
         {
-            var ReportingPeriodFacility = await _context.FacilityEntities.Include(x => x.AssociatePipeline).Include(x => x.ReportingType).Include(x => x.SupplyChainStage).Where(x => x.ReportingTypeId == ReportingTypeId).ToListAsync();
+            var ReportingPeriodFacility = _context.FacilityEntities.Include(x => x.AssociatePipeline).Include(x => x.ReportingType).Include(x => x.SupplyChainStage).Where(x => x.ReportingTypeId == ReportingTypeId).ToList();
             return ReportingPeriodFacility;
         }
 
-        public async Task<FacilityEntity> GetFacilityById(int FacilityId)
+        public FacilityEntity GetFacilityById(int FacilityId)
         {
-            var Facility = await _context.FacilityEntities.Include(x => x.AssociatePipeline).Include(x => x.ReportingType).Include(x => x.SupplyChainStage).FirstOrDefaultAsync(x => x.Id == FacilityId);
+            var Facility =  _context.FacilityEntities.Include(x => x.AssociatePipeline).Include(x => x.ReportingType).Include(x => x.SupplyChainStage).FirstOrDefault(x => x.Id == FacilityId);
             return Facility;
         }
 
-        public async Task<bool> UpdateFacility(FacilityEntity facility, int FacilityId)
+        public bool UpdateFacility(FacilityEntity facility, int FacilityId)
         {
-            var Facility = await _context.FacilityEntities.Where(x => x.Id == FacilityId).FirstOrDefaultAsync();
+            var Facility = _context.FacilityEntities.Where(x => x.Id == FacilityId).FirstOrDefault();
             Facility.Name = facility.Name;
             Facility.Description = facility.Description;
             Facility.IsPrimary = facility.IsPrimary;
@@ -184,37 +235,37 @@ namespace DataAccess.DataActions
             Facility.UpdatedBy = "System";
 
             _context.FacilityEntities.Update(Facility);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return true;
         }
 
         //AssociatePipeline
-        public async Task<bool> AddAssociatePipeline(AssociatePipelineEntity associatePipeline)
+        public bool AddAssociatePipeline(AssociatePipelineEntity associatePipeline)
         {
             associatePipeline.CreatedOn = DateTime.UtcNow;
             associatePipeline.CreatedBy = "System";
             associatePipeline.UpdatedOn = null;
             associatePipeline.UpdatedBy = null;
-            await _context.AssociatePipelineEntities.AddAsync(associatePipeline);
-            await _context.SaveChangesAsync();
+             _context.AssociatePipelineEntities.Add(associatePipeline);
+             _context.SaveChanges();
             return true;
         }
 
-        public async Task<IEnumerable<AssociatePipelineEntity>> GetAllAssociatePipeline()
+        public IEnumerable<AssociatePipelineEntity> GetAllAssociatePipeline()
         {
-            var AllAssociatePipelines = await _context.AssociatePipelineEntities.ToListAsync();
+            var AllAssociatePipelines = _context.AssociatePipelineEntities.ToList();
             return AllAssociatePipelines;
         }
 
-        public async Task<AssociatePipelineEntity> GetAssociatePipelineById(int AssociatePipelineId)
+        public AssociatePipelineEntity GetAssociatePipelineById(int AssociatePipelineId)
         {
-            var AssociatePipeline = await _context.AssociatePipelineEntities.FirstOrDefaultAsync(x => x.Id == AssociatePipelineId);
+            var AssociatePipeline = _context.AssociatePipelineEntities.FirstOrDefault(x => x.Id == AssociatePipelineId);
             return AssociatePipeline;
         }
 
-        public async Task<bool> UpdateAssociatePipeline(AssociatePipelineEntity associatePipeline, int AssociatePipelineId)
+        public bool UpdateAssociatePipeline(AssociatePipelineEntity associatePipeline, int AssociatePipelineId)
         {
-            var AssociatePipeline = await _context.AssociatePipelineEntities.Where(x => x.Id == AssociatePipelineId).FirstOrDefaultAsync();
+            var AssociatePipeline = _context.AssociatePipelineEntities.Where(x => x.Id == AssociatePipelineId).FirstOrDefault();
             AssociatePipeline.Name = associatePipeline.Name;
             AssociatePipeline.CreatedOn = AssociatePipeline.CreatedOn;
             AssociatePipeline.CreatedBy = AssociatePipeline.CreatedBy;
@@ -222,7 +273,7 @@ namespace DataAccess.DataActions
             AssociatePipeline.UpdatedBy = "System";
 
             _context.AssociatePipelineEntities.Update(AssociatePipeline);
-            await _context.SaveChangesAsync();
+             _context.SaveChanges();
             return true;
 
         }
