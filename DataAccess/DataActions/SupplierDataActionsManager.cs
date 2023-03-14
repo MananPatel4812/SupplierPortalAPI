@@ -151,7 +151,7 @@ namespace DataAccess.DataActions
             Supplier.UpdatedOn = DateTime.UtcNow;
             Supplier.UpdatedBy = "System";
 
-            _context.SupplierEntities.Update(supplier);
+            _context.SupplierEntities.Update(Supplier);
             _context.SaveChanges();
             return true;
         }

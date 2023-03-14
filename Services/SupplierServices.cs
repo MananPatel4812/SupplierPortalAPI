@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.SupplierRoot.DomainModels;
+using BusinessLogic.SupplierRoot.ValueObjects;
 using DataAccess.DataActions.Interfaces;
 using DataAccess.Entities;
 using Microsoft.Extensions.Logging;
@@ -86,12 +87,39 @@ namespace Services
             {
                 var supplier = _supplierFactory.CreateNewSupplier(supplierDto.Name, supplierDto.Alias, supplierDto.Email, supplierDto.ContactNo, supplierDto.IsActive);//, supplierDto.Facilities, supplierDto.Contacts);
                 
-                //Make supplier domain model
                 var entity = _supplierEntityDomainMapper.ConvertSupplierDomainToEntity(supplier);
                 _persister.AddSupplier(entity);
             }
+            else
+            {
+                //Fetch record by Id
+                var supplier = RetrieveAndConvertSupplier(supplierDto.Id ?? 0);
+                supplier.UpdateSupplier(supplierDto.Name, supplierDto.Alias, supplierDto.Email, supplierDto.ContactNo, supplierDto.IsActive);
+                //Convert Domain to Entity
+                var entity = _supplierEntityDomainMapper.ConvertSupplierDomainToEntity(supplier);
+                _persister.UpdateSupplier(entity);
+
+            }
             return "Success";
         }
+
+        private Supplier RetrieveAndConvertSupplier(int supplierId)
+        {
+            var supplierEntity = _persister.GetSupplierById(supplierId);
+            if (supplierEntity == null)
+            {
+                throw new Exception("User not found !!");
+            }
+            return ConfigureSupplier(supplierEntity);
+        }
+
+        private Supplier ConfigureSupplier(SupplierEntity supplierEntity)
+        {
+            //Convert Entity to Domain
+            var supplierDomain = _supplierEntityDomainMapper.ConvertSupplierEntityToDomain(supplierEntity);
+            return supplierDomain;
+        }
+
 
         /*
          * 

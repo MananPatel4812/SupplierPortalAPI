@@ -63,22 +63,63 @@ namespace BusinessLogic.SupplierRoot.DomainModels
             }
         }
 
-       /* public Contact UpdateSupplierContact(int Id, Supplier Supplier,User user)
+        public void UpdateSupplier(string name, string alias, string email, string contactNo, bool isActive)
         {
-            throw new NotImplementedException();
-            *//*
-             * 
-             *//*
+            UpdateName(name);
+            UpdateAlias(alias);
+            UpdateEmail(email);
+            UpdateContactNo(contactNo);
+            UpdateIsActive(isActive);
         }
 
-        public Contact AddSupplierContact(int Id, Supplier Supplier, User user)
+        private void UpdateName(string name)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new Exception("Name is required");
+            }
+            else
+                Name = name;
 
-            *//*
-             * 
+        }
+        private void UpdateAlias(string alias)
+        {
+            Alias = alias;
+        }
+
+
+        private void UpdateEmail(string email)
+        {
+            Email = email;
+        }
+
+        private void UpdateContactNo(string contactNo)
+        {
+            ContactNo = contactNo;
+        }
+
+        private void UpdateIsActive(bool isActive)
+        {
+            IsActive = isActive;
+        }
+
+
+        /* public Contact UpdateSupplierContact(int Id, Supplier Supplier,User user)
+         {
+             throw new NotImplementedException();
              *//*
-        }*/
+              * 
+              *//*
+         }
+
+         public Contact AddSupplierContact(int Id, Supplier Supplier, User user)
+         {
+             throw new NotImplementedException();
+
+             *//*
+              * 
+              *//*
+         }*/
 
         public Facility AddSupplierFacility(int Id, string name, string description, bool isPrimary, AssociatePipeline AssociatePipeline, ReportingType ReportingType, SupplyChainStage SupplyChainStage)
         {
