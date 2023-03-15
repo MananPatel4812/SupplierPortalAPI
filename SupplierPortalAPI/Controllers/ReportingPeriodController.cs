@@ -17,11 +17,16 @@ namespace SupplierPortalAPI.Controllers
         {
             _services = services;
         }
+
+        #region Add-Update Methods
+
         [HttpPost("AddReportingPeriod")]
         public async Task<string> AddReportingPeriod(ReportingPeriodDto reportingPeriodDto)
         {
             return await _services.AddReportingPeriod(reportingPeriodDto);
         }
+
+        #endregion
 
     }
 }

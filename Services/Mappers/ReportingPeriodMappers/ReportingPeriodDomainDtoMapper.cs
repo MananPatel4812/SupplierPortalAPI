@@ -15,7 +15,7 @@ namespace Services.Mappers.ReportingPeriodMappers
         public ReportingPeriodDto ConvertReportingDTO(ReportingPeriod reportingPeriod)
         {
             var reportingPeriodSupplier = new List<ReportingPeriodSupplierDto>();
-            //return new ReportingPeriodDto(reportingPeriod.Id,reportingPeriod.DisplayName,reportingPeriod.ReportingPeriodType,reportingPeriod.CollectionTimePeriod,reportingPeriod.ReportingPeriodStatus,reportingPeriod.StartDate,reportingPeriod.EndDate,reportingPeriod.IsActive,reportingPeriod.PeriodSuppliers);
+            
             return new ReportingPeriodDto(reportingPeriod.Id,reportingPeriod.DisplayName,reportingPeriod.ReportingPeriodType.Id,reportingPeriod.ReportingPeriodType.Name,reportingPeriod.CollectionTimePeriod,reportingPeriod.ReportingPeriodStatus.Id,reportingPeriod.ReportingPeriodStatus.Name,reportingPeriod.StartDate,reportingPeriod.EndDate,reportingPeriod.IsActive,reportingPeriodSupplier);
         }
     }

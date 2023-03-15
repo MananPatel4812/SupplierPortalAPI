@@ -1,5 +1,6 @@
 using BusinessLogic.ReferenceLookups;
 using BusinessLogic.ReportingPeriodRoot.DomainModels;
+using BusinessLogic.ReportingPeriodRoot.Interfaces;
 using DataAccess.DataActions.Interfaces;
 using DataAccess.Entities;
 using Microsoft.Extensions.Logging;
@@ -23,8 +24,9 @@ public class ReportingPeriodServices : IReportingPeriodServices
     private IReportingPeriodEntityDomainMapper _reportingPeriodEntityDomainMapper;
     private IReportingPeriodDataActions _reportingPeriodDataActions;
     private IReferenceLookUpMapper _referenceLookUpMapper;
+    private IReportingPeriod _reportingPeriod;
 
-    public ReportingPeriodServices(IReportingPeriodFactory reportingPeriodFactory, ILoggerFactory loggerFactory, IReportingPeriodDomainDtoMapper reportingPeriodDomainMapper, IReportingPeriodEntityDomainMapper reportingPeriodEntityDomainMapper, IReportingPeriodDataActions reportingPeriodDataActions, IReferenceLookUpMapper referenceLookUpMapper)
+    public ReportingPeriodServices(IReportingPeriodFactory reportingPeriodFactory, ILoggerFactory loggerFactory, IReportingPeriodDomainDtoMapper reportingPeriodDomainMapper, IReportingPeriodEntityDomainMapper reportingPeriodEntityDomainMapper, IReportingPeriodDataActions reportingPeriodDataActions, IReferenceLookUpMapper referenceLookUpMapper,IReportingPeriod reportingPeriod)
     {
         _reportingPeriodFactory = reportingPeriodFactory;
         _logger = loggerFactory.CreateLogger<SupplierServices>();
@@ -32,8 +34,9 @@ public class ReportingPeriodServices : IReportingPeriodServices
         _reportingPeriodEntityDomainMapper = reportingPeriodEntityDomainMapper;
         _reportingPeriodDataActions = reportingPeriodDataActions;
         _referenceLookUpMapper = referenceLookUpMapper;
+        _reportingPeriod = reportingPeriod;
 
-
+    }
     private IEnumerable<ReportingPeriodType> GetAndConvertReportingPeriodType()
     {
         var reportingPeriodTypeEntity = _reportingPeriodDataActions.GetReportingPeriodTypes();
@@ -46,6 +49,13 @@ public class ReportingPeriodServices : IReportingPeriodServices
         var reportingPeriodStatusEntity = _reportingPeriodDataActions.GetReportingPeriodStatus();
 
         return _referenceLookUpMapper.GetReportingPeriodStatusesLookUp(reportingPeriodStatusEntity);
+    }
+
+    private IEnumerable<SupplierReportingPeriodStatus> GetAndConvertSupplierPeriodStatus()
+    {
+        var supplierPeriodStatusEntity = _reportingPeriodDataActions.GetSupplierReportingPeriodStatus();
+
+        return _referenceLookUpMapper.GetSupplierReportingPeriodStatusesLookUp(supplierPeriodStatusEntity);
     }
     public async Task<string> AddReportingPeriod(ReportingPeriodDto reportingPeriodDto)
     {
@@ -65,7 +75,17 @@ public class ReportingPeriodServices : IReportingPeriodServices
         await _reportingPeriodDataActions.AddReportingPeriod(reportingPeriodEntity);
         return "Success";
     }
-        
 
-   
+    public async Task<string> AddReportingPeriodSupplier(ReportingPeriodSupplierDto reportingPeriodSupplierDto)
+    {
+        var reportingPeriodSupplierStatus = GetAndConvertSupplierPeriodStatus().FirstOrDefault(x => x.Id == reportingPeriodSupplierDto.SupplierReportingPeriodStatusId);
+
+        if (reportingPeriodSupplierStatus is null)
+            throw new Exception("Unable to retrieve reporting period supplier status for the identifier");
+
+        var periodSupplier = _reportingPeriod.AddPeriodSupplier();
+
+
+        return "Success";
+    }
 }

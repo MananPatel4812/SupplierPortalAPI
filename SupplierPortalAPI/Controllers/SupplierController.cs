@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Services.DTOs;
 using Services.Interfaces;
 
 namespace SupplierPortalAPI.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SupplierController : ControllerBase
@@ -22,10 +20,6 @@ namespace SupplierPortalAPI.Controllers
         {
             return _service.AddUpdateSupplier(supplierDto);
         }
-
-        /*
-         * 
-         */
 
         [HttpPost("AddUpdateUser")]
         public string AddUpdateUser(UserDto userDto)
