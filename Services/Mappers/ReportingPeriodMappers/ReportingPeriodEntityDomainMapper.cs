@@ -47,7 +47,7 @@ public class ReportingPeriodEntityDomainMapper : IReportingPeriodEntityDomainMap
         return new ReportingPeriodSupplierEntity()
         {
             Id = periodSupplier.Id,
-            SupplierId = periodSupplier.SupplierVO.SupplierId,
+            SupplierId = periodSupplier.SupplierVO.Id,
             ReportingPeriodId = periodSupplier.ReportingPeriodId,
             SupplierReportingPeriodStatusId = periodSupplier.SupplierReportingPeriodStatusId
         };

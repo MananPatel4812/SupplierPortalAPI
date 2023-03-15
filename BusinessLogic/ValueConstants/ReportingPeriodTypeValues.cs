@@ -11,11 +11,11 @@ namespace BusinessLogic.ValueConstants
         public static string[] ReportingPeriodTypes =
         {
             Annual,
-            Quarterly,
+            Quartly,
             Monthly
         };
         public const string Annual = "Annual";
-        public const string Quarterly = "Quarterly";
+        public const string Quartly = "Quartly";
         public const string Monthly = "Monthly";
 
     }

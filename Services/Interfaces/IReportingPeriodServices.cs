@@ -10,7 +10,8 @@ namespace Services.Interfaces;
 
 public interface IReportingPeriodServices
 {
-    Task<string> AddReportingPeriod(ReportingPeriodDto reportingPeriodDto);
-    
+    Task<string> AddUpdateReportingPeriod(ReportingPeriodDto reportingPeriodDto);
+
+
 
 }                   
