@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.ReferenceLookups;
 using BusinessLogic.ReportingPeriodRoot.Interfaces;
+using BusinessLogic.SupplierRoot.ValueObjects;
 using BusinessLogic.ValueConstants;
 using DataAccess.Entities;
 using Microsoft.VisualBasic;
@@ -150,9 +151,10 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
 
         public void AddPeriodSupplier(int id, int supplierId, int reportingPeriodId, SupplierReportingPeriodStatus supplierReportingPeriodStatus)
         {
-            throw new NotImplementedException();
-        }
+             throw new NotImplementedException();
 
+        }
+            
         public PeriodSupplierDocument AddSupplementalDataDocumentToReportingPeriodSupplier(int supplierId, string documentName, DocumentType documentType, IEnumerable<DocumentStatus> documentStatus)
         {
             throw new NotImplementedException();

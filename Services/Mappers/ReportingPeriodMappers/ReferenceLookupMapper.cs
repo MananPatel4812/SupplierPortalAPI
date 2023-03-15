@@ -26,6 +26,13 @@ namespace Services.Mappers.ReportingPeriodMappers
                 yield return new ReportingPeriodType(item.Id, item.Name);
             }
         }
+        public IEnumerable<SupplierReportingPeriodStatus> GetSupplierReportingPeriodStatusesLookUp(IEnumerable<SupplierReportingPeriodStatusEntity> supplierReportingPeriodStatusEntities)
+        {
+            foreach (var item in supplierReportingPeriodStatusEntities)
+            {
+                yield return new SupplierReportingPeriodStatus(item.Id, item.Name);
+            }
+        }
     }
 }
                 

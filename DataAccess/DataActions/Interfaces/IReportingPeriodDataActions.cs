@@ -38,7 +38,7 @@ namespace DataAccess.DataActions.Interfaces
 
         Task<IEnumerable<ReportingPeriodSupplierEntity>> GetReportingPeriodSuppliers(int ReportingPeriodId);
 
-        Task<IEnumerable<SupplierReportingPeriodStatusEntity>> GetSupplierReportingPeriodStatus();
+        IEnumerable<SupplierReportingPeriodStatusEntity> GetSupplierReportingPeriodStatus();
 
         Task<IEnumerable<FacilityReportingPeriodDataStatusEntity>> GetFacilityReportingPeriodDataStatus();
 

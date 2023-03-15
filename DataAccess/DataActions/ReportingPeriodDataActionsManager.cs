@@ -170,9 +170,19 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
                                 .ToListAsync();
     }
 
+    public IEnumerable<ReportingPeriodTypeEntity> GetReportingPeriodTypes()
+    {
+        return _context.ReportingPeriodTypeEntities;
+    }
+
     public IEnumerable<ReportingPeriodStatusEntity> GetReportingPeriodStatus()
     {
         return _context.ReportingPeriodStatusEntities;
+    }
+
+    public IEnumerable<SupplierReportingPeriodStatusEntity> GetSupplierReportingPeriodStatus()
+    {
+        return _context.SupplierReportingPeriodStatusEntities;
     }
 
     public async Task<IEnumerable<ReportingPeriodSupplierEntity>> GetReportingPeriodSuppliers(int ReportingPeriodId)
@@ -182,11 +192,6 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
                                 .Include(x => x.ReportingPeriod)
                                 .Include(x => x.SupplierReportingPeriodStatus)
                                 .ToListAsync();
-    }
-
-    public IEnumerable<ReportingPeriodTypeEntity> GetReportingPeriodTypes()
-    {
-        return _context.ReportingPeriodTypeEntities;
     }
 
     public async Task<IEnumerable<DocumentRequiredStatusEntity>> GetDocumentRequiredStatus()
@@ -219,10 +224,7 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
                                     .ToListAsync();
     }
 
-    public async Task<IEnumerable<SupplierReportingPeriodStatusEntity>> GetSupplierReportingPeriodStatus()
-    {
-        return await _context.SupplierReportingPeriodStatusEntities.ToListAsync();
-    }
+    
     #endregion
 
     #region GetById
