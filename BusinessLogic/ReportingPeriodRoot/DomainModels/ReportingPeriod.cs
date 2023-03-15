@@ -66,6 +66,12 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
                 case ReportingPeriodTypeValues.Annual:
                     reportingPeriodName = $"{reportingPeriodName} year";
                     break;
+                case ReportingPeriodTypeValues.Quartly:
+                    reportingPeriodName = $"{reportingPeriodName} quarterly";
+                    break;
+                case ReportingPeriodTypeValues.Monthly:
+                    reportingPeriodName = $"{reportingPeriodName} monthly";
+                    break;
                 default:
                     reportingPeriodName = $"{reportingPeriodName} {SplitCollectionTimePeriod().FirstOrDefault()}";
                     break;
@@ -76,16 +82,30 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         private void ValidateReportingPeriod(string collectionTimePeriod, DateTime startDate, DateTime? endDate, ReportingPeriodType reportingPeriodType)
         {
             if (string.IsNullOrWhiteSpace(collectionTimePeriod))
-                throw new ArgumentNullException("CollectionTimePeriod can not be null.");
+                throw new ArgumentNullException("CollectionTimePeriod can not be null");
 
             if (startDate == null)
-                throw new ArgumentNullException("StartDate can not be null.");
+                throw new ArgumentNullException("StartDate can not be null");
 
             if (reportingPeriodType != null && reportingPeriodType.Name == ReportingPeriodTypeValues.Annual)
             {
                 int convertedCollectionTimePeriod = Convert.ToInt32(collectionTimePeriod);
                 if (convertedCollectionTimePeriod.ToString().Length != 4)
-                    throw new ArgumentException("ReportingPeriodType can not be null.");
+                    throw new ArgumentException("Collection time period should be in year only");
+            }
+
+            if (reportingPeriodType != null && reportingPeriodType.Name == ReportingPeriodTypeValues.Quartly)
+            {
+                string convertedCollectionTimePeriod = Convert.ToString(collectionTimePeriod);
+                if (convertedCollectionTimePeriod.ToString().Length != 7)
+                    throw new ArgumentException("Collection time period should be in quartly(ex: 2021-Q1) only");
+            }
+
+            if (reportingPeriodType != null && reportingPeriodType.Name == ReportingPeriodTypeValues.Monthly)
+            {
+                string convertedCollectionTimePeriod = Convert.ToString(collectionTimePeriod);
+                if (convertedCollectionTimePeriod.ToString().Length != 8)
+                    throw new ArgumentException("Collection time period should be in monthly(ex: Jan-2021) only");
             }
 
         }
@@ -102,14 +122,14 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
             }
         }
 
-        public void UpdateReportingPeriod(ReportingPeriod updateReportingPeriod)
+        public void UpdateReportingPeriod(int reportingPeriodTypeId,string collectionTimePeriod,int reportingPeriodStatusId,DateTime startDate,DateTime? endDate,bool isActive)
         {
-            ReportingPeriodType = updateReportingPeriod.ReportingPeriodType;
-            CollectionTimePeriod = updateReportingPeriod.CollectionTimePeriod;
-            ReportingPeriodStatus = updateReportingPeriod.ReportingPeriodStatus;
-            StartDate = updateReportingPeriod.StartDate;
-            EndDate = updateReportingPeriod.EndDate;
-            IsActive = updateReportingPeriod.IsActive;
+            ReportingPeriodType.Id = reportingPeriodTypeId;
+            CollectionTimePeriod = collectionTimePeriod;
+            ReportingPeriodStatus.Id = reportingPeriodStatusId;
+            StartDate = startDate;
+            EndDate = endDate;
+            IsActive = isActive;
             UpdatedOn = DateTime.UtcNow;
             UpdatedBy = "System";
         }

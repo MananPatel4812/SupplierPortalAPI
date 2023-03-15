@@ -10,6 +10,7 @@ namespace Services.Interfaces;
 
 public interface IReportingPeriodServices
 {
+
     /// <summary>
     /// Add Reporting Period
     /// </summary>
@@ -24,5 +25,8 @@ public interface IReportingPeriodServices
     /// <returns></returns>
     Task<string> AddReportingPeriodSupplier(ReportingPeriodSupplierDto reportingPeriodSupplierDto);
     
+
+
+
 
 }                   

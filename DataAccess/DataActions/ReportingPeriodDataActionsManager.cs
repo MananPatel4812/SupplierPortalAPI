@@ -230,10 +230,7 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
     #region GetById
     public ReportingPeriodEntity GetReportingPeriodById(int reportingPeriodId)
     {
-        var reportingPeriod = _context.ReportingPeriodEntities.Where(x => x.Id == reportingPeriodId).FirstOrDefault();
-
-        if (reportingPeriod == null)
-            throw new ArgumentNullException("ReportingPeriod not found !");
+        var reportingPeriod = _context.ReportingPeriodEntities.FirstOrDefault(x => x.Id == reportingPeriodId);
 
         return reportingPeriod;
     }
