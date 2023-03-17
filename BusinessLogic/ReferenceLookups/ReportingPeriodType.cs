@@ -10,6 +10,6 @@ namespace BusinessLogic.ReferenceLookups
     {
         public ReportingPeriodType() { }
 
-        public ReportingPeriodType(int value, string displayname) : base(value, displayname) { }
+        public ReportingPeriodType(int value, string displayName) : base(value, displayName) { }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.SupplierRoot.DomainModels;
+using BusinessLogic.SupplierRoot.ValueObjects;
 using Services.DTOs;
 
 namespace Services.Mappers.Interfaces
@@ -7,5 +8,8 @@ namespace Services.Mappers.Interfaces
     {
         SupplierDto ConvertSupplierDomainToDto(Supplier supplier);
         List<SupplierDto> ConvertSuppliersToDtos(IEnumerable<Supplier> suppliers);
+
+        //Contact ConvertContactDtoToDomain(ContactDto contactDto);
+        //ContactDto ConvertContactDomainToDto();
     }
 }

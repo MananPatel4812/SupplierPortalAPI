@@ -1,10 +1,4 @@
-﻿using BusinessLogic.ReportingPeriodRoot.ValueObjects;
-using BusinessLogic.SupplierRoot.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BusinessLogic.SupplierRoot.ValueObjects;
 
 namespace BusinessLogic.SupplierRoot.DomainModels
 {
@@ -14,7 +8,6 @@ namespace BusinessLogic.SupplierRoot.DomainModels
         public int Id { get; private set; }
         public int SupplierId { get; private set; }
         public UserVO UserVO { get; private set; }
-
 
         internal Contact()
         { }

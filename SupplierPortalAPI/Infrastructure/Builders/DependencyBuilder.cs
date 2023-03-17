@@ -21,6 +21,7 @@ namespace SupplierPortalAPI.Infrastructure.Builders
             services.AddTransient<ISupplierDataActions,SupplierDataActionsManager>();
             services.AddTransient<ISupplierFactory, SupplierFactory>();
             services.AddTransient<ISupplierEntityDomainMapper, SupplierEntityDomainMapper>();
+            services.AddTransient<ISupplierDomainDtoMapper, SupplierDomainDtoMapper>();
 
             services.AddTransient<IUserDomainDtoMapper,UserDomainDtoMapper>();
             services.AddTransient<IUserEntityDomainMapper,UserEntityDomainMapper>();

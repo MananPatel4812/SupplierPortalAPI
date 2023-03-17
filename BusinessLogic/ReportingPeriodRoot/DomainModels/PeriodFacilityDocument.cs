@@ -10,10 +10,10 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
 {
     public class PeriodFacilityDocument
     {
-        private HashSet<Supplier> Suppliers;
-        private HashSet<PeriodFacility> PeriodFacilities;
-        private HashSet<DocumentStatus> DocumentStatuses;
-        private HashSet<DocumentType> DocumentTypes;
+        private HashSet<Supplier> suppliers;
+        private HashSet<PeriodFacility> periodFacilities;
+        private HashSet<DocumentStatus> documentStatuses;
+        private HashSet<DocumentType> documentTypes;
 
         public PeriodFacilityDocument(int reportingPeriodFacilityId, string version, string displayName,
                         string storedName, string path, string validationError)
@@ -25,10 +25,10 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
             Path = path;
             ValidationError = validationError;
 
-            DocumentStatuses = new HashSet<DocumentStatus>();
-            DocumentTypes = new HashSet<DocumentType>();
-            Suppliers = new HashSet<Supplier>();
-            PeriodFacilities = new HashSet<PeriodFacility>();
+            documentStatuses = new HashSet<DocumentStatus>();
+            documentTypes = new HashSet<DocumentType>();
+            suppliers = new HashSet<Supplier>();
+            periodFacilities = new HashSet<PeriodFacility>();
         }
 
         public PeriodFacilityDocument(int id, int reportingPeriodFacilityId, string version, string displayName,
@@ -54,11 +54,11 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         {
             get
             {
-                if (DocumentStatuses == null)
+                if (documentStatuses == null)
                 {
                     return new List<DocumentStatus>();
                 }
-                return DocumentStatuses.ToList();
+                return documentStatuses.ToList();
             }
         }
 
@@ -66,11 +66,11 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         {
             get
             {
-                if (DocumentTypes == null)
+                if (documentTypes == null)
                 {
                     return new List<DocumentType>();
                 }
-                return DocumentTypes.ToList();
+                return documentTypes.ToList();
             }
         }
 
@@ -78,11 +78,11 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         {
             get
             {
-                if (Suppliers == null)
+                if (suppliers == null)
                 {
                     return new List<Supplier>();
                 }
-                return Suppliers.ToList();
+                return suppliers.ToList();
             }
         }
 
@@ -90,11 +90,11 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         {
             get
             {
-                if (PeriodFacilities == null)
+                if (periodFacilities == null)
                 {
                     return new List<PeriodFacility>();
                 }
-                return PeriodFacilities.ToList();
+                return periodFacilities.ToList();
             }
         }
 

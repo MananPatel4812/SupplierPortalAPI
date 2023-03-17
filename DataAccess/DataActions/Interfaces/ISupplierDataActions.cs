@@ -7,22 +7,22 @@ namespace DataAccess.DataActions.Interfaces
         //User
         int AddUser(UserEntity user);
         IEnumerable<UserEntity> GetAllUsers();
-        IEnumerable<UserEntity> GetAllUsersByRoleId(int RoleId);
+        IEnumerable<UserEntity> GetAllUsersByRoleId(int roleId);
         UserEntity GetUserById(int userId);
-        int UpdateUser(UserEntity user);
-        bool IsUniqueUserEmail(string email);
+        bool UpdateUser(UserEntity user);
+        bool IsUniqueEmail(string email, string entity);
 
         //Supplier
         bool AddSupplier(SupplierEntity supplier);
         IEnumerable<SupplierEntity> GetAllSuppliers();
-        SupplierEntity GetSupplierById(int SupplierId);
-        bool UpdateSupplier(SupplierEntity supplier);//, int SupplierId);
+        SupplierEntity GetSupplierById(int supplierId);
+        bool UpdateSupplier(SupplierEntity supplier);
 
         //Contact
         bool AddContact(ContactEntity contact);
         IEnumerable<ContactEntity> GetAllContacts();
-        IEnumerable<ContactEntity> GetAllContactsBySupplier(int SupplierId);
-        bool UpdateContact(ContactEntity contact, int ContactId);
+        IEnumerable<ContactEntity> GetAllContactsBySupplier(int supplierId);
+        bool UpdateContact(ContactEntity contact, int contactId);
 
         //SupplyChainStages
         IEnumerable<SupplyChainStageEntity> GetSupplyChainStages();
@@ -30,15 +30,15 @@ namespace DataAccess.DataActions.Interfaces
         //Facility
         bool AddFacility(FacilityEntity facility);
         IEnumerable<FacilityEntity> GetAllFacilities();
-        IEnumerable<FacilityEntity> GetFacilitiesByReportingType(int ReportingTypeId);
-        FacilityEntity GetFacilityById(int FacilityId);
-        bool UpdateFacility(FacilityEntity facility, int FacilityId);
+        IEnumerable<FacilityEntity> GetFacilitiesByReportingType(int reportingTypeId);
+        FacilityEntity GetFacilityById(int facilityId);
+        bool UpdateFacility(FacilityEntity facility, int facilityId);
 
         //AssociatePipeline
         bool AddAssociatePipeline(AssociatePipelineEntity associatePipeline);
         IEnumerable<AssociatePipelineEntity> GetAllAssociatePipeline();
-        AssociatePipelineEntity GetAssociatePipelineById(int AssociatePipelineId);
-        bool UpdateAssociatePipeline(AssociatePipelineEntity associatePipeline, int AssociatePipelineId);
+        AssociatePipelineEntity GetAssociatePipelineById(int associatePipelineId);
+        bool UpdateAssociatePipeline(AssociatePipelineEntity associatePipeline, int associatePipelineId);
 
     }
 }

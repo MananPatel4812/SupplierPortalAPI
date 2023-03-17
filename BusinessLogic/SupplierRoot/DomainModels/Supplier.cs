@@ -1,6 +1,7 @@
 ﻿using BusinessLogic.ReferenceLookups;
 using BusinessLogic.ReportingPeriodRoot.ValueObjects;
 using BusinessLogic.SupplierRoot.Interfaces;
+using BusinessLogic.SupplierRoot.ValueObjects;
 
 namespace BusinessLogic.SupplierRoot.DomainModels
 {
@@ -107,35 +108,35 @@ namespace BusinessLogic.SupplierRoot.DomainModels
         /* public Contact UpdateSupplierContact(int Id, Supplier Supplier,User user)
          {
              throw new NotImplementedException();
-             *//*
-              * 
-              *//*
-         }
-
-         public Contact AddSupplierContact(int Id, Supplier Supplier, User user)
-         {
-             throw new NotImplementedException();
-
-             *//*
-              * 
-              *//*
          }*/
+
+        public Contact AddSupplierContact(int Id, Supplier Supplier, UserVO userVO)
+         {
+             //check isContact exist or not
+             var IsExists = _contacts.Any(x => x.UserVO.Id == userVO.Id);
+             
+            if(IsExists == true)
+            {
+                throw new Exception("Contact is already exists with Supplier !!");
+            }
+            else
+            {
+                var contact = new Contact(Id, Supplier.Id, userVO);
+                _contacts.Add(contact);
+
+                return contact;
+            }
+            
+         }
 
         public Facility AddSupplierFacility(int Id, string name, string description, bool isPrimary, AssociatePipeline AssociatePipeline, ReportingType ReportingType, SupplyChainStage SupplyChainStage)
         {
-            throw new NotImplementedException();
-
-            /*
-             * 
-             */
+            throw new NotImplementedException();           
         }
 
         public Facility UpdateSupplierFacility(int Id, string name, string description, bool isPrimary, AssociatePipeline AssociatePipeline,ReportingType ReportingType,SupplyChainStage SupplyChainStage)
         {
             throw new NotImplementedException();
-            /*
-             * 
-             */
         }
     }
 }
