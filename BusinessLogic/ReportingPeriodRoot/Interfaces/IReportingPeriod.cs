@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.ReferenceLookups;
 using BusinessLogic.ReportingPeriodRoot.DomainModels;
+using BusinessLogic.SupplierRoot.ValueObjects;
 using DataAccess.Entities;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,11 @@ namespace BusinessLogic.ReportingPeriodRoot.Interfaces
         
         IEnumerable<PeriodSupplier> PeriodSuppliers { get; }
 
-        void AddPeriodSupplier(int id, int supplierId, int reportingPeriodId, SupplierReportingPeriodStatus supplierReportingPeriodStatus);
+        PeriodSupplier LoadPeriodSupplier(int reportingPriodSupplierId,SupplierVO supplier, int reportingPeriodId,SupplierReportingPeriodStatus supplierReportingPeriodStatus,bool isActive);
+
+        PeriodSupplier AddPeriodSupplier(SupplierVO supplier, int reportingPeriodId, SupplierReportingPeriodStatus supplierReportingPeriodStatus, bool isActive);
+
+        PeriodSupplier RemovePeriodSupplier(int periodSupplierId);
         void AddPeriodFacilityToPeriodSupplier(int supplierId,FacilityReportingPeriodDataStatus facilityReportingPeriodDataStatus,ReportingType reportingType,int reportingPeriodSupplierId);
         void AddDocumentToPeriodSupplierFacility(DocumentType documentType,DocumentStatus documentStatus);
         PeriodFacilityDocument RemoveDocumentFromPeriodSupplierFacility(int supplierId,int periodFacilityId,int documentId);

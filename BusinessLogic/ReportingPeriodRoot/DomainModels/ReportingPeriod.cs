@@ -6,6 +6,7 @@ using DataAccess.Entities;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         {
             ValidateReportingPeriod(collectionTimePeriod, startDate, endDate, types);
             DisplayName = GeneratedReportingPeriodName(types);
-            CollectionTimePeriod= collectionTimePeriod;
+            CollectionTimePeriod = collectionTimePeriod;
             ReportingPeriodType = types;
             ReportingPeriodStatus = status;
             StartDate = startDate;
@@ -122,7 +123,7 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
             }
         }
 
-        public void UpdateReportingPeriod(int reportingPeriodTypeId,string collectionTimePeriod,int reportingPeriodStatusId,DateTime startDate,DateTime? endDate,bool isActive)
+        public void UpdateReportingPeriod(int reportingPeriodTypeId, string collectionTimePeriod, int reportingPeriodStatusId, DateTime startDate, DateTime? endDate, bool isActive)
         {
             ReportingPeriodType.Id = reportingPeriodTypeId;
             CollectionTimePeriod = collectionTimePeriod;
@@ -134,6 +135,41 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
             UpdatedBy = "System";
         }
 
+
+        public PeriodSupplier LoadPeriodSupplier(int id, SupplierVO supplier, int reportingPeriodId, SupplierReportingPeriodStatus supplierReportingPeriodStatus, bool isActive)
+        {
+            var reportingPeriodSupplier = new PeriodSupplier(id, supplier, reportingPeriodId, supplierReportingPeriodStatus, isActive);
+
+            if (periodSupplier.Contains(reportingPeriodSupplier))
+            {
+                throw new Exception("Supplier Already Exist!");
+            }
+            periodSupplier.Add(reportingPeriodSupplier);
+
+            return reportingPeriodSupplier;
+
+
+        }
+
+        public PeriodSupplier AddPeriodSupplier(SupplierVO supplier, int reportingPeriodId, SupplierReportingPeriodStatus supplierReportingPeriodStatus, bool isActive)
+        {
+            var reportingPeriodSupplier = new PeriodSupplier(supplier, reportingPeriodId, supplierReportingPeriodStatus, isActive);
+
+            if (periodSupplier.Contains(reportingPeriodSupplier))
+            {
+                throw new Exception("Supplier Already Exist!");
+            }
+            periodSupplier.Add(reportingPeriodSupplier);
+
+            return reportingPeriodSupplier;
+        }
+
+        public PeriodSupplier RemovePeriodSupplier(int periodSupplierId)
+        {
+            return null;
+        }
+
+        
         public PeriodFacilityDocument AddDataSubmissionDocumentForReportingPeriod(int supplierId, int periodFacilityId, FacilityRequiredDocumentTypeEntity facilityRequiredDocumentType, IEnumerable<DocumentRequirementStatus> documentRequirementStatus)
         {
             throw new NotImplementedException();
@@ -149,12 +185,7 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
             throw new NotImplementedException();
         }
 
-        public void AddPeriodSupplier(int id, int supplierId, int reportingPeriodId, SupplierReportingPeriodStatus supplierReportingPeriodStatus)
-        {
-             throw new NotImplementedException();
 
-        }
-            
         public PeriodSupplierDocument AddSupplementalDataDocumentToReportingPeriodSupplier(int supplierId, string documentName, DocumentType documentType, IEnumerable<DocumentStatus> documentStatus)
         {
             throw new NotImplementedException();
@@ -174,5 +205,7 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         {
             throw new NotImplementedException();
         }
+
+        
     }
 }

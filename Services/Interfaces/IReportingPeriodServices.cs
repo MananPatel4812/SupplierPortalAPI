@@ -10,23 +10,17 @@ namespace Services.Interfaces;
 
 public interface IReportingPeriodServices
 {
+    /// <summary>
+    /// Add PeriodSupplier
+    /// </summary>
+    /// <param name="reportingPeriodSupplierDto"></param>
+    /// <returns></returns>
+    Task<string> SetPeriodSupplier(ReportingPeriodSupplierDto reportingPeriodSupplierDto);
 
     /// <summary>
     /// Add Reporting Period
     /// </summary>
     /// <param name="reportingPeriodDto"></param>
     /// <returns></returns>
-    Task<string> AddReportingPeriod(ReportingPeriodDto reportingPeriodDto);
-
-    /// <summary>
-    /// Add Period Supplier
-    /// </summary>
-    /// <param name="reportingPeriodSupplierDto"></param>
-    /// <returns></returns>
-    Task<string> AddReportingPeriodSupplier(ReportingPeriodSupplierDto reportingPeriodSupplierDto);
-    
-
-
-
-
+    Task<string> AddUpdateReportingPeriod(ReportingPeriodDto reportingPeriodDto);
 }                   

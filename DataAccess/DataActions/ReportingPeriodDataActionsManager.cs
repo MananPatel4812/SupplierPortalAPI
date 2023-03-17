@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,6 +29,24 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
 
         await _context.SaveChangesAsync();
         return true;
+    }
+
+    public async Task<bool> AddPeriodSupplier(ReportingPeriodSupplierEntity reportingPeriodSupplierEntity)
+    {
+        await _context.ReportingPeriodSupplierEntities.AddAsync(reportingPeriodSupplierEntity);
+
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
+    public async Task<ReportingPeriodSupplierEntity> RemovePeriodSupplier(int reportingPeriodId)
+    {
+        var periodSupplier = _context.ReportingPeriodSupplierEntities.Find(reportingPeriodId);
+
+        _context.ReportingPeriodSupplierEntities.Remove(periodSupplier);
+         await _context.SaveChangesAsync();
+        return periodSupplier;
+
     }
 
     public async Task<bool> AddReportingPeriodFacilityDocument(ReportingPeriodFacilityDocumentEntity reportingPeriodFacilityDocument)
@@ -58,8 +77,8 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
     public async Task<bool> UpdateReportingPeriod(ReportingPeriodEntity reportingPeriod)
     {
         var existingReportingPeriod = await _context.ReportingPeriodEntities.FirstOrDefaultAsync(x => x.Id == reportingPeriod.Id);
-        
-        if (existingReportingPeriod == null)        
+
+        if (existingReportingPeriod == null)
             throw new Exception("Existing ReportingPeriod not found");
 
         existingReportingPeriod.ReportingPeriodTypeId = reportingPeriod.ReportingPeriodTypeId;
@@ -185,13 +204,12 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
         return _context.SupplierReportingPeriodStatusEntities;
     }
 
-    public async Task<IEnumerable<ReportingPeriodSupplierEntity>> GetReportingPeriodSuppliers(int ReportingPeriodId)
+    public IEnumerable<ReportingPeriodSupplierEntity> GetReportingPeriodSuppliers(int reportingPeriodId)
     {
-        return await _context.ReportingPeriodSupplierEntities
-                                .Include(x => x.Supplier)
-                                .Include(x => x.ReportingPeriod)
-                                .Include(x => x.SupplierReportingPeriodStatus)
-                                .ToListAsync();
+        var reportingPeriodSupplier =
+            _context.ReportingPeriodSupplierEntities.Include(x => x.Supplier).Where(x => x.ReportingPeriodId == reportingPeriodId).ToList();
+        return reportingPeriodSupplier;
+
     }
 
     public async Task<IEnumerable<DocumentRequiredStatusEntity>> GetDocumentRequiredStatus()
@@ -224,13 +242,17 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
                                     .ToListAsync();
     }
 
-    
+
     #endregion
 
     #region GetById
     public ReportingPeriodEntity GetReportingPeriodById(int reportingPeriodId)
     {
-        var reportingPeriod = _context.ReportingPeriodEntities.FirstOrDefault(x => x.Id == reportingPeriodId);
+        var reportingPeriod = _context.ReportingPeriodEntities
+                                .Include(x => x.ReportingPeriodType)
+                                .Include(x => x.ReportingPeriodStatus)
+                                .Include(x => x.ReportingPeriodSupplierEntities)
+                                .FirstOrDefault(x => x.Id == reportingPeriodId);
 
         return reportingPeriod;
     }
@@ -238,7 +260,7 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
     public IEnumerable<ReportingPeriodTypeEntity> GetReportingPeriodTypeById(int reportingPeriodTypeId)
     {
         var reportingPeriodType = _context.ReportingPeriodTypeEntities.Where(x => x.Id == reportingPeriodTypeId).ToList();
-        
+
         return reportingPeriodType;
     }
 

@@ -71,6 +71,14 @@ public partial class SupplierPortalDBContext : DbContext
         {
             entity.ToTable("ContactEntity");
 
+            entity.Property(e => e.CreatedBy).HasMaxLength(100);
+
+            entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+            entity.Property(e => e.UpdatedBy).HasMaxLength(100);
+
+            entity.Property(e => e.UpdatedOn).HasColumnType("datetime");
+
             entity.HasOne(d => d.Supplier)
                 .WithMany(p => p.ContactEntities)
                 .HasForeignKey(d => d.SupplierId)
@@ -115,6 +123,10 @@ public partial class SupplierPortalDBContext : DbContext
                 .HasColumnType("datetime")
                 .HasDefaultValueSql("(getdate())");
 
+            entity.Property(e => e.GhgrpfacilityId)
+                .HasMaxLength(100)
+                .HasColumnName("GHGRPFacilityId");
+
             entity.Property(e => e.Name).HasMaxLength(100);
 
             entity.Property(e => e.UpdatedBy).HasMaxLength(100);
@@ -131,6 +143,12 @@ public partial class SupplierPortalDBContext : DbContext
                 .HasForeignKey(d => d.ReportingTypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Facility_ReportingType");
+
+            entity.HasOne(d => d.Supplier)
+                .WithMany(p => p.FacilityEntities)
+                .HasForeignKey(d => d.SupplierId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Facility_Supplier");
 
             entity.HasOne(d => d.SupplyChainStage)
                 .WithMany(p => p.FacilityEntities)
@@ -434,3 +452,5 @@ public partial class SupplierPortalDBContext : DbContext
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }
+
+

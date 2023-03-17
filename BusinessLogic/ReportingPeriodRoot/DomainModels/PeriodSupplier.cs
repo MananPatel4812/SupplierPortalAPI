@@ -12,26 +12,24 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
 {
     public class PeriodSupplier
     {
-        public PeriodSupplier(SupplierVO supplierVO, int reportingPeriodId, int supplierReportingPeriodId)
+        public PeriodSupplier(SupplierVO supplier, int reportingPeriodId, SupplierReportingPeriodStatus supplierReportingPeriodStatus,bool isActive)
         {
-            SupplierVO = supplierVO;
+            Supplier = supplier;
             ReportingPeriodId = reportingPeriodId;
-            SupplierReportingPeriodStatusId = supplierReportingPeriodId;
+            SupplierReportingPeriodStatus = supplierReportingPeriodStatus;
+            IsActive = isActive;
+
         }
 
-        public PeriodSupplier(int id, SupplierVO supplierVO, int reportingPeriodId, int supplierReportingPeriodId) : this(supplierVO, reportingPeriodId, supplierReportingPeriodId)
+        public PeriodSupplier(int id, SupplierVO supplierVO, int reportingPeriodId, SupplierReportingPeriodStatus supplierReportingPeriod, bool isActive) : this(supplierVO, reportingPeriodId, supplierReportingPeriod,isActive)
         {
             Id = id;
         }
 
-        public PeriodSupplier()
-        {
-
-        }
-
         public int Id { get; private set; }
-        public SupplierVO SupplierVO { get; private set; }
+        public SupplierVO Supplier { get; private set; }
         public int ReportingPeriodId { get; private set; }
-        public int SupplierReportingPeriodStatusId { get; private set; }
+        public SupplierReportingPeriodStatus SupplierReportingPeriodStatus { get; private set; }
+        public bool IsActive { get; private set; }
     }
 }

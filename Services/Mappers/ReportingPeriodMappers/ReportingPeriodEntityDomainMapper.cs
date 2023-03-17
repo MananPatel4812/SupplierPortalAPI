@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.ReferenceLookups;
 using BusinessLogic.ReportingPeriodRoot.DomainModels;
+using BusinessLogic.SupplierRoot.ValueObjects;
 using DataAccess.Entities;
 using Services.Mappers.Interfaces;
 using System;
@@ -13,12 +14,36 @@ namespace Services.Mappers.ReportingPeriodMappers;
 
 public class ReportingPeriodEntityDomainMapper : IReportingPeriodEntityDomainMapper
 {
+    public void ConvertPeriodSupplierEntityToDomain(ReportingPeriod periodDomain, ICollection<ReportingPeriodSupplierEntity> reportingPeriodSupplierEntities, IEnumerable<SupplierReportingPeriodStatus> supplierReportingPeriodStatuses)
+    {
+        foreach (var item in reportingPeriodSupplierEntities)
+        {
+            var supplierVO = GenerateSupplierVO(item.Supplier);
+            //var facilityVO = GenerateFacilityVO(item.ReportingPeriodFacilityEntities);
+            var selectedSupplierStatus = supplierReportingPeriodStatuses.First(x => x.Id == item.SupplierReportingPeriodStatusId);
+
+            periodDomain.LoadPeriodSupplier(item.Id, supplierVO, item.ReportingPeriodId, selectedSupplierStatus, item.IsActive);
+        }
+    }
+
+    //private FacilityVO GenerateFacilityVO(FacilityEntity facility)
+    //{
+    //    return new FacilityVO;
+    //}
+
+    private SupplierVO GenerateSupplierVO(SupplierEntity supplier)
+    {
+        var facilityVOs = new List<FacilityVO>();
+        return new SupplierVO(supplier.Id, supplier.Name, supplier.IsActive, facilityVOs);
+    }
+
     public ReportingPeriodEntity ConvertReportingPeriodDomainToEntity(ReportingPeriod reportingPeriod)
     {
 
         var reportingPeriodSupplier = ConvertReportingPeriodSuppliersDomainToEntity(reportingPeriod.PeriodSuppliers ?? new List<PeriodSupplier>());
 
-        return new ReportingPeriodEntity() {
+        return new ReportingPeriodEntity()
+        {
 
             Id = reportingPeriod.Id,
             DisplayName = reportingPeriod.DisplayName,
@@ -47,9 +72,10 @@ public class ReportingPeriodEntityDomainMapper : IReportingPeriodEntityDomainMap
         return new ReportingPeriodSupplierEntity()
         {
             Id = periodSupplier.Id,
-            SupplierId = periodSupplier.SupplierVO.Id,
+            SupplierId = periodSupplier.Supplier.Id,
             ReportingPeriodId = periodSupplier.ReportingPeriodId,
-            SupplierReportingPeriodStatusId = periodSupplier.SupplierReportingPeriodStatusId
+            SupplierReportingPeriodStatusId = periodSupplier.SupplierReportingPeriodStatus.Id,
+            IsActive = periodSupplier.IsActive
         };
     }
 
@@ -61,5 +87,29 @@ public class ReportingPeriodEntityDomainMapper : IReportingPeriodEntityDomainMap
             suppliers.Add(ConvertReportingPeriodSupplierDomainToEntity(periodSupplier));
         }
         return suppliers;
+    }
+
+    public SupplierVO ConvertSupplierToSupplierValueObject(SupplierEntity supplierEntity, IEnumerable<SupplyChainStage>? supplyChainStages = null, IEnumerable<ReportingType>? reportingTypes = null)
+    {
+        var facilityVO = new List<FacilityVO>();
+
+        foreach (var facilityEntity in supplierEntity.FacilityEntities)
+        {
+            var selectedSupplyChainStage = supplyChainStages != null ? supplyChainStages.FirstOrDefault(x => x.Id == facilityEntity.SupplyChainStageId) : null;
+            var selectedReprtingType = reportingTypes != null ? reportingTypes.FirstOrDefault(x => x.Id ==facilityEntity.ReportingTypeId) : null;
+        }
+        var supplierVO = new SupplierVO(supplierEntity.Id,supplierEntity.Name,supplierEntity.IsActive,facilityVO);
+        return supplierVO;
+    }
+
+    public IEnumerable<SupplierVO> ConvertSupplierEntityToSupplierValueObject(IEnumerable<SupplierEntity> supplierEntities)
+    {
+        var supplierVOs = new List<SupplierVO>();
+
+        foreach(var supplierEntity in supplierEntities)
+        {
+            supplierVOs.Add(ConvertSupplierToSupplierValueObject(supplierEntity));
+        }
+        return supplierVOs;
     }
 }
