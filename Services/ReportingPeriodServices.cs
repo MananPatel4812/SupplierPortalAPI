@@ -17,7 +17,6 @@ public class ReportingPeriodServices : IReportingPeriodServices
 {
     private IReportingPeriodFactory _reportingPeriodFactory;
     private readonly ILogger _logger;
-    private IReportingPeriodDomainDtoMapper _reportingPeriodDomainMapper;
     private IReportingPeriodEntityDomainMapper _reportingPeriodEntityDomainMapper;
     private IReportingPeriodDataActions _reportingPeriodDataActions;
     private ISupplierDataActions _supplierDataActions;
@@ -25,12 +24,10 @@ public class ReportingPeriodServices : IReportingPeriodServices
     private IReportingPeriod _reportingPeriod;
 
 
-    public ReportingPeriodServices(IReportingPeriodFactory reportingPeriodFactory, ILoggerFactory loggerFactory, 
-        IReportingPeriodDomainDtoMapper reportingPeriodDomainMapper, IReportingPeriodEntityDomainMapper reportingPeriodEntityDomainMapper, IReportingPeriodDataActions reportingPeriodDataActions,ISupplierDataActions supplierDataActions, IReferenceLookUpMapper referenceLookUpMapper, IReportingPeriod reportingPeriod)
+    public ReportingPeriodServices(IReportingPeriodFactory reportingPeriodFactory, ILoggerFactory loggerFactory, IReportingPeriodEntityDomainMapper reportingPeriodEntityDomainMapper, IReportingPeriodDataActions reportingPeriodDataActions,ISupplierDataActions supplierDataActions, IReferenceLookUpMapper referenceLookUpMapper, IReportingPeriod reportingPeriod)
     {
         _reportingPeriodFactory = reportingPeriodFactory;
         _logger = loggerFactory.CreateLogger<SupplierServices>();
-        _reportingPeriodDomainMapper = reportingPeriodDomainMapper;
         _reportingPeriodEntityDomainMapper = reportingPeriodEntityDomainMapper;
         _reportingPeriodDataActions = reportingPeriodDataActions;
         _supplierDataActions = supplierDataActions;
@@ -101,26 +98,42 @@ public class ReportingPeriodServices : IReportingPeriodServices
         var reportingPeriodStatuses = GetAndConvertReportingPeriodStatus();
         var supplierPeriodStatuses = GetAndConvertSupplierPeriodStatus();
 
-
-        ReportingPeriod reportingPeriod = _reportingPeriodEntityDomainMapper.ConvertReportingPeriodEntityToDomain(reportingPeriodEntity, reportingPeriodTypes, reportingPeriodStatuses);
+        var reportingPeriod = _reportingPeriodEntityDomainMapper.ConvertReportingPeriodEntityToDomain(reportingPeriodEntity, reportingPeriodTypes, reportingPeriodStatuses);
 
         if (supplierEntity.IsActive == true)
         {
             var supplierPeriodStatus = supplierPeriodStatuses.FirstOrDefault(x => x.Id == reportingPeriodSupplierDto.SupplierReportingPeriodStatusId);
+            
             var supplierVO = _reportingPeriodEntityDomainMapper.ConvertSupplierToSupplierValueObject(supplierEntity);
-            var periodSupplier = reportingPeriod.AddPeriodSupplier(supplierVO,reportingPeriodSupplierDto.ReportingPeriodId, supplierPeriodStatus, reportingPeriodSupplierDto.IsActive);
 
-            var periodSupplierEntity = _reportingPeriodEntityDomainMapper.ConvertReportingPeriodSupplierDomainToEntity(periodSupplier);
-            await _reportingPeriodDataActions.AddPeriodSupplier(periodSupplierEntity);
+            var periodSupplierList = _reportingPeriodDataActions.GetPeriodSuppliers();
+            var counter = 0;
+
+            foreach(var periodSupplier in periodSupplierList)
+            {
+                if(periodSupplier.SupplierId == supplierVO.Id && periodSupplier.ReportingPeriodId == reportingPeriod.Id)
+                {
+                    throw new Exception("ReportingPeriod Supplier already exists!!");
+                }
+                else
+                {
+                    counter++;
+                }
+            }
+
+            if(counter > 0)
+            {
+                var periodSupplier = reportingPeriod.AddPeriodSupplier(supplierVO, reportingPeriodSupplierDto.ReportingPeriodId, supplierPeriodStatus, reportingPeriodSupplierDto.IsActive);
+                var periodSupplierEntity = _reportingPeriodEntityDomainMapper.ConvertReportingPeriodSupplierDomainToEntity(periodSupplier);
+                await _reportingPeriodDataActions.AddPeriodSupplier(periodSupplierEntity);
+            }
           
         }
         else
         {
-            //var periodSupplierId = 
-            //var periodSupplier = _reportingPeriodDataActions.RemovePeriodSupplier(reportingPeriodSupplierDto.Id);
+            throw new Exception("Supplier is inActive");
         }
         
-
         return "Success";
     }
 

@@ -206,6 +206,7 @@ namespace DataAccess.DataActions
         public bool AddContact(ContactEntity contact)
         {
             contact.CreatedBy = "System";
+            contact.CreatedOn = DateTime.UtcNow;
             _context.ContactEntities.Add(contact);
             _context.SaveChanges();
             return true;
