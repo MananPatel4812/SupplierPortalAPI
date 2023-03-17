@@ -39,16 +39,6 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
         return true;
     }
 
-    public async Task<ReportingPeriodSupplierEntity> RemovePeriodSupplier(int reportingPeriodId)
-    {
-        var periodSupplier = _context.ReportingPeriodSupplierEntities.Find(reportingPeriodId);
-
-        _context.ReportingPeriodSupplierEntities.Remove(periodSupplier);
-         await _context.SaveChangesAsync();
-        return periodSupplier;
-
-    }
-
     public async Task<bool> AddReportingPeriodFacilityDocument(ReportingPeriodFacilityDocumentEntity reportingPeriodFacilityDocument)
     {
         await _context.ReportingPeriodFacilityDocumentEntities.AddAsync(reportingPeriodFacilityDocument);
@@ -149,6 +139,18 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
         await _context.SaveChangesAsync();
 
         return true;
+    }
+    #endregion
+
+    #region Remove Method
+    public async Task<ReportingPeriodSupplierEntity> RemovePeriodSupplier(int reportingPeriodId)
+    {
+        var periodSupplier = _context.ReportingPeriodSupplierEntities.Find(reportingPeriodId);
+
+        _context.ReportingPeriodSupplierEntities.Remove(periodSupplier);
+        await _context.SaveChangesAsync();
+        return periodSupplier;
+
     }
     #endregion
 

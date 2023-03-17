@@ -36,6 +36,7 @@ namespace SupplierPortalAPI.Infrastructure.Builders
             services.AddTransient<IUserFactory, UserFactory>();
 
             //ReportingPeriod
+            services.AddTransient<IReportingPeriod, ReportingPeriod>();
             services.AddTransient<IReportingPeriodServices, ReportingPeriodServices>();
             services.AddTransient<IReportingPeriodDataActions,ReportingPeriodDataActionsManager>();
             services.AddTransient<IReportingPeriodFactory, ReportingPeriodFactory>();

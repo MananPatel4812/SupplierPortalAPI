@@ -67,13 +67,13 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
             switch (reportingPeriodType.Name)
             {
                 case ReportingPeriodTypeValues.Annual:
-                    reportingPeriodName = $"{reportingPeriodName} year";
+                    reportingPeriodName = $"{reportingPeriodName} Yearly";
                     break;
                 case ReportingPeriodTypeValues.Quartly:
-                    reportingPeriodName = $"{reportingPeriodName} quarterly";
+                    reportingPeriodName = $"{reportingPeriodName} Quarterly";
                     break;
                 case ReportingPeriodTypeValues.Monthly:
-                    reportingPeriodName = $"{reportingPeriodName} monthly";
+                    reportingPeriodName = $"{reportingPeriodName} Monthly";
                     break;
                 default:
                     reportingPeriodName = $"{reportingPeriodName} {SplitCollectionTimePeriod().FirstOrDefault()}";
@@ -94,21 +94,35 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
             {
                 int convertedCollectionTimePeriod = Convert.ToInt32(collectionTimePeriod);
                 if (convertedCollectionTimePeriod.ToString().Length != 4)
-                    throw new ArgumentException("Collection time period should be in year only");
+                {
+                    throw new ArgumentException("Collection time period should be in Year(ex: YYYY) only");
+                }
+
             }
 
             if (reportingPeriodType != null && reportingPeriodType.Name == ReportingPeriodTypeValues.Quartly)
             {
                 string convertedCollectionTimePeriod = Convert.ToString(collectionTimePeriod);
-                if (convertedCollectionTimePeriod.ToString().Length != 7)
-                    throw new ArgumentException("Collection time period should be in quartly(ex: 2021-Q1) only");
+                var format = "(^[0-9]{4}-[Q]{1}[0-9]{1}$)";
+                var validateformat = format.Equals(convertedCollectionTimePeriod.ToString());
+                if (convertedCollectionTimePeriod.ToString().Length != 7 && validateformat == false)
+                {
+                    throw new ArgumentException("Collection time period should be in Quater(ex: YYYY-Q1) only");
+                }
+
             }
 
             if (reportingPeriodType != null && reportingPeriodType.Name == ReportingPeriodTypeValues.Monthly)
             {
                 string convertedCollectionTimePeriod = Convert.ToString(collectionTimePeriod);
-                if (convertedCollectionTimePeriod.ToString().Length != 8)
-                    throw new ArgumentException("Collection time period should be in monthly(ex: Jan-2021) only");
+                var format = "(^[A-Z]{3}-[0-9]{4}$)";
+                var x = format.Equals(convertedCollectionTimePeriod.ToString());
+
+                if (convertedCollectionTimePeriod.ToString().Length != 8 && x == false)
+                {
+                    throw new ArgumentException("Collection time period should be in Month(ex: Jan-YYYY) only");
+                }
+
             }
 
         }
@@ -184,7 +198,7 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
             return null;
         }
 
-        
+
         public PeriodFacilityDocument AddDataSubmissionDocumentForReportingPeriod(int supplierId, int periodFacilityId, FacilityRequiredDocumentTypeEntity facilityRequiredDocumentType, IEnumerable<DocumentRequirementStatus> documentRequirementStatus)
         {
             throw new NotImplementedException();
@@ -221,6 +235,6 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
             throw new NotImplementedException();
         }
 
-        
+
     }
 }
