@@ -42,13 +42,10 @@ namespace SupplierPortalAPI.Controllers
 
         [HttpGet("GetAllSuppliers")]
         public IEnumerable<SupplierDto> GetAllSuppliers()
-
-        [HttpPost("AddUpdateUser")]
-        public string AddUpdateUser(UserDto userDto)
-
         {
             var list = _service.GetAllSuppliers();
             return list;
         }
+
     }
 }

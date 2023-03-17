@@ -23,7 +23,9 @@ public class ReportingPeriodEntityDomainMapper : IReportingPeriodEntityDomainMap
             var selectedSupplierStatus = supplierReportingPeriodStatuses.First(x => x.Id == item.SupplierReportingPeriodStatusId);
 
             periodDomain.LoadPeriodSupplier(item.Id, supplierVO, item.ReportingPeriodId, selectedSupplierStatus, item.IsActive);
+
         }
+
     }
 
     //private FacilityVO GenerateFacilityVO(FacilityEntity facility)
@@ -63,6 +65,15 @@ public class ReportingPeriodEntityDomainMapper : IReportingPeriodEntityDomainMap
         var reportingPeriodSelectedStatus = reportingPeriodStatuses.Where(x => x.Id == reportingPeriodEntity.ReportingPeriodStatusId).FirstOrDefault();
 
         var reportingPeriod = new ReportingPeriod(reportingPeriodEntity.Id, reportingPeriodEntity.DisplayName, reportingPeriodSelectedType, reportingPeriodEntity.CollectionTimePeriod, reportingPeriodSelectedStatus, reportingPeriodEntity.StartDate, reportingPeriodEntity.EndDate, reportingPeriodEntity.IsActive);
+
+        /*foreach (var periodSupplier in reportingPeriodEntity.ReportingPeriodSupplierEntities)
+        {
+
+            var supplierVO = new SupplierVO(periodSupplier.Supplier.Id, periodSupplier.Supplier.Name, periodSupplier.Supplier.IsActive, new List<FacilityVO>());
+
+            reportingPeriod.AddPeriodSupplier(supplierVO, reportingPeriod.Id, , periodSupplier.IsActive);
+        }*/
+
         return reportingPeriod;
 
     }
