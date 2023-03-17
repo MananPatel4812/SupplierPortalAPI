@@ -10,6 +10,6 @@ namespace BusinessLogic.ReferenceLookups
     {
         public SupplyChainStage() { }
 
-        public SupplyChainStage(int value, string displayname) : base(value, displayname) { }
+        public SupplyChainStage(int value, string displayName) : base(value, displayName) { }
     }
 }

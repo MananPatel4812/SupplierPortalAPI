@@ -1,9 +1,15 @@
+
+﻿using BusinessLogic.SupplierRoot.DomainModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 ﻿using Microsoft.AspNetCore.Mvc;
 using Services.DTOs;
 using Services.Interfaces;
 
 namespace SupplierPortalAPI.Controllers
 {
+
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SupplierController : ControllerBase
@@ -15,16 +21,34 @@ namespace SupplierPortalAPI.Controllers
             _service= supplierServices;
         }
 
+       /* [HttpPost("AddUpdateUser")]
+        public string AddUpdateUser(UserDto userDto)
+        {
+            return _service.AddUpdateUser(userDto);
+        }*/
+
         [HttpPost("AddUpdateSupplier")]
         public string AddUpdateSupplier(SupplierDto supplierDto)
         {
             return _service.AddUpdateSupplier(supplierDto);
         }
 
+
+        [HttpPost("AddUpdateContact")]
+        public string AddUpdateContact(ContactDto contactDto)
+        {
+            return _service.AddUpdateContact(contactDto);
+        }
+
+        [HttpGet("GetAllSuppliers")]
+        public IEnumerable<SupplierDto> GetAllSuppliers()
+
         [HttpPost("AddUpdateUser")]
         public string AddUpdateUser(UserDto userDto)
+
         {
-            return _service.AddUpdateUser(userDto);
+            var list = _service.GetAllSuppliers();
+            return list;
         }
     }
 }

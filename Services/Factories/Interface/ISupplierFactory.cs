@@ -5,6 +5,6 @@ namespace Services.Factories.Interfaces
 {
     public interface ISupplierFactory
     {
-        Supplier CreateNewSupplier(string name, string alias, string email, string contactNo, bool isActive);//, IEnumerable<FacilityDto> facilityDtos, IEnumerable<ContactDto> contactDtos);    
+        Supplier CreateNewSupplier(string name, string alias, string email, string contactNo, bool isActive);    
     }
 }

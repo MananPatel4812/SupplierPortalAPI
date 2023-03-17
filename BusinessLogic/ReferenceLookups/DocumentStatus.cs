@@ -10,6 +10,6 @@ namespace BusinessLogic.ReferenceLookups
     {
         public DocumentStatus() { }
 
-        public DocumentStatus(int value, string displayname) : base(value, displayname) { }
+        public DocumentStatus(int value, string displayName) : base(value, displayName) { }
     }
 }

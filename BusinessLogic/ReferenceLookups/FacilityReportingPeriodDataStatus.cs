@@ -10,6 +10,6 @@ namespace BusinessLogic.ReferenceLookups
     {
         public FacilityReportingPeriodDataStatus(){}
 
-        public FacilityReportingPeriodDataStatus(int value, string displayname) : base(value, displayname) { }
+        public FacilityReportingPeriodDataStatus(int value, string displayName) : base(value, displayName) { }
     }
 }

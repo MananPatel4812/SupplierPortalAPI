@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Services.DTOs;
 
@@ -11,7 +7,11 @@ public class SupplierDto
     public int? Id { get; set; }
     public string Name { get; set; }
     public string Alias { get; set; }
+
+    [EmailAddress(ErrorMessage = "Please enter valid Email-ID !!")]
     public string Email { get; set; }
+
+    [RegularExpression("^[+]{1}(?:[0-9\\-\\(\\)\\/\\.]\\s?){6,15}[0-9]{1}$", ErrorMessage = "Please enter valid ContactNumber !!")]
     public string ContactNo { get; set; }
     public bool IsActive { get; set; }
 

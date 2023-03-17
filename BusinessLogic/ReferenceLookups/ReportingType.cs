@@ -10,6 +10,6 @@ namespace BusinessLogic.ReferenceLookups
     {
         public ReportingType() { }
 
-        public ReportingType(int value, string displayname) : base(value, displayname) { }
+        public ReportingType(int value, string displayName) : base(value, displayName) { }
     }
 }

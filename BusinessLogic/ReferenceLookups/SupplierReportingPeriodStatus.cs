@@ -11,6 +11,6 @@ namespace BusinessLogic.ReferenceLookups
         public SupplierReportingPeriodStatus()
         {}
 
-        public SupplierReportingPeriodStatus(int value, string displayname) : base(value, displayname) { }
+        public SupplierReportingPeriodStatus(int value, string displayName) : base(value, displayName) { }
     }
 }
