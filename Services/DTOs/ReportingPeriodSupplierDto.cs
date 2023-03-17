@@ -8,7 +8,7 @@ namespace Services.DTOs
 {
     public class ReportingPeriodSupplierDto
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
         public int SupplierId { get; set; }
 
         public string SupplierName { get; set; }
@@ -21,15 +21,18 @@ namespace Services.DTOs
 
         public string SupplierReportingPeriodStatus { get;set; }
 
-        public ReportingPeriodSupplierDto(int? id,int supplierId,string supplierName,int reportingPeriodId,string reportingPeriod,int supplierReportingPeriodStatusId,string supplierReportingPeriodStatus)
+        public bool IsActive { get; set; }
+
+        public ReportingPeriodSupplierDto(int id,int supplierId, string supplierName, int reportingPeriodId, string reportingPeriod, int supplierReportingPeriodStatusId, string supplierReportingPeriodStatus, bool isActive)
         {
             Id = id;
             SupplierId = supplierId;
             SupplierName = supplierName;
             ReportingPeriodId = reportingPeriodId;
             ReportingPeriod = reportingPeriod;
-            SupplierReportingPeriodStatusId= supplierReportingPeriodStatusId;
+            SupplierReportingPeriodStatusId = supplierReportingPeriodStatusId;
             SupplierReportingPeriodStatus = supplierReportingPeriodStatus;
+            IsActive = isActive;
         }
 
 

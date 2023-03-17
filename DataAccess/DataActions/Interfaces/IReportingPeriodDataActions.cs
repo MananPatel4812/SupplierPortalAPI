@@ -17,6 +17,9 @@ namespace DataAccess.DataActions.Interfaces
 
         Task<bool> AddReportingPeriod(ReportingPeriodEntity reportingPeriodEntity);
 
+        Task<bool> AddPeriodSupplier(ReportingPeriodSupplierEntity reportingPeriodSupplierEntity);
+
+        Task<ReportingPeriodSupplierEntity> RemovePeriodSupplier(int reportingPeriodSupplierId);
         Task<bool> UpdateReportingPeriod(ReportingPeriodEntity reportingPeriod);
         ReportingPeriodEntity GetReportingPeriodById(int reportingPeriodId);
         IEnumerable<ReportingPeriodTypeEntity> GetReportingPeriodTypeById(int reportingPeriodTypeId);
@@ -36,7 +39,7 @@ namespace DataAccess.DataActions.Interfaces
 
         Task<IEnumerable<ReportingPeriodSupplierDocumentEntity>> GetReportingPeriodSuppliersDocument(int DocumentId);
 
-        Task<IEnumerable<ReportingPeriodSupplierEntity>> GetReportingPeriodSuppliers(int ReportingPeriodId);
+        IEnumerable<ReportingPeriodSupplierEntity> GetReportingPeriodSuppliers(int ReportingPeriodId);
 
         IEnumerable<SupplierReportingPeriodStatusEntity> GetSupplierReportingPeriodStatus();
 
