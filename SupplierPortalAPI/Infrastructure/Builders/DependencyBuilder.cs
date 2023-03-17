@@ -9,6 +9,8 @@ using Services.Mappers.Interfaces;
 using Services.Mappers.SupplierMappers;
 using Services.Mappers.ReportingPeriodMappers;
 using Services.Mappers.UserMappers;
+using BusinessLogic.ReportingPeriodRoot.Interfaces;
+using BusinessLogic.ReportingPeriodRoot.DomainModels;
 
 namespace SupplierPortalAPI.Infrastructure.Builders
 {
@@ -34,6 +36,7 @@ namespace SupplierPortalAPI.Infrastructure.Builders
             services.AddTransient<IUserFactory, UserFactory>();
 
             //ReportingPeriod
+            services.AddTransient<IReportingPeriod, ReportingPeriod>();
             services.AddTransient<IReportingPeriodServices, ReportingPeriodServices>();
             services.AddTransient<IReportingPeriodDataActions,ReportingPeriodDataActionsManager>();
             services.AddTransient<IReportingPeriodFactory, ReportingPeriodFactory>();
