@@ -32,6 +32,15 @@ namespace SupplierPortalAPI.Controllers
         }
         #endregion
 
+        #region Get All Methods
+
+        /*[HttpGet("GetActiveReportingPeriod")]
+        public IEnumerable<InternalReportingPeriodDTO> GetActiveReportingPeriod()
+        {
+            return _services.GetActiveReportingPeriod();
+        }*/
+
+        #endregion
 
 
 

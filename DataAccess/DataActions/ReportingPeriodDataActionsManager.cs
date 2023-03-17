@@ -214,6 +214,16 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
 
     }
 
+    public IEnumerable<ReportingPeriodSupplierEntity> GetPeriodSuppliers()
+    {
+        var periodSuppliers = _context.ReportingPeriodSupplierEntities
+                                .Include(x => x.Supplier)
+                                .Include(x => x.ReportingPeriod)
+                                .Include(x => x.SupplierReportingPeriodStatus)
+                                .ToList();
+        return periodSuppliers;
+    }
+
     public async Task<IEnumerable<DocumentRequiredStatusEntity>> GetDocumentRequiredStatus()
     {
         return await _context.DocumentRequiredStatusEntities.ToListAsync();

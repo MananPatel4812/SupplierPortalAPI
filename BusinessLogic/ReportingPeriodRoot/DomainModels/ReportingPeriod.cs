@@ -15,7 +15,8 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
 {
     public class ReportingPeriod : IReportingPeriod
     {
-        private HashSet<PeriodSupplier> periodSupplier;
+        private HashSet<PeriodSupplier> _periodSupplier;
+
         private readonly string REPORTING_PERIOD_NAME_PREFIX = "Reporting Period Data";
         public ReportingPeriod(ReportingPeriodType types, string collectionTimePeriod, ReportingPeriodStatus status, DateTime startDate, DateTime? endDate, bool isActive)
         {
@@ -27,6 +28,7 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
             StartDate = startDate;
             EndDate = endDate;
             IsActive = isActive;
+            _periodSupplier = new HashSet<PeriodSupplier>();
         }
 
         public ReportingPeriod(int id, string displayName, ReportingPeriodType types, string collectionTimePeriod, ReportingPeriodStatus status, DateTime startDate, DateTime? endDate, bool isActive) : this(types, collectionTimePeriod, status, startDate, endDate, isActive)
@@ -35,7 +37,7 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         }
         public ReportingPeriod()
         {
-            periodSupplier = new HashSet<PeriodSupplier>();
+            
         }
 
         public int Id { get; private set; }
@@ -129,11 +131,11 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         {
             get
             {
-                if (periodSupplier == null)
+                if (_periodSupplier == null)
                 {
                     return new List<PeriodSupplier>();
                 }
-                return periodSupplier.ToList();
+                return _periodSupplier.ToList();
             }
         }
 
@@ -152,13 +154,13 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
 
         public PeriodSupplier LoadPeriodSupplier(int id, SupplierVO supplier, int reportingPeriodId, SupplierReportingPeriodStatus supplierReportingPeriodStatus, bool isActive)
         {
-            var reportingPeriodSupplier = new PeriodSupplier(id, supplier, reportingPeriodId, supplierReportingPeriodStatus, isActive);
+            var reportingPeriodSupplier = new PeriodSupplier(id,supplier, reportingPeriodId, supplierReportingPeriodStatus, isActive);
 
-            if (periodSupplier.Contains(reportingPeriodSupplier))
+            if (_periodSupplier.Contains(reportingPeriodSupplier))
             {
                 throw new Exception("Supplier Already Exist!");
             }
-            periodSupplier.Add(reportingPeriodSupplier);
+            _periodSupplier.Add(reportingPeriodSupplier);
 
             return reportingPeriodSupplier;
 
@@ -169,13 +171,26 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         {
             var reportingPeriodSupplier = new PeriodSupplier(supplier, reportingPeriodId, supplierReportingPeriodStatus, isActive);
 
-            if (periodSupplier.Contains(reportingPeriodSupplier))
+            /*var x = _periodSupplier;
+            var isExists = _periodSupplier.Any(x => x.Supplier.Id == supplier.Id && x.ReportingPeriodId == reportingPeriodId); */
+
+            if (_periodSupplier.Contains(reportingPeriodSupplier))
             {
                 throw new Exception("Supplier Already Exist!");
             }
-            periodSupplier.Add(reportingPeriodSupplier);
 
-            return reportingPeriodSupplier;
+            /*if(isExists == true)
+            {
+                throw new Exception("Supplier Already Exist!");
+            }*/
+
+            else
+            { 
+                
+                _periodSupplier.Add(reportingPeriodSupplier);
+
+                 return reportingPeriodSupplier;
+            }
         }
 
         public PeriodSupplier RemovePeriodSupplier(int periodSupplierId)
