@@ -11,5 +11,6 @@ namespace Services.Factories.Interface;
 
 public interface IReportingPeriodFactory
 {
-    ReportingPeriod CreateNewReportingperiod(string CollectionTimePeriod,ReportingPeriodType reportingPeriodType,ReportingPeriodStatus reportingPeriodStatus,DateTime startDate,DateTime endDate, bool active);
+    ReportingPeriod CreateNewReportingPeriod(ReportingPeriodType reportingPeriodType,string CollectionTimePeriod,ReportingPeriodStatus reportingPeriodStatus,DateTime startDate,DateTime? endDate, bool active);
 }
+

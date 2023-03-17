@@ -1,5 +1,7 @@
 ﻿using BusinessLogic.ReferenceLookups;
 using BusinessLogic.ReportingPeriodRoot.DomainModels;
+using BusinessLogic.SupplierRoot.ValueObjects;
+using DataAccess.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,31 +12,36 @@ namespace BusinessLogic.ReportingPeriodRoot.Interfaces
 {
     public interface IReportingPeriod
     {
-        int Id { get; set; }
-        string DisplayName { get; set; }
-        string CollectionTimePeriod { get; set; }
-        DateTime StartDate { get; set; }
-        DateTime? EndDate { get; set; }
-        bool Active { get; set; }
-        DateTime CreatedOn { get; set; }
-        DateTime? UpdatedOn { get; set; }
-        string CreatedBy { get; set; }
-        string? UpdatedBy { get; set; }
+        int Id { get; }
+        string DisplayName { get; }
+        string CollectionTimePeriod { get; }
+        DateTime StartDate { get; }
+        DateTime? EndDate { get; }
+        bool IsActive { get; }
+        DateTime CreatedOn { get; }
+        DateTime? UpdatedOn { get; }
+        string CreatedBy { get; }
+        string? UpdatedBy { get; }
 
-        IEnumerable<ReportingPeriodType> ReportingPeriodType { get; }
-        IEnumerable<ReportingPeriodStatus> ReportingPeriodStatus { get; }
+        ReportingPeriodType ReportingPeriodType { get; }
+        ReportingPeriodStatus ReportingPeriodStatus { get;}
         
         IEnumerable<PeriodSupplier> PeriodSuppliers { get; }
 
-        void AddPeriodSupplier(int id, int supplierId, int reportingPeriodId, SupplierReportingPeriodStatus supplierReportingPeriodStatus);
+        PeriodSupplier LoadPeriodSupplier(int reportingPriodSupplierId,SupplierVO supplier, int reportingPeriodId,SupplierReportingPeriodStatus supplierReportingPeriodStatus,bool isActive);
+
+        PeriodSupplier AddPeriodSupplier(SupplierVO supplier, int reportingPeriodId, SupplierReportingPeriodStatus supplierReportingPeriodStatus, bool isActive);
+
+        PeriodSupplier RemovePeriodSupplier(int periodSupplierId);
         void AddPeriodFacilityToPeriodSupplier(int supplierId,FacilityReportingPeriodDataStatus facilityReportingPeriodDataStatus,ReportingType reportingType,int reportingPeriodSupplierId);
         void AddDocumentToPeriodSupplierFacility(DocumentType documentType,DocumentStatus documentStatus);
         PeriodFacilityDocument RemoveDocumentFromPeriodSupplierFacility(int supplierId,int periodFacilityId,int documentId);
-        PeriodFacilityDocument AddDataSubmissionDocumentForReportingPeriod(int supplierId,int periodFacilityId, DataAccess.Entities.FacilityRequiredDocumentType facilityRequiredDocumentType,IEnumerable<DocumentRequirementStatus> documentRequirementStatus);
+        PeriodFacilityDocument AddDataSubmissionDocumentForReportingPeriod(int supplierId,int periodFacilityId, FacilityRequiredDocumentTypeEntity facilityRequiredDocumentType,IEnumerable<DocumentRequirementStatus> documentRequirementStatus);
         PeriodSupplierDocument AddSupplementalDataDocumentToReportingPeriodSupplier(int supplierId,string documentName,DocumentType documentType,IEnumerable<DocumentStatus> documentStatus);
         PeriodSupplierDocument RemoveSupplementalDataDocumentToReportingPeriodSupplier(int supplierId,int documentId);
         IEnumerable<PeriodFacility> UpdateDataStatusToSubmittedForCompletePeriodFacility(int supplierId,FacilityReportingPeriodDataStatus facilityReportingPeriodDataStatus);
 
+        //IEnumerable<ReportingPeriodTypeEntity> RetrieveReportingPeriodType(ReportingPeriodType reportingPeriodType);
 
     }
 }

@@ -1,5 +1,7 @@
 ﻿using BusinessLogic.ReferenceLookups;
+using BusinessLogic.ReportingPeriodRoot.ValueObjects;
 using BusinessLogic.SupplierRoot.DomainModels;
+using BusinessLogic.SupplierRoot.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,58 +12,24 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
 {
     public class PeriodSupplier
     {
-        private HashSet<Supplier> Suppliers;
-        private HashSet<ReportingPeriod> reportingPeriods;
-        private HashSet<SupplierReportingPeriodStatus> supplierReportingPeriodStatus;
-
-        public PeriodSupplier()
+        public PeriodSupplier(SupplierVO supplier, int reportingPeriodId, SupplierReportingPeriodStatus supplierReportingPeriodStatus,bool isActive)
         {
-            Suppliers = new HashSet<Supplier>();
-            reportingPeriods = new HashSet<ReportingPeriod>();
-            supplierReportingPeriodStatus = new HashSet<SupplierReportingPeriodStatus>();
+            Supplier = supplier;
+            ReportingPeriodId = reportingPeriodId;
+            SupplierReportingPeriodStatus = supplierReportingPeriodStatus;
+            IsActive = isActive;
+
         }
 
-        public PeriodSupplier(int id) : this()
+        public PeriodSupplier(int id, SupplierVO supplierVO, int reportingPeriodId, SupplierReportingPeriodStatus supplierReportingPeriod, bool isActive) : this(supplierVO, reportingPeriodId, supplierReportingPeriod,isActive)
         {
             Id = id;
         }
 
-        public int Id { get; set; }
-
-        public IEnumerable<Supplier> Supplier
-        {
-            get
-            {
-                if(Suppliers == null)
-                {
-                    return new List<Supplier>();
-                }
-                return Suppliers.ToList();
-            }
-        }
-
-        public IEnumerable<ReportingPeriod> ReportingPeriod
-        {
-            get
-            {
-                if(reportingPeriods == null)
-                {
-                    return new List<ReportingPeriod>();
-                }
-                return reportingPeriods.ToList();
-            }
-        }
-
-        public IEnumerable<SupplierReportingPeriodStatus> SupplierReportingPeriodStatus
-        {
-            get
-            {
-                if(supplierReportingPeriodStatus == null)
-                {
-                    return new List<SupplierReportingPeriodStatus>();
-                }
-                return supplierReportingPeriodStatus.ToList();
-            }
-        }
+        public int Id { get; private set; }
+        public SupplierVO Supplier { get; private set; }
+        public int ReportingPeriodId { get; private set; }
+        public SupplierReportingPeriodStatus SupplierReportingPeriodStatus { get; private set; }
+        public bool IsActive { get; private set; }
     }
 }

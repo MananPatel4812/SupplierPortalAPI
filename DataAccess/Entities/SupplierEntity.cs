@@ -8,6 +8,7 @@ namespace DataAccess.Entities
         public SupplierEntity()
         {
             ContactEntities = new HashSet<ContactEntity>();
+            FacilityEntities = new HashSet<FacilityEntity>();
             ReportingPeriodSupplierEntities = new HashSet<ReportingPeriodSupplierEntity>();
         }
 
@@ -23,6 +24,7 @@ namespace DataAccess.Entities
         public string? UpdatedBy { get; set; }
 
         public virtual ICollection<ContactEntity> ContactEntities { get; set; }
+        public virtual ICollection<FacilityEntity> FacilityEntities { get; set; }
         public virtual ICollection<ReportingPeriodSupplierEntity> ReportingPeriodSupplierEntities { get; set; }
     }
 }
