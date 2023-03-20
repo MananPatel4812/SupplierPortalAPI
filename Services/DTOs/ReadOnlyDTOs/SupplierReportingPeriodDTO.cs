@@ -17,7 +17,7 @@ public class SupplierReportingPeriodDTO
     public string SupplierReportingPeriodStatus { get; set; }
 
     public SupplierReportingPeriodDTO(int id, int supplierId, string supplierName, 
-        int reportingPeriodId, string reportingPeriodName, int supplierReportingPeriodStatusId,
+        int reportingPeriodId, string reportingPeriodName,int supplierReportingPeriodStatusId,
         string supplierReportingPeriodStatus)
     {
         Id = id;

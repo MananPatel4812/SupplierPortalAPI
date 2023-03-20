@@ -39,7 +39,5 @@ namespace SupplierPortalAPI.Controllers
             var list = _service.GetAllSuppliers();
             return list;
         }
-
-        
     }
 }

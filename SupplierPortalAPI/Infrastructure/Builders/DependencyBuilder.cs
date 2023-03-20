@@ -8,6 +8,7 @@ using Services.Interfaces;
 using Services.Mappers.Interfaces;
 using Services.Mappers.SupplierMappers;
 using Services.Mappers.ReportingPeriodMappers;
+
 using BusinessLogic.ReportingPeriodRoot.Interfaces;
 using BusinessLogic.ReportingPeriodRoot.DomainModels;
 
@@ -27,7 +28,6 @@ namespace SupplierPortalAPI.Infrastructure.Builders
             services.AddTransient<ISupplierEntityDomainMapper, SupplierEntityDomainMapper>();
             services.AddTransient<ISupplierDomainDtoMapper, SupplierDomainDtoMapper>();
 
-
             //ReportingPeriod
             services.AddTransient<IReportingPeriod, ReportingPeriod>();
             services.AddTransient<IReportingPeriodServices, ReportingPeriodServices>();
@@ -35,6 +35,8 @@ namespace SupplierPortalAPI.Infrastructure.Builders
             services.AddTransient<IReportingPeriodFactory, ReportingPeriodFactory>();
             services.AddTransient<IReportingPeriodDomainDtoMapper, ReportingPeriodDomainDtoMapper>();
             services.AddTransient<IReportingPeriodEntityDomainMapper, ReportingPeriodEntityDomainMapper>();
+            services.AddTransient<IReadOnlyEntityToDtoMapper, ReadOnlyEntityToDtoMapper>();
+            services.AddTransient<IReportingPeriod, ReportingPeriod>();
             services.AddTransient<IReferenceLookUpMapper, ReferenceLookupMapper>();
             //services.AddScoped<IServiceCollection, ServiceCollection>();    
         }

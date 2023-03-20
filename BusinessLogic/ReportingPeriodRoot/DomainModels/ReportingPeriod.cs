@@ -15,7 +15,8 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
 {
     public class ReportingPeriod : IReportingPeriod
     {
-        private HashSet<PeriodSupplier> periodSupplier;
+        private HashSet<PeriodSupplier> _periodSupplier;
+
         private readonly string REPORTING_PERIOD_NAME_PREFIX = "Reporting Period Data";
         public ReportingPeriod(ReportingPeriodType types, string collectionTimePeriod, ReportingPeriodStatus status, DateTime startDate, DateTime? endDate, bool isActive)
         {
@@ -27,6 +28,7 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
             StartDate = startDate;
             EndDate = endDate;
             IsActive = isActive;
+            _periodSupplier = new HashSet<PeriodSupplier>();
         }
 
         public ReportingPeriod(int id, string displayName, ReportingPeriodType types, string collectionTimePeriod, ReportingPeriodStatus status, DateTime startDate, DateTime? endDate, bool isActive) : this(types, collectionTimePeriod, status, startDate, endDate, isActive)
@@ -35,7 +37,7 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         }
         public ReportingPeriod()
         {
-            periodSupplier = new HashSet<PeriodSupplier>();
+            
         }
 
         public int Id { get; private set; }
@@ -65,13 +67,13 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
             switch (reportingPeriodType.Name)
             {
                 case ReportingPeriodTypeValues.Annual:
-                    reportingPeriodName = $"{reportingPeriodName} year";
+                    reportingPeriodName = $"{reportingPeriodName} Yearly";
                     break;
                 case ReportingPeriodTypeValues.Quartly:
-                    reportingPeriodName = $"{reportingPeriodName} quarterly";
+                    reportingPeriodName = $"{reportingPeriodName} Quarterly";
                     break;
                 case ReportingPeriodTypeValues.Monthly:
-                    reportingPeriodName = $"{reportingPeriodName} monthly";
+                    reportingPeriodName = $"{reportingPeriodName} Monthly";
                     break;
                 default:
                     reportingPeriodName = $"{reportingPeriodName} {SplitCollectionTimePeriod().FirstOrDefault()}";
@@ -92,21 +94,35 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
             {
                 int convertedCollectionTimePeriod = Convert.ToInt32(collectionTimePeriod);
                 if (convertedCollectionTimePeriod.ToString().Length != 4)
-                    throw new ArgumentException("Collection time period should be in year only");
+                {
+                    throw new ArgumentException("Collection time period should be in Year(ex: YYYY) only");
+                }
+
             }
 
             if (reportingPeriodType != null && reportingPeriodType.Name == ReportingPeriodTypeValues.Quartly)
             {
                 string convertedCollectionTimePeriod = Convert.ToString(collectionTimePeriod);
-                if (convertedCollectionTimePeriod.ToString().Length != 7)
-                    throw new ArgumentException("Collection time period should be in quartly(ex: 2021-Q1) only");
+                var format = "(^[0-9]{4}-[Q]{1}[0-9]{1}$)";
+                var validateformat = format.Equals(convertedCollectionTimePeriod.ToString());
+                if (convertedCollectionTimePeriod.ToString().Length != 7 && validateformat == false)
+                {
+                    throw new ArgumentException("Collection time period should be in Quater(ex: YYYY-Q1) only");
+                }
+
             }
 
             if (reportingPeriodType != null && reportingPeriodType.Name == ReportingPeriodTypeValues.Monthly)
             {
                 string convertedCollectionTimePeriod = Convert.ToString(collectionTimePeriod);
-                if (convertedCollectionTimePeriod.ToString().Length != 8)
-                    throw new ArgumentException("Collection time period should be in monthly(ex: Jan-2021) only");
+                var format = "(^[A-Z]{3}-[0-9]{4}$)";
+                var x = format.Equals(convertedCollectionTimePeriod.ToString());
+
+                if (convertedCollectionTimePeriod.ToString().Length != 8 && x == false)
+                {
+                    throw new ArgumentException("Collection time period should be in Month(ex: Jan-YYYY) only");
+                }
+
             }
 
         }
@@ -115,11 +131,11 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         {
             get
             {
-                if (periodSupplier == null)
+                if (_periodSupplier == null)
                 {
                     return new List<PeriodSupplier>();
                 }
-                return periodSupplier.ToList();
+                return _periodSupplier.ToList();
             }
         }
 
@@ -138,13 +154,13 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
 
         public PeriodSupplier LoadPeriodSupplier(int id, SupplierVO supplier, int reportingPeriodId, SupplierReportingPeriodStatus supplierReportingPeriodStatus, bool isActive)
         {
-            var reportingPeriodSupplier = new PeriodSupplier(id, supplier, reportingPeriodId, supplierReportingPeriodStatus, isActive);
+            var reportingPeriodSupplier = new PeriodSupplier(id,supplier, reportingPeriodId, supplierReportingPeriodStatus, isActive);
 
-            if (periodSupplier.Contains(reportingPeriodSupplier))
+            if (_periodSupplier.Contains(reportingPeriodSupplier))
             {
                 throw new Exception("Supplier Already Exist!");
             }
-            periodSupplier.Add(reportingPeriodSupplier);
+            _periodSupplier.Add(reportingPeriodSupplier);
 
             return reportingPeriodSupplier;
 
@@ -155,13 +171,23 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         {
             var reportingPeriodSupplier = new PeriodSupplier(supplier, reportingPeriodId, supplierReportingPeriodStatus, isActive);
 
-            if (periodSupplier.Contains(reportingPeriodSupplier))
+            if (_periodSupplier.Contains(reportingPeriodSupplier))
             {
                 throw new Exception("Supplier Already Exist!");
             }
-            periodSupplier.Add(reportingPeriodSupplier);
 
-            return reportingPeriodSupplier;
+            /*if(isExists == true)
+            {
+                throw new Exception("Supplier Already Exist!");
+            }*/
+
+            else
+            {
+
+                _periodSupplier.Add(reportingPeriodSupplier);
+
+                return reportingPeriodSupplier;
+            }
         }
 
         public PeriodSupplier RemovePeriodSupplier(int periodSupplierId)
@@ -169,7 +195,7 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
             return null;
         }
 
-        
+
         public PeriodFacilityDocument AddDataSubmissionDocumentForReportingPeriod(int supplierId, int periodFacilityId, FacilityRequiredDocumentTypeEntity facilityRequiredDocumentType, IEnumerable<DocumentRequirementStatus> documentRequirementStatus)
         {
             throw new NotImplementedException();
@@ -206,6 +232,6 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
             throw new NotImplementedException();
         }
 
-        
+
     }
 }
