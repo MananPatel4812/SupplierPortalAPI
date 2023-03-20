@@ -3,12 +3,7 @@ using BusinessLogic.ReportingPeriodRoot.DomainModels;
 using BusinessLogic.SupplierRoot.ValueObjects;
 using DataAccess.Entities;
 using Services.Mappers.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Services.Mappers.ReportingPeriodMappers;
 
@@ -64,15 +59,15 @@ public class ReportingPeriodEntityDomainMapper : IReportingPeriodEntityDomainMap
         var reportingPeriodSelectedType = reportingPeriodTypes.Where(x => x.Id == reportingPeriodEntity.ReportingPeriodTypeId).FirstOrDefault();
         var reportingPeriodSelectedStatus = reportingPeriodStatuses.Where(x => x.Id == reportingPeriodEntity.ReportingPeriodStatusId).FirstOrDefault();
 
-        var reportingPeriod = new ReportingPeriod(reportingPeriodEntity.Id, reportingPeriodEntity.DisplayName, reportingPeriodSelectedType, reportingPeriodEntity.CollectionTimePeriod, reportingPeriodSelectedStatus, reportingPeriodEntity.StartDate, reportingPeriodEntity.EndDate, reportingPeriodEntity.IsActive);
+        var reportingPeriod = new ReportingPeriod(reportingPeriodEntity.Id, 
+            reportingPeriodEntity.DisplayName, 
+            reportingPeriodSelectedType, 
+            reportingPeriodEntity.CollectionTimePeriod, 
+            reportingPeriodSelectedStatus, 
+            reportingPeriodEntity.StartDate, reportingPeriodEntity.EndDate, 
+            reportingPeriodEntity.IsActive);
 
-        /*foreach (var periodSupplier in reportingPeriodEntity.ReportingPeriodSupplierEntities)
-        {
-
-            var supplierVO = new SupplierVO(periodSupplier.Supplier.Id, periodSupplier.Supplier.Name, periodSupplier.Supplier.IsActive, new List<FacilityVO>());
-
-            reportingPeriod.AddPeriodSupplier(supplierVO, reportingPeriod.Id, , periodSupplier.IsActive);
-        }*/
+        
 
         return reportingPeriod;
 
