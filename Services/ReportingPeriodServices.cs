@@ -86,7 +86,7 @@ public class ReportingPeriodServices : IReportingPeriodServices
         return reportingPeriod;
 
     }
-    
+
     private ReportingPeriod RetrieveAndConvertReportingPeriod(int reportingPeriodId)
     {
         var reportingPeriodEntity = _reportingPeriodDataActions.GetReportingPeriodById(reportingPeriodId);
@@ -257,7 +257,6 @@ public class ReportingPeriodServices : IReportingPeriodServices
         {
             reportingPeriodDto.Add(_readOnlyEntityToDtoMapper.ConvertReportingPeriodEntityToInternalPeriodDTO(reportingPeriodEntity));
         }
-
         return reportingPeriodDto;
     }
 
@@ -283,13 +282,13 @@ public class ReportingPeriodServices : IReportingPeriodServices
         var activePeriodSuppliers = _reportingPeriodDataActions.GetPeriodSuppliers();
         var periodSupplierDto = new List<ReportingPeriodActiveSupplierDTO>();
 
-        foreach(var periodSupplierEntity in activePeriodSuppliers)
+        foreach (var periodSupplierEntity in activePeriodSuppliers)
         {
-            if(periodSupplierEntity.Supplier.IsActive == true)
+            if (periodSupplierEntity.Supplier.IsActive == true)
             {
                 periodSupplierDto.Add(_readOnlyEntityToDtoMapper.ConvertReportingPeriodSupplierEntityToReportingPeriodActiveSupplier(periodSupplierEntity));
             }
-            
+
         }
 
         return periodSupplierDto;

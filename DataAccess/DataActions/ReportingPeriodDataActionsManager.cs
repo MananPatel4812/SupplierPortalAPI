@@ -181,14 +181,7 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
 
     public IEnumerable<SupplierReportingPeriodStatusEntity> GetSupplierReportingPeriodStatus()
     {
-        var reportingPeriodSupplier =
-            _context.ReportingPeriodSupplierEntities
-            .Include(x => x.Supplier)
-            .Include(x => x.ReportingPeriod)
-            .Include(x=>x.SupplierReportingPeriodStatus)
-            .Where(x => x.ReportingPeriodId == reportingPeriodId).ToList();
-        return reportingPeriodSupplier;
-
+        return _context.SupplierReportingPeriodStatusEntities;
     }
 
     public IEnumerable<ReportingPeriodSupplierEntity> GetPeriodSuppliers()
@@ -261,7 +254,10 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
     public IEnumerable<ReportingPeriodSupplierEntity> GetReportingPeriodSuppliers(int reportingPeriodId)
     {
         var reportingPeriodSupplier =
-            _context.ReportingPeriodSupplierEntities.Include(x => x.Supplier).Where(x => x.ReportingPeriodId == reportingPeriodId).ToList();
+            _context.ReportingPeriodSupplierEntities.Include(x => x.Supplier)
+            .Include(x =>x .ReportingPeriod)
+            .Include(x=>x.SupplierReportingPeriodStatus)
+            .Where(x => x.ReportingPeriodId == reportingPeriodId).ToList();
         return reportingPeriodSupplier;
 
     }

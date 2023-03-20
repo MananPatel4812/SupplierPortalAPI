@@ -11,5 +11,9 @@ namespace Services.Mappers.Interfaces
     public interface IReadOnlyEntityToDtoMapper
     {
         SupplierReportingPeriodDTO ConvertReportingPeriodSupplierEntityToSupplierReportingPeriodDTO(ReportingPeriodSupplierEntity reportingPeriodSupplierEntity);
+
+        InternalReportingPeriodDTO ConvertReportingPeriodEntityToInternalPeriodDTO(ReportingPeriodEntity reportingPeriodEntity);
+
+        ReportingPeriodActiveSupplierDTO ConvertReportingPeriodSupplierEntityToReportingPeriodActiveSupplier(ReportingPeriodSupplierEntity reportingPeriodSupplierEntity);
     }
 }
