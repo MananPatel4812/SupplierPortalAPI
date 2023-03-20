@@ -9,31 +9,70 @@ namespace DataAccess.DataActions.Interfaces
 {
     public interface IReportingPeriodDataActions : IDisposable
     {
-        Task<IEnumerable<ReportingPeriodEntity>> GetReportingPeriods(int ReportingPeriodId);
 
-        IEnumerable<ReportingPeriodTypeEntity> GetReportingPeriodTypes();
-
-        IEnumerable<ReportingPeriodStatusEntity> GetReportingPeriodStatus();
+        #region Add Methods
 
         Task<bool> AddReportingPeriod(ReportingPeriodEntity reportingPeriodEntity);
 
         Task<bool> AddPeriodSupplier(ReportingPeriodSupplierEntity reportingPeriodSupplierEntity);
 
-        Task<ReportingPeriodSupplierEntity> RemovePeriodSupplier(int reportingPeriodSupplierId);
-        Task<bool> UpdateReportingPeriod(ReportingPeriodEntity reportingPeriod);
-        ReportingPeriodEntity GetReportingPeriodById(int reportingPeriodId);
-        IEnumerable<ReportingPeriodTypeEntity> GetReportingPeriodTypeById(int reportingPeriodTypeId);
-        IEnumerable<ReportingPeriodStatusEntity> GetReportingPeriodStatusById(int reportingPeriodStatusId);
-        
         Task<bool> AddReportingPeriodFacilityDocument(ReportingPeriodFacilityDocumentEntity reportingPeriodFacilityDocument);
-
-        Task<bool> UpdateReportingPeriodFacilityDocument(ReportingPeriodFacilityDocumentEntity reportingPeriodFacilityDocument);
 
         Task<bool> AddReportingPeriodSupplierDocument(ReportingPeriodSupplierDocumentEntity reportingPeriodSupplierDocument);
 
+        #endregion
+
+        #region Update Methods
+
+        Task<bool> UpdateReportingPeriod(ReportingPeriodEntity reportingPeriod);
+
+        Task<bool> UpdateReportingPeriodFacilityDocument(ReportingPeriodFacilityDocumentEntity reportingPeriodFacilityDocument);
+
         Task<bool> UpdateReportingPeriodSupplierDocument(ReportingPeriodSupplierDocumentEntity reportingPeriodSupplierDocument);
 
-        Task<IEnumerable<ReportingPeriodFacilityEntity>> GetReportingPeriodFacilities(int SupplierId,int ReportingPeriodId);
+        #endregion
+
+        #region Remove Methods
+
+        Task<ReportingPeriodSupplierEntity> RemovePeriodSupplier(int reportingPeriodSupplierId);
+
+        #endregion
+
+        #region GetAll Methods
+
+        IEnumerable<ReportingPeriodTypeEntity> GetReportingPeriodTypes();
+
+        IEnumerable<ReportingPeriodStatusEntity> GetReportingPeriodStatus();
+
+        IEnumerable<ReportingPeriodEntity> GetReportingPeriods();
+
+        IEnumerable<ReportingPeriodSupplierEntity> GetPeriodSuppliers();
+
+        IEnumerable<SupplierReportingPeriodStatusEntity> GetSupplierReportingPeriodStatus();
+
+        IEnumerable<FacilityReportingPeriodDataStatusEntity> GetFacilityReportingPeriodDataStatus();
+
+        IEnumerable<DocumentRequiredStatusEntity> GetDocumentRequiredStatus();
+
+        IEnumerable<DocumentStatusEntity> GetDocumentStatus();
+
+        IEnumerable<DocumentTypeEntity> GetDocumentType();
+
+        IEnumerable<FacilityRequiredDocumentTypeEntity> GetFacilityRequiredDocumentType();
+
+        #endregion
+
+        #region GetById Methods
+
+        Task<IEnumerable<ReportingPeriodEntity>> GetReportingPeriods(int ReportingPeriodId);
+
+        ReportingPeriodEntity GetReportingPeriodById(int reportingPeriodId);
+        
+        IEnumerable<ReportingPeriodTypeEntity> GetReportingPeriodTypeById(int reportingPeriodTypeId);
+        
+        IEnumerable<ReportingPeriodStatusEntity> GetReportingPeriodStatusById(int reportingPeriodStatusId);
+
+        Task<IEnumerable<ReportingPeriodFacilityEntity>> GetReportingPeriodFacilities(int SupplierId, int ReportingPeriodId);
 
         Task<IEnumerable<ReportingPeriodFacilityDocumentEntity>> GetReportingPeriodFacilitiesDocument(int DocumentId);
 
@@ -41,18 +80,7 @@ namespace DataAccess.DataActions.Interfaces
 
         IEnumerable<ReportingPeriodSupplierEntity> GetReportingPeriodSuppliers(int ReportingPeriodId);
 
-        IEnumerable<ReportingPeriodSupplierEntity> GetPeriodSuppliers();
+        #endregion
 
-        IEnumerable<SupplierReportingPeriodStatusEntity> GetSupplierReportingPeriodStatus();
-
-        Task<IEnumerable<FacilityReportingPeriodDataStatusEntity>> GetFacilityReportingPeriodDataStatus();
-
-        Task<IEnumerable<DocumentRequiredStatusEntity>> GetDocumentRequiredStatus();
-
-        Task<IEnumerable<DocumentStatusEntity>> GetDocumentStatus();
-
-        Task<IEnumerable<DocumentTypeEntity>> GetDocumentType();
-
-        Task<IEnumerable<FacilityRequiredDocumentTypeEntity>> GetFacilityRequiredDocumentType();
     }
 }

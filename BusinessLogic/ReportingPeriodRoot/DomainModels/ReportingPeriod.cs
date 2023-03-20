@@ -3,7 +3,13 @@ using BusinessLogic.ReportingPeriodRoot.Interfaces;
 using BusinessLogic.SupplierRoot.ValueObjects;
 using BusinessLogic.ValueConstants;
 using DataAccess.Entities;
-
+using Microsoft.VisualBasic;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlTypes;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BusinessLogic.ReportingPeriodRoot.DomainModels
 {
@@ -169,6 +175,12 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
             {
                 throw new Exception("Supplier Already Exist!");
             }
+
+            /*if(isExists == true)
+            {
+                throw new Exception("Supplier Already Exist!");
+            }*/
+
             else
             {
 

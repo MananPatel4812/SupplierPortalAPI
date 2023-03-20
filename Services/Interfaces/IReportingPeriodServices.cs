@@ -27,8 +27,17 @@ public interface IReportingPeriodServices
     Task<string> AddUpdateReportingPeriod(ReportingPeriodDto reportingPeriodDto);
 
     /// <summary>
-    /// Get Active Period Suppliers
+    /// Get Active ReportingPeriods
     /// </summary>
     /// <returns></returns>
-    IEnumerable<SupplierReportingPeriodDTO> GetReportingPeriodSuppliers(int ReportingPeriodId);
+    IEnumerable<InternalReportingPeriodDTO> GetActiveReportingPeriods();
+
+    /// <summary>
+    /// Get Active ReportingPeriodSuppliers
+    /// </summary>
+    /// <returns></returns>
+    IEnumerable<ReportingPeriodActiveSupplierDTO> GetActivePeriodSuppliers();
+
+
+
 }                   
