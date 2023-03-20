@@ -28,9 +28,9 @@ namespace SupplierPortalAPI.Infrastructure.Builders
             services.AddTransient<ISupplierEntityDomainMapper, SupplierEntityDomainMapper>();
             services.AddTransient<ISupplierDomainDtoMapper, SupplierDomainDtoMapper>();
 
+            //User
             services.AddTransient<IUserDomainDtoMapper,UserDomainDtoMapper>();
             services.AddTransient<IUserEntityDomainMapper,UserEntityDomainMapper>();
-
             services.AddTransient<IUserDomainDtoMapper, UserDomainDtoMapper>();
             services.AddTransient<IUserEntityDomainMapper, UserEntityDomainMapper>();
             services.AddTransient<IUserFactory, UserFactory>();
@@ -42,6 +42,7 @@ namespace SupplierPortalAPI.Infrastructure.Builders
             services.AddTransient<IReportingPeriodFactory, ReportingPeriodFactory>();
             services.AddTransient<IReportingPeriodDomainDtoMapper, ReportingPeriodDomainDtoMapper>();
             services.AddTransient<IReportingPeriodEntityDomainMapper, ReportingPeriodEntityDomainMapper>();
+            services.AddTransient<IReadOnlyEntityToDtoMapper, ReadOnlyEntityToDtoMapper>();
             services.AddTransient<IReportingPeriod, ReportingPeriod>();
             services.AddTransient<IReferenceLookUpMapper, ReferenceLookupMapper>();
             //services.AddScoped<IServiceCollection, ServiceCollection>();    

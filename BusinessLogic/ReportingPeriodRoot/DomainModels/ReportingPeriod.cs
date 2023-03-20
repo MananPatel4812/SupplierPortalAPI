@@ -3,13 +3,7 @@ using BusinessLogic.ReportingPeriodRoot.Interfaces;
 using BusinessLogic.SupplierRoot.ValueObjects;
 using BusinessLogic.ValueConstants;
 using DataAccess.Entities;
-using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace BusinessLogic.ReportingPeriodRoot.DomainModels
 {
@@ -171,25 +165,16 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         {
             var reportingPeriodSupplier = new PeriodSupplier(supplier, reportingPeriodId, supplierReportingPeriodStatus, isActive);
 
-            /*var x = _periodSupplier;
-            var isExists = _periodSupplier.Any(x => x.Supplier.Id == supplier.Id && x.ReportingPeriodId == reportingPeriodId); */
-
             if (_periodSupplier.Contains(reportingPeriodSupplier))
             {
                 throw new Exception("Supplier Already Exist!");
             }
-
-            /*if(isExists == true)
-            {
-                throw new Exception("Supplier Already Exist!");
-            }*/
-
             else
-            { 
-                
+            {
+
                 _periodSupplier.Add(reportingPeriodSupplier);
 
-                 return reportingPeriodSupplier;
+                return reportingPeriodSupplier;
             }
         }
 
