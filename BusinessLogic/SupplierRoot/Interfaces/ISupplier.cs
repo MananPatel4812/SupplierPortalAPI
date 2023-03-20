@@ -17,10 +17,11 @@ namespace BusinessLogic.SupplierRoot.Interfaces
         IEnumerable<Contact> Contacts { get; }
 
         Facility AddSupplierFacility(int Id, string name, string description, bool isPrimary, AssociatePipeline AssociatePipeline, ReportingType ReportingType, SupplyChainStage SupplyChainStage);
-        Facility UpdateSupplierFacility(int Id,string name, string description, bool isPrimary, AssociatePipeline AssociatePipeline, ReportingType ReportingType, SupplyChainStage SupplyChainStage);
+        Facility UpdateSupplierFacility(int Id, string name, string description, bool isPrimary, AssociatePipeline AssociatePipeline, ReportingType ReportingType, SupplyChainStage SupplyChainStage);
 
-        Contact AddSupplierContact(int Id, Supplier supplier, UserVO userVO);
-       /* Contact UpdateSupplierContact(int Id, Supplier Supplier, User User);
-*/
+        Contact AddSupplierContact(int contactId, Supplier supplier, UserVO userVO);
+        Contact UpdateSupplierContact(int contactId, Supplier supplier, UserVO userVO);
+        void ValidateUserContactNo(string contactNo);
+
     }
 }

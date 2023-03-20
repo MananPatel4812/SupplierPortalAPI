@@ -2,14 +2,14 @@
 
 namespace DataAccess.DataActions.Interfaces
 {
-    public interface ISupplierDataActions: IDisposable
+    public interface ISupplierDataActions : IDisposable
     {
         //User
         int AddUser(UserEntity user);
         IEnumerable<UserEntity> GetAllUsers();
         IEnumerable<UserEntity> GetAllUsersByRoleId(int roleId);
         UserEntity GetUserById(int userId);
-        bool UpdateUser(UserEntity user);
+        int UpdateUser(UserEntity user);
         bool IsUniqueEmail(string email, string entity);
 
         //Supplier
@@ -21,8 +21,8 @@ namespace DataAccess.DataActions.Interfaces
         //Contact
         bool AddContact(ContactEntity contact);
         IEnumerable<ContactEntity> GetAllContacts();
-        IEnumerable<ContactEntity> GetAllContactsBySupplier(int supplierId);
-        bool UpdateContact(ContactEntity contact, int contactId);
+        ContactEntity GetContactById(int contactId);
+        bool UpdateContact(ContactEntity contact);
 
         //SupplyChainStages
         IEnumerable<SupplyChainStageEntity> GetSupplyChainStages();

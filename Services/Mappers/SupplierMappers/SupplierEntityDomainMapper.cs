@@ -10,11 +10,11 @@ namespace Services.Mappers.SupplierMappers
     {
         public ContactEntity ConvertContactDomainToEntity(Contact contact)
         {
-            return new ContactEntity 
-            { 
-                Id = contact.Id, 
-                SupplierId =  contact.SupplierId, 
-                UserId = contact.UserVO.Id 
+            return new ContactEntity
+            {
+                Id = contact.Id,
+                SupplierId = contact.SupplierId,
+                UserId = contact.UserVO.Id
             };
         }
 
@@ -31,7 +31,7 @@ namespace Services.Mappers.SupplierMappers
             };
 
             var supplierContacts = new List<ContactEntity>();
-            foreach(var contact in supplier.Contacts ) 
+            foreach (var contact in supplier.Contacts)
             {
                 var contactEntity = new ContactEntity();
                 contactEntity.Id = contact.Id;
@@ -52,7 +52,7 @@ namespace Services.Mappers.SupplierMappers
 
             foreach (var contact in supplierEntity.ContactEntities)
             {
-                var userVO = new UserVO(contact.User.Id, contact.User.Name, contact.User.Email, contact.User.ContactNo, contact.User.RoleId, contact.User.IsActive);
+                var userVO = new UserVO(contact.User.Id, contact.User.Name, contact.User.Email, contact.User.ContactNo, contact.User.IsActive);
 
                 supplier.AddSupplierContact(contact.Id, supplier, userVO);
             }
