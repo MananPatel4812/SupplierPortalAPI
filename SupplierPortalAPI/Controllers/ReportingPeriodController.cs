@@ -34,7 +34,7 @@ namespace SupplierPortalAPI.Controllers
 
         #endregion
 
-        #region GetAll Methods
+        #region Get_All Methods
 
         [HttpGet("GetActiveReportingPeriods")]
         public IEnumerable<InternalReportingPeriodDTO> GetActiveReportingPeriods()
@@ -52,6 +52,22 @@ namespace SupplierPortalAPI.Controllers
         public  IEnumerable<SupplierReportingPeriodDTO> GetReportingPeriodSuppliers(int ReportingPeriodId)
         { 
             return  _services.GetReportingPeriodSuppliers(ReportingPeriodId);
+        }
+        #endregion
+
+        #region Remove_PeriodSupplier
+
+        [HttpDelete("RemovePeriodSupplier")]
+        public string RemovePeriodSupplier(int PeriodSupplierId)
+        {
+            var result = _services.RemovePeriodSupplier(PeriodSupplierId);
+
+            if (result == true)
+            {
+                return "Record deleted successfully..";
+            }
+            else
+                return "PeriodSupplier is not exists !!";
         }
         #endregion
     }

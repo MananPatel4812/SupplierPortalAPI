@@ -118,8 +118,15 @@ public class ReportingPeriodServices : IReportingPeriodServices
 
     #endregion
 
-    #region AddUpdate Methods
+    #region Add-Update-Remove Methods
 
+
+    /// <summary>
+    /// SetReportingPeriod
+    /// </summary>
+    /// <param name="reportingPeriodDto"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
     public async Task<string> AddUpdateReportingPeriod(ReportingPeriodDto reportingPeriodDto)
 
     {
@@ -246,9 +253,21 @@ public class ReportingPeriodServices : IReportingPeriodServices
         return "Success";
     }
 
+    /// <summary>
+    /// Remove PeriodSupplier
+    /// </summary>
+    /// <param name="PeriodSupplierId"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public bool RemovePeriodSupplier(int periodSupplierId)
+    {
+        return _reportingPeriodDataActions.RemovePeriodSupplier(periodSupplierId);
+    }
+
+
     #endregion
 
-    #region GetAll Methods
+    #region GetMethods
     public IEnumerable<InternalReportingPeriodDTO> GetActiveReportingPeriods()
     {
         var activeReportingPeriods = _reportingPeriodDataActions.GetReportingPeriods().Where(x => x.IsActive == true);
@@ -293,6 +312,5 @@ public class ReportingPeriodServices : IReportingPeriodServices
 
         return periodSupplierDto;
     }
-
     #endregion
 }

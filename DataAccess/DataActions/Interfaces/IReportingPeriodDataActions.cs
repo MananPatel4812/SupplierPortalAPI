@@ -34,8 +34,7 @@ namespace DataAccess.DataActions.Interfaces
 
         #region Remove Methods
 
-        Task<ReportingPeriodSupplierEntity> RemovePeriodSupplier(int reportingPeriodSupplierId);
-
+        bool RemovePeriodSupplier(int periodSupplierId);
         #endregion
 
         #region GetAll Methods
@@ -67,7 +66,9 @@ namespace DataAccess.DataActions.Interfaces
         Task<IEnumerable<ReportingPeriodEntity>> GetReportingPeriods(int ReportingPeriodId);
 
         ReportingPeriodEntity GetReportingPeriodById(int reportingPeriodId);
-        
+
+        ReportingPeriodSupplierEntity GetPeriodSupplierById(int periodSupplierId);
+
         IEnumerable<ReportingPeriodTypeEntity> GetReportingPeriodTypeById(int reportingPeriodTypeId);
         
         IEnumerable<ReportingPeriodStatusEntity> GetReportingPeriodStatusById(int reportingPeriodStatusId);

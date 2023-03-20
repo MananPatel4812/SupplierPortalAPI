@@ -44,6 +44,13 @@ public interface IReportingPeriodServices
     /// <returns></returns>
     IEnumerable<SupplierReportingPeriodDTO> GetReportingPeriodSuppliers(int ReportingPeriodId);
 
+    /// <summary>
+    /// Remove Period Supplier
+    /// </summary>
+    /// <param name="PeriodSupplierId"></param>
+    /// <returns></returns>
+    bool RemovePeriodSupplier(int PeriodSupplierId);
+
 
 
 
