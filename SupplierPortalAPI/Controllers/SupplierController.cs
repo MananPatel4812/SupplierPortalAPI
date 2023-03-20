@@ -1,8 +1,6 @@
-
-﻿using BusinessLogic.SupplierRoot.DomainModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-﻿using Microsoft.AspNetCore.Mvc;
+
 using Services.DTOs;
 using Services.Interfaces;
 
@@ -18,7 +16,7 @@ namespace SupplierPortalAPI.Controllers
 
         public SupplierController(ISupplierServices supplierServices)
         {
-            _service= supplierServices;
+            _service = supplierServices;
         }
 
         [HttpPost("AddUpdateSupplier")]
@@ -39,6 +37,5 @@ namespace SupplierPortalAPI.Controllers
             var list = _service.GetAllSuppliers();
             return list;
         }
-
     }
 }
