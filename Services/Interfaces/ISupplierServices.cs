@@ -1,6 +1,4 @@
-﻿using BusinessLogic.SupplierRoot.DomainModels;
-using DataAccess.Entities;
-using Services.DTOs;
+﻿using Services.DTOs;
 
 namespace Services.Interfaces
 {
@@ -8,11 +6,7 @@ namespace Services.Interfaces
     {
         string AddUpdateSupplier(SupplierDto supplierDto);
         IEnumerable<SupplierDto> GetAllSuppliers();
-        /*
-         * SupplierUserResultDto getSupplierDataForUsername();
-         * SupplierDto GetSupplier(int sid)
-         */
-
+        SupplierDto GetSupplierById(int supplierId);
         string AddUpdateContact(ContactDto contactDto);
     }
 }
