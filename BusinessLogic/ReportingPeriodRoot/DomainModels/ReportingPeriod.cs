@@ -37,7 +37,7 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         }
         public ReportingPeriod()
         {
-            
+
         }
 
         public int Id { get; private set; }
@@ -154,7 +154,7 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
 
         public PeriodSupplier LoadPeriodSupplier(int id, SupplierVO supplier, int reportingPeriodId, SupplierReportingPeriodStatus supplierReportingPeriodStatus, bool isActive)
         {
-            var reportingPeriodSupplier = new PeriodSupplier(id,supplier, reportingPeriodId, supplierReportingPeriodStatus, isActive);
+            var reportingPeriodSupplier = new PeriodSupplier(id, supplier, reportingPeriodId, supplierReportingPeriodStatus, isActive);
 
             if (_periodSupplier.Contains(reportingPeriodSupplier))
             {
@@ -175,12 +175,6 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
             {
                 throw new Exception("Supplier Already Exist!");
             }
-
-            /*if(isExists == true)
-            {
-                throw new Exception("Supplier Already Exist!");
-            }*/
-
             else
             {
 
@@ -189,12 +183,6 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
                 return reportingPeriodSupplier;
             }
         }
-
-        public PeriodSupplier RemovePeriodSupplier(int periodSupplierId)
-        {
-            return null;
-        }
-
 
         public PeriodFacilityDocument AddDataSubmissionDocumentForReportingPeriod(int supplierId, int periodFacilityId, FacilityRequiredDocumentTypeEntity facilityRequiredDocumentType, IEnumerable<DocumentRequirementStatus> documentRequirementStatus)
         {
@@ -231,7 +219,5 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         {
             throw new NotImplementedException();
         }
-
-
     }
 }

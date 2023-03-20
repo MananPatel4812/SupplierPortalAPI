@@ -144,13 +144,18 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
 
     #region Remove Methods
 
-    public async Task<ReportingPeriodSupplierEntity> RemovePeriodSupplier(int reportingPeriodId)
+    public bool RemovePeriodSupplier(int periodSupplierId)
     {
-        var periodSupplier = _context.ReportingPeriodSupplierEntities.Find(reportingPeriodId);
+        var periodSupplier = _context.ReportingPeriodSupplierEntities.Where(x => x.Id == periodSupplierId).FirstOrDefault();
+
+        if(periodSupplier == null)
+        {
+            return false;
+        }
 
         _context.ReportingPeriodSupplierEntities.Remove(periodSupplier);
-        await _context.SaveChangesAsync();
-        return periodSupplier;
+        _context.SaveChanges();
+        return true;
 
     }
 
@@ -262,6 +267,15 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
 
     }
 
+    public ReportingPeriodSupplierEntity GetPeriodSupplierById(int periodSupplierId)
+    {
+        var periodSupplier = _context.ReportingPeriodSupplierEntities
+                                .Include(x => x.Supplier)
+                                .Include(x => x.ReportingPeriod)
+                                .Include(x => x.SupplierReportingPeriodStatus)
+                                .FirstOrDefault(x => x.Id == periodSupplierId);
+        return periodSupplier;
+    }
     public async Task<IEnumerable<ReportingPeriodFacilityEntity>> GetReportingPeriodFacilities(int SupplierId, int ReportingPeriodId)
     {
         return await _context.ReportingPeriodFacilityEntities

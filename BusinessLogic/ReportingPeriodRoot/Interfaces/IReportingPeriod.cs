@@ -32,8 +32,6 @@ namespace BusinessLogic.ReportingPeriodRoot.Interfaces
 
         PeriodSupplier AddPeriodSupplier(SupplierVO supplier, int reportingPeriodId, SupplierReportingPeriodStatus supplierReportingPeriodStatus, bool isActive);
 
-        PeriodSupplier RemovePeriodSupplier(int periodSupplierId);
-
         void AddPeriodFacilityToPeriodSupplier(int supplierId,FacilityReportingPeriodDataStatus facilityReportingPeriodDataStatus,ReportingType reportingType,int reportingPeriodSupplierId);
 
         void AddDocumentToPeriodSupplierFacility(DocumentType documentType,DocumentStatus documentStatus);
@@ -47,8 +45,6 @@ namespace BusinessLogic.ReportingPeriodRoot.Interfaces
         PeriodSupplierDocument RemoveSupplementalDataDocumentToReportingPeriodSupplier(int supplierId,int documentId);
 
         IEnumerable<PeriodFacility> UpdateDataStatusToSubmittedForCompletePeriodFacility(int supplierId,FacilityReportingPeriodDataStatus facilityReportingPeriodDataStatus);
-
-        //IEnumerable<ReportingPeriodTypeEntity> RetrieveReportingPeriodType(ReportingPeriodType reportingPeriodType);
 
     }
 }
