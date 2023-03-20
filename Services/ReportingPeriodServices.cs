@@ -41,6 +41,8 @@ public class ReportingPeriodServices : IReportingPeriodServices
         _reportingPeriod = reportingPeriod;
     }
 
+    #region Private Methods
+
     private IEnumerable<ReportingPeriodType> GetAndConvertReportingPeriodType()
     {
         var reportingPeriodTypeEntity = _reportingPeriodDataActions.GetReportingPeriodTypes();
@@ -55,7 +57,6 @@ public class ReportingPeriodServices : IReportingPeriodServices
         return _referenceLookUpMapper.GetReportingPeriodStatusesLookUp(reportingPeriodStatusEntity);
     }
 
-
     private IEnumerable<SupplierReportingPeriodStatus> GetAndConvertSupplierPeriodStatus()
     {
         var supplierPeriodStatusEntity = _reportingPeriodDataActions.GetSupplierReportingPeriodStatus();
@@ -63,12 +64,62 @@ public class ReportingPeriodServices : IReportingPeriodServices
         return _referenceLookUpMapper.GetSupplierReportingPeriodStatusesLookUp(supplierPeriodStatusEntity);
     }
 
-    /// <summary>
-    /// Add-Update ReportingPeriod
-    /// </summary>
-    /// <param name="reportingPeriodDto"></param>
-    /// <returns></returns>
-    /// <exception cref="Exception"></exception>
+    private ReportingPeriod GetAndConvertReportingPeriodSupplierToDomain(int reportingPeriodId)
+    {
+        var reportingPeriodSuppliers = _reportingPeriodDataActions.GetReportingPeriodSuppliers(reportingPeriodId);
+        var periodEntity = _reportingPeriodDataActions.GetReportingPeriodById(reportingPeriodId);
+        var reportingPeriodTypes = GetAndConvertReportingPeriodType();
+        var reportingPeriodStatuses = GetAndConvertReportingPeriodStatus();
+
+        ReportingPeriod reportingPeriod = _reportingPeriodEntityDomainMapper.ConvertReportingPeriodEntityToDomain(periodEntity, reportingPeriodTypes, reportingPeriodStatuses);
+
+        var supplierPeriodStatuses = GetAndConvertSupplierPeriodStatus();
+
+        foreach (var reportingPeriodSupplier in reportingPeriodSuppliers)
+        {
+            var supplierEntity = reportingPeriodSupplier.Supplier;
+            var supplierVO = _reportingPeriodEntityDomainMapper.ConvertSupplierToSupplierValueObject(supplierEntity);
+            var supplierPeriodStatus = supplierPeriodStatuses.FirstOrDefault(x => x.Id == reportingPeriodSupplier.SupplierReportingPeriodStatusId);
+
+            _reportingPeriod.LoadPeriodSupplier(reportingPeriodSupplier.Id, supplierVO, reportingPeriodId, supplierPeriodStatus ?? new SupplierReportingPeriodStatus(), reportingPeriodSupplier.IsActive);
+        }
+        return reportingPeriod;
+
+    }
+    
+    private ReportingPeriod RetrieveAndConvertReportingPeriod(int reportingPeriodId)
+    {
+        var reportingPeriodEntity = _reportingPeriodDataActions.GetReportingPeriodById(reportingPeriodId);
+        var reportingPeriodTypes = GetAndConvertReportingPeriodType();
+        var reportingPeriodStatus = GetAndConvertReportingPeriodStatus();
+
+        if (reportingPeriodEntity is null)
+            throw new ArgumentNullException("Unable to retrieve reporting period entity");
+
+        var periodDomain = ConfigureReportingPeriod(reportingPeriodEntity, reportingPeriodTypes, reportingPeriodStatus);
+
+        var supplierReportingPeriodStatuses = GetAndConvertSupplierPeriodStatus();
+
+        _reportingPeriodEntityDomainMapper.ConvertPeriodSupplierEntityToDomain(periodDomain, reportingPeriodEntity.ReportingPeriodSupplierEntities, supplierReportingPeriodStatuses);
+        return periodDomain;
+
+    }
+
+    private ReportingPeriod ConfigureReportingPeriod(ReportingPeriodEntity reportingPeriodEntity, IEnumerable<ReportingPeriodType> reportingPeriodTypes, IEnumerable<ReportingPeriodStatus> reportingPeriodStatuses)
+    {
+        var reportingPeriodType = reportingPeriodTypes.Where(x => x.Id == reportingPeriodEntity.ReportingPeriodTypeId).ToList();
+        var reportingPeriodStatus = reportingPeriodStatuses.Where(x => x.Id == reportingPeriodEntity.ReportingPeriodStatusId).ToList();
+
+        //Convert entity to domain
+        var reportingPeriodDomain = _reportingPeriodEntityDomainMapper.ConvertReportingPeriodEntityToDomain(reportingPeriodEntity, reportingPeriodType, reportingPeriodStatus);
+        return reportingPeriodDomain;
+
+    }
+
+    #endregion
+
+    #region AddUpdate Methods
+
     public async Task<string> AddUpdateReportingPeriod(ReportingPeriodDto reportingPeriodDto)
 
     {
@@ -195,6 +246,21 @@ public class ReportingPeriodServices : IReportingPeriodServices
         return "Success";
     }
 
+    #endregion
+
+    #region GetAll Methods
+    public IEnumerable<InternalReportingPeriodDTO> GetActiveReportingPeriods()
+    {
+        var activeReportingPeriods = _reportingPeriodDataActions.GetReportingPeriods().Where(x => x.IsActive == true);
+        var reportingPeriodDto = new List<InternalReportingPeriodDTO>();
+        foreach (var reportingPeriodEntity in activeReportingPeriods)
+        {
+            reportingPeriodDto.Add(_readOnlyEntityToDtoMapper.ConvertReportingPeriodEntityToInternalPeriodDTO(reportingPeriodEntity));
+        }
+
+        return reportingPeriodDto;
+    }
+
     /// <summary>
     /// GetReportingPeriodSuppliers
     /// </summary>
@@ -212,44 +278,22 @@ public class ReportingPeriodServices : IReportingPeriodServices
         return supplierReportingPeriodDTO;
     }
 
-
-
-
-
-
-
-
-
-
-
-    private ReportingPeriod RetrieveAndConvertReportingPeriod(int reportingPeriodId)
+    public IEnumerable<ReportingPeriodActiveSupplierDTO> GetActivePeriodSuppliers()
     {
-        var reportingPeriodEntity = _reportingPeriodDataActions.GetReportingPeriodById(reportingPeriodId);
-        var reportingPeriodTypes = GetAndConvertReportingPeriodType();
-        var reportingPeriodStatus = GetAndConvertReportingPeriodStatus();
+        var activePeriodSuppliers = _reportingPeriodDataActions.GetPeriodSuppliers();
+        var periodSupplierDto = new List<ReportingPeriodActiveSupplierDTO>();
 
-        if (reportingPeriodEntity is null)
-            throw new ArgumentNullException("Unable to retrieve reporting period entity");
+        foreach(var periodSupplierEntity in activePeriodSuppliers)
+        {
+            if(periodSupplierEntity.Supplier.IsActive == true)
+            {
+                periodSupplierDto.Add(_readOnlyEntityToDtoMapper.ConvertReportingPeriodSupplierEntityToReportingPeriodActiveSupplier(periodSupplierEntity));
+            }
+            
+        }
 
-        var periodDomain = ConfigureReportingPeriod(reportingPeriodEntity, reportingPeriodTypes, reportingPeriodStatus);
-
-        var supplierReportingPeriodStatuses = GetAndConvertSupplierPeriodStatus();
-
-        _reportingPeriodEntityDomainMapper.ConvertPeriodSupplierEntityToDomain(periodDomain, reportingPeriodEntity.ReportingPeriodSupplierEntities, supplierReportingPeriodStatuses);
-        return periodDomain;
-
+        return periodSupplierDto;
     }
 
-    private ReportingPeriod ConfigureReportingPeriod(ReportingPeriodEntity reportingPeriodEntity, IEnumerable<ReportingPeriodType> reportingPeriodTypes, IEnumerable<ReportingPeriodStatus> reportingPeriodStatuses)
-    {
-        var reportingPeriodType = reportingPeriodTypes.Where(x => x.Id == reportingPeriodEntity.ReportingPeriodTypeId).ToList();
-        var reportingPeriodStatus = reportingPeriodStatuses.Where(x => x.Id == reportingPeriodEntity.ReportingPeriodStatusId).ToList();
-
-        //Convert entity to domain
-        var reportingPeriodDomain = _reportingPeriodEntityDomainMapper.ConvertReportingPeriodEntityToDomain(reportingPeriodEntity, reportingPeriodType, reportingPeriodStatus);
-        return reportingPeriodDomain;
-
-    }
-
-
+    #endregion
 }
