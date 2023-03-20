@@ -19,6 +19,7 @@ namespace DataAccess.Entities
         public int? AssociatePipelineId { get; set; }
         public int ReportingTypeId { get; set; }
         public int SupplyChainStageId { get; set; }
+        public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public string CreatedBy { get; set; } = null!;
