@@ -79,6 +79,11 @@ namespace DataAccess.DataActions
         {
             var entity = _context.UserEntities.FirstOrDefault(x => x.Id == userEntity.Id);
 
+            if(entity == null)
+            {
+                throw new Exception("User not found !!");
+            }
+
             var isUnique = IsUniqueEmail(userEntity.Email, "User");
             if (userEntity.Email != entity.Email)
             {
@@ -225,10 +230,10 @@ namespace DataAccess.DataActions
 
         public ContactEntity GetContactById(int contactId)
         {
-            var contact = _context.ContactEntities.Include(x => x.Supplier)
+            var contact = _context.ContactEntities.Where(x => x.Id == contactId)
+                                                  .Include(x => x.Supplier)
                                                            .Include(x => x.User)
-                                                           .Where(x => x.Id == contactId)
-                                                           .FirstOrDefault();
+                                                  .FirstOrDefault();
             return contact;
         }
 

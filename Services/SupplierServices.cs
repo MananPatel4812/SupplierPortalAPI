@@ -82,6 +82,12 @@ namespace Services
         public SupplierDto GetSupplierById(int supplierId)
         {
             var supplierEntity = _persister.GetSupplierById(supplierId);
+
+            if(supplierEntity == null)
+            {
+                throw new Exception("Supplier not found !!");
+            }
+
             var supplier = _supplierEntityDomainMapper.ConvertSupplierEntityToDomain(supplierEntity);
             var supplierDto = _supplierDomainDtoMapper.ConvertSupplierDomainToDto(supplier);
             return supplierDto;
@@ -92,6 +98,11 @@ namespace Services
         {
             var userId = 0;
             var supplierEntity = _persister.GetSupplierById(contactDto.SupplierId);
+
+            if(supplierEntity == null)
+            {
+                throw new Exception("Supplier not found !!");
+            }
 
             //Mapper
             var supplier = _supplierEntityDomainMapper.ConvertSupplierEntityToDomain(supplierEntity);
@@ -126,6 +137,11 @@ namespace Services
             else
             {
                 var contactEntity = _persister.GetContactById(contactDto.Id);
+
+                if(contactEntity == null)
+                {
+                    throw new Exception("Contact not found !!");
+                }
 
                 if (contactEntity.SupplierId != contactDto.SupplierId)
                 {
