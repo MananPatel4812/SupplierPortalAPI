@@ -75,8 +75,16 @@ namespace Services
         {
             var supplierList = _persister.GetAllSuppliers().Where(x => x.IsActive == true);
             var allSuppliers = _supplierEntityDomainMapper.ConvertSuppliersListEntityToDomain(supplierList);
-            var Suppliers = _supplierDomainDtoMapper.ConvertSuppliersToDtos(allSuppliers);
-            return Suppliers;
+            var suppliers = _supplierDomainDtoMapper.ConvertSuppliersToDtos(allSuppliers);
+            return suppliers;
+        }
+
+        public SupplierDto GetSupplierById(int supplierId)
+        {
+            var supplierEntity = _persister.GetSupplierById(supplierId);
+            var supplier = _supplierEntityDomainMapper.ConvertSupplierEntityToDomain(supplierEntity);
+            var supplierDto = _supplierDomainDtoMapper.ConvertSupplierDomainToDto(supplier);
+            return supplierDto;
         }
 
         //Contact

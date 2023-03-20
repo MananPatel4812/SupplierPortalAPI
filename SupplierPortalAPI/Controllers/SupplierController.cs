@@ -31,6 +31,18 @@ namespace SupplierPortalAPI.Controllers
             return _service.AddUpdateContact(contactDto);
         }
 
+        /*[HttpPost("AddUpdateFacility")]
+        public string AddUpdateFacility(FacilityDto facilityDto) 
+        {
+            return "";
+        }*/
+
+        [HttpGet("GetSupplierById")]
+        public SupplierDto GetSupplierById(int supplierId) 
+        {
+            return _service.GetSupplierById(supplierId);
+        }
+
         [HttpGet("GetAllSuppliers")]
         public IEnumerable<SupplierDto> GetAllSuppliers()
         {
