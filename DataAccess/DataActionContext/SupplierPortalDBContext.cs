@@ -73,7 +73,9 @@ public partial class SupplierPortalDBContext : DbContext
 
             entity.Property(e => e.CreatedBy).HasMaxLength(100);
 
-            entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+            entity.Property(e => e.CreatedOn)
+                .HasColumnType("datetime")
+                .HasDefaultValueSql("(getdate())");
 
             entity.Property(e => e.UpdatedBy).HasMaxLength(100);
 
@@ -148,7 +150,7 @@ public partial class SupplierPortalDBContext : DbContext
                 .WithMany(p => p.FacilityEntities)
                 .HasForeignKey(d => d.SupplierId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Facility_Supplier");
+                .HasConstraintName("FK_FacilityEntity_Supplier");
 
             entity.HasOne(d => d.SupplyChainStage)
                 .WithMany(p => p.FacilityEntities)
