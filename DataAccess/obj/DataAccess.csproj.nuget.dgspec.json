@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\SupplierPortalAPI\\DataAccess\\DataAccess.csproj": {}
+    "E:\\Sem10_Project\\SupplierPortal\\DataAccess\\DataAccess.csproj": {}
   },
   "projects": {
-    "E:\\SupplierPortalAPI\\DataAccess\\DataAccess.csproj": {
+    "E:\\Sem10_Project\\SupplierPortal\\DataAccess\\DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\SupplierPortalAPI\\DataAccess\\DataAccess.csproj",
+        "projectUniqueName": "E:\\Sem10_Project\\SupplierPortal\\DataAccess\\DataAccess.csproj",
         "projectName": "DataAccess",
-        "projectPath": "E:\\SupplierPortalAPI\\DataAccess\\DataAccess.csproj",
-        "packagesPath": "C:\\Users\\Manan patel\\.nuget\\packages\\",
-        "outputPath": "E:\\SupplierPortalAPI\\DataAccess\\obj\\",
+        "projectPath": "E:\\Sem10_Project\\SupplierPortal\\DataAccess\\DataAccess.csproj",
+        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+        "outputPath": "E:\\Sem10_Project\\SupplierPortal\\DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Manan patel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

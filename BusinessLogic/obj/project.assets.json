@@ -1929,19 +1929,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Manan patel\\.nuget\\packages\\": {}
+    "C:\\Users\\ADMIN\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\SupplierPortalAPI\\BusinessLogic\\BusinessLogic.csproj",
+      "projectUniqueName": "E:\\Sem10_Project\\SupplierPortal\\BusinessLogic\\BusinessLogic.csproj",
       "projectName": "BusinessLogic",
-      "projectPath": "E:\\SupplierPortalAPI\\BusinessLogic\\BusinessLogic.csproj",
-      "packagesPath": "C:\\Users\\Manan patel\\.nuget\\packages\\",
-      "outputPath": "E:\\SupplierPortalAPI\\BusinessLogic\\obj\\",
+      "projectPath": "E:\\Sem10_Project\\SupplierPortal\\BusinessLogic\\BusinessLogic.csproj",
+      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+      "outputPath": "E:\\Sem10_Project\\SupplierPortal\\BusinessLogic\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Manan patel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1955,8 +1955,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "E:\\SupplierPortalAPI\\DataAccess\\DataAccess.csproj": {
-              "projectPath": "E:\\SupplierPortalAPI\\DataAccess\\DataAccess.csproj"
+            "E:\\Sem10_Project\\SupplierPortal\\DataAccess\\DataAccess.csproj": {
+              "projectPath": "E:\\Sem10_Project\\SupplierPortal\\DataAccess\\DataAccess.csproj"
             }
           }
         }
