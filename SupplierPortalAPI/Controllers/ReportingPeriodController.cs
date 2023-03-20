@@ -25,15 +25,34 @@ namespace SupplierPortalAPI.Controllers
         {
             return await _services.AddUpdateReportingPeriod(reportingPeriodDto);
         }
+
         [HttpPost("AddPeriodSupplier")]
         public async Task<string> SetPeriodSupplier(ReportingPeriodSupplierDto reportingPeriodSupplierDto)
         {
             return await _services.SetPeriodSupplier(reportingPeriodSupplierDto);
         }
+
         #endregion
 
+        #region GetAll Methods
 
+        [HttpGet("GetActiveReportingPeriods")]
+        public IEnumerable<InternalReportingPeriodDTO> GetActiveReportingPeriods()
+        {
+            return _services.GetActiveReportingPeriods();
+        }
 
+        [HttpGet("GetActivePeriodSuppliers")]
+        public IEnumerable<ReportingPeriodActiveSupplierDTO> GetActivePeriodSuppliers()
+        {
+            return _services.GetActivePeriodSuppliers();
+        }
 
+        [HttpGet("GetPeriodSuppliers")]
+        public  IEnumerable<SupplierReportingPeriodDTO> GetReportingPeriodSuppliers(int ReportingPeriodId)
+        { 
+            return  _services.GetReportingPeriodSuppliers(ReportingPeriodId);
+        }
+        #endregion
     }
 }

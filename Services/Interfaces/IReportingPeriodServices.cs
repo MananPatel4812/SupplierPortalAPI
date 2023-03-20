@@ -1,5 +1,7 @@
 using BusinessLogic.ReferenceLookups;
+using DataAccess.Entities;
 using Services.DTOs;
+using Services.DTOs.ReadOnlyDTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,4 +25,26 @@ public interface IReportingPeriodServices
     /// <param name="reportingPeriodDto"></param>
     /// <returns></returns>
     Task<string> AddUpdateReportingPeriod(ReportingPeriodDto reportingPeriodDto);
-}                   
+
+    /// <summary>
+    /// Get Active ReportingPeriods
+    /// </summary>
+    /// <returns></returns>
+    IEnumerable<InternalReportingPeriodDTO> GetActiveReportingPeriods();
+
+    /// <summary>
+    /// Get Active ReportingPeriodSuppliers
+    /// </summary>
+    /// <returns></returns>
+    IEnumerable<ReportingPeriodActiveSupplierDTO> GetActivePeriodSuppliers();
+
+    /// <summary>
+    /// Get Active Period Suppliers
+    /// </summary>
+    /// <returns></returns>
+    IEnumerable<SupplierReportingPeriodDTO> GetReportingPeriodSuppliers(int ReportingPeriodId);
+
+
+
+
+}

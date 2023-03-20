@@ -39,16 +39,6 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
         return true;
     }
 
-    public async Task<ReportingPeriodSupplierEntity> RemovePeriodSupplier(int reportingPeriodId)
-    {
-        var periodSupplier = _context.ReportingPeriodSupplierEntities.Find(reportingPeriodId);
-
-        _context.ReportingPeriodSupplierEntities.Remove(periodSupplier);
-         await _context.SaveChangesAsync();
-        return periodSupplier;
-
-    }
-
     public async Task<bool> AddReportingPeriodFacilityDocument(ReportingPeriodFacilityDocumentEntity reportingPeriodFacilityDocument)
     {
         await _context.ReportingPeriodFacilityDocumentEntities.AddAsync(reportingPeriodFacilityDocument);
@@ -152,7 +142,126 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
     }
     #endregion
 
+    #region Remove Methods
+
+    public async Task<ReportingPeriodSupplierEntity> RemovePeriodSupplier(int reportingPeriodId)
+    {
+        var periodSupplier = _context.ReportingPeriodSupplierEntities.Find(reportingPeriodId);
+
+        _context.ReportingPeriodSupplierEntities.Remove(periodSupplier);
+        await _context.SaveChangesAsync();
+        return periodSupplier;
+
+    }
+
+    #endregion
+
     #region Get Methods
+
+
+    public IEnumerable<ReportingPeriodTypeEntity> GetReportingPeriodTypes()
+    {
+        return _context.ReportingPeriodTypeEntities;
+    }
+
+    public IEnumerable<ReportingPeriodStatusEntity> GetReportingPeriodStatus()
+    {
+        return _context.ReportingPeriodStatusEntities;
+    }
+
+    public IEnumerable<ReportingPeriodEntity> GetReportingPeriods()
+    {
+        var reportingPeriods = _context.ReportingPeriodEntities
+                                .Include(x => x.ReportingPeriodType)
+                                .Include(x => x.ReportingPeriodStatus)
+                                .ToList();
+
+        return reportingPeriods;
+    }
+
+    public IEnumerable<SupplierReportingPeriodStatusEntity> GetSupplierReportingPeriodStatus()
+    {
+        return _context.SupplierReportingPeriodStatusEntities;
+    }
+
+    public IEnumerable<ReportingPeriodSupplierEntity> GetPeriodSuppliers()
+    {
+        var periodSuppliers = _context.ReportingPeriodSupplierEntities
+                                .Include(x => x.Supplier)
+                                .Include(x => x.ReportingPeriod)
+                                .Include(x => x.SupplierReportingPeriodStatus)
+                                .ToList();
+        return periodSuppliers;
+    }
+
+    public IEnumerable<DocumentRequiredStatusEntity> GetDocumentRequiredStatus()
+    {
+        return _context.DocumentRequiredStatusEntities.ToList();
+    }
+
+    public IEnumerable<DocumentStatusEntity> GetDocumentStatus()
+    {
+        return _context.DocumentStatusEntities.ToList();
+    }
+
+    public IEnumerable<DocumentTypeEntity> GetDocumentType()
+    {
+        return _context.DocumentTypeEntities.ToList();
+    }
+
+    public IEnumerable<FacilityReportingPeriodDataStatusEntity> GetFacilityReportingPeriodDataStatus()
+    {
+        return _context.FacilityReportingPeriodDataStatusEntities.ToList();
+    }
+
+    public IEnumerable<FacilityRequiredDocumentTypeEntity> GetFacilityRequiredDocumentType()
+    {
+        return _context.FacilityRequiredDocumentTypeEntities
+                                    .Include(x => x.ReportingType)
+                                    .Include(x => x.SupplyChainStage)
+                                    .Include(x => x.DocumentType)
+                                    .Include(x => x.DocumentRequiredStatus)
+                                    .ToList();
+    }
+
+    #endregion
+
+    #region GetById
+    public ReportingPeriodEntity GetReportingPeriodById(int reportingPeriodId)
+    {
+        var reportingPeriod = _context.ReportingPeriodEntities
+                                .Include(x => x.ReportingPeriodType)
+                                .Include(x => x.ReportingPeriodStatus)
+                                .Include(x => x.ReportingPeriodSupplierEntities)
+                                .FirstOrDefault(x => x.Id == reportingPeriodId);
+
+        return reportingPeriod;
+    }
+
+    public IEnumerable<ReportingPeriodTypeEntity> GetReportingPeriodTypeById(int reportingPeriodTypeId)
+    {
+        var reportingPeriodType = _context.ReportingPeriodTypeEntities.Where(x => x.Id == reportingPeriodTypeId).ToList();
+
+        return reportingPeriodType;
+    }
+
+    public IEnumerable<ReportingPeriodStatusEntity> GetReportingPeriodStatusById(int reportingPeriodStatusId)
+    {
+        var reportingPeriodStatus = _context.ReportingPeriodStatusEntities.Where(x => x.Id == reportingPeriodStatusId).ToList();
+        return reportingPeriodStatus;
+    }
+
+    public IEnumerable<ReportingPeriodSupplierEntity> GetReportingPeriodSuppliers(int reportingPeriodId)
+    {
+        var reportingPeriodSupplier =
+            _context.ReportingPeriodSupplierEntities.Include(x => x.Supplier)
+            .Include(x =>x .ReportingPeriod)
+            .Include(x=>x.SupplierReportingPeriodStatus)
+            .Where(x => x.ReportingPeriodId == reportingPeriodId).ToList();
+        return reportingPeriodSupplier;
+
+    }
+
     public async Task<IEnumerable<ReportingPeriodFacilityEntity>> GetReportingPeriodFacilities(int SupplierId, int ReportingPeriodId)
     {
         return await _context.ReportingPeriodFacilityEntities
@@ -189,87 +298,6 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
                                 .ToListAsync();
     }
 
-    public IEnumerable<ReportingPeriodTypeEntity> GetReportingPeriodTypes()
-    {
-        return _context.ReportingPeriodTypeEntities;
-    }
-
-    public IEnumerable<ReportingPeriodStatusEntity> GetReportingPeriodStatus()
-    {
-        return _context.ReportingPeriodStatusEntities;
-    }
-
-    public IEnumerable<SupplierReportingPeriodStatusEntity> GetSupplierReportingPeriodStatus()
-    {
-        return _context.SupplierReportingPeriodStatusEntities;
-    }
-
-    public IEnumerable<ReportingPeriodSupplierEntity> GetReportingPeriodSuppliers(int reportingPeriodId)
-    {
-        var reportingPeriodSupplier =
-            _context.ReportingPeriodSupplierEntities.Include(x => x.Supplier).Where(x => x.ReportingPeriodId == reportingPeriodId).ToList();
-        return reportingPeriodSupplier;
-
-    }
-
-    public async Task<IEnumerable<DocumentRequiredStatusEntity>> GetDocumentRequiredStatus()
-    {
-        return await _context.DocumentRequiredStatusEntities.ToListAsync();
-    }
-
-    public async Task<IEnumerable<DocumentStatusEntity>> GetDocumentStatus()
-    {
-        return await _context.DocumentStatusEntities.ToListAsync();
-    }
-
-    public async Task<IEnumerable<DocumentTypeEntity>> GetDocumentType()
-    {
-        return await _context.DocumentTypeEntities.ToListAsync();
-    }
-
-    public async Task<IEnumerable<FacilityReportingPeriodDataStatusEntity>> GetFacilityReportingPeriodDataStatus()
-    {
-        return await _context.FacilityReportingPeriodDataStatusEntities.ToListAsync();
-    }
-
-    public async Task<IEnumerable<FacilityRequiredDocumentTypeEntity>> GetFacilityRequiredDocumentType()
-    {
-        return await _context.FacilityRequiredDocumentTypeEntities
-                                    .Include(x => x.ReportingType)
-                                    .Include(x => x.SupplyChainStage)
-                                    .Include(x => x.DocumentType)
-                                    .Include(x => x.DocumentRequiredStatus)
-                                    .ToListAsync();
-    }
-
-
-    #endregion
-
-    #region GetById
-    public ReportingPeriodEntity GetReportingPeriodById(int reportingPeriodId)
-    {
-        var reportingPeriod = _context.ReportingPeriodEntities
-                                .Include(x => x.ReportingPeriodType)
-                                .Include(x => x.ReportingPeriodStatus)
-                                .Include(x => x.ReportingPeriodSupplierEntities)
-                                .FirstOrDefault(x => x.Id == reportingPeriodId);
-
-        return reportingPeriod;
-    }
-
-    public IEnumerable<ReportingPeriodTypeEntity> GetReportingPeriodTypeById(int reportingPeriodTypeId)
-    {
-        var reportingPeriodType = _context.ReportingPeriodTypeEntities.Where(x => x.Id == reportingPeriodTypeId).ToList();
-
-        return reportingPeriodType;
-    }
-
-    public IEnumerable<ReportingPeriodStatusEntity> GetReportingPeriodStatusById(int reportingPeriodStatusId)
-    {
-        var reportingPeriodStatus = _context.ReportingPeriodStatusEntities.Where(x => x.Id == reportingPeriodStatusId).ToList();
-        return reportingPeriodStatus;
-    }
-
     #endregion
 
     protected void Dispose(bool disposing)
@@ -288,6 +316,5 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
         Dispose(true);
         GC.SuppressFinalize(this);
     }
-
-
+    
 }

@@ -1,6 +1,7 @@
 using BusinessLogic.ReferenceLookups;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ public class ReportingPeriodDto
     public string ReportingPeriodType { get; set; }
 
     public string CollectionTimePeriod { get;set; }
+
 
     public int ReportingPeriodStatusId { get; set; }
 
