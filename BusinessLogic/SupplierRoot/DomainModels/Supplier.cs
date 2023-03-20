@@ -1,7 +1,7 @@
 ﻿using BusinessLogic.ReferenceLookups;
-using BusinessLogic.ReportingPeriodRoot.ValueObjects;
 using BusinessLogic.SupplierRoot.Interfaces;
 using BusinessLogic.SupplierRoot.ValueObjects;
+using System.Text.RegularExpressions;
 
 namespace BusinessLogic.SupplierRoot.DomainModels
 {
@@ -105,29 +105,58 @@ namespace BusinessLogic.SupplierRoot.DomainModels
         }
 
 
-        /* public Contact UpdateSupplierContact(int Id, Supplier Supplier,User user)
-         {
-             throw new NotImplementedException();
-         }*/
-
-        public Contact AddSupplierContact(int Id, Supplier Supplier, UserVO userVO)
-         {
-             //check isContact exist or not
-             var IsExists = _contacts.Any(x => x.UserVO.Id == userVO.Id);
+        public Contact AddSupplierContact(int contactId, Supplier supplier, UserVO userVO)
+        {
+            
+            //check isContact exist or not
+            var isExists = _contacts.Any(x => x.UserVO.Id == userVO.Id);
              
-            if(IsExists == true)
+            if(isExists == true)
             {
                 throw new Exception("Contact is already exists with Supplier !!");
             }
             else
             {
-                var contact = new Contact(Id, Supplier.Id, userVO);
-                _contacts.Add(contact);
+                if(supplier.IsActive == true) 
+                {
+                    //ValidateUserContactNo(userVO.ContactNo);
+                    var contact = new Contact(contactId, supplier.Id, userVO);
+                    _contacts.Add(contact);
 
-                return contact;
+                    return contact;
+                }
+                else
+                    throw new Exception("Supplier is not active for add contacts !!");
+
             }
             
-         }
+        }
+
+        public void ValidateUserContactNo(string contactNo)
+        {
+            Regex format = new Regex(@"^[+]{1}(?:[0-9\-\(\)\/\.]\s?){6,15}[0-9]{1}$");
+            var isValidate = format.IsMatch(contactNo.ToString());
+            
+            if(isValidate == false) 
+            { 
+                throw new Exception("Please enter valid ContactNumber !!");
+            }
+        }
+
+        public Contact UpdateSupplierContact(int contactId, Supplier supplier, UserVO userVO)
+        {
+            //ValidateUserContactNo(userVO.ContactNo);
+            var contact = _contacts.FirstOrDefault(x => x.Id == contactId);
+
+            contact.UserVO.Id = userVO.Id;
+            contact.UserVO.Name = userVO.Name;
+            contact.UserVO.Email = userVO.Email;
+            contact.UserVO.ContactNo = userVO.ContactNo;
+            contact.UserVO.IsActive = userVO.IsActive;
+
+            return contact;
+        }
+
 
         public Facility AddSupplierFacility(int Id, string name, string description, bool isPrimary, AssociatePipeline AssociatePipeline, ReportingType ReportingType, SupplyChainStage SupplyChainStage)
         {

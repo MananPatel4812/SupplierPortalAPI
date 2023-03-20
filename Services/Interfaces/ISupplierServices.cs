@@ -12,7 +12,7 @@ namespace Services.Interfaces
          * SupplierUserResultDto getSupplierDataForUsername();
          * SupplierDto GetSupplier(int sid)
          */
-        string AddUpdateUser(UserDto userDto);
+      //  string AddUpdateUser(UserDto userDto);
 
         string AddUpdateContact(ContactDto contactDto);
     }

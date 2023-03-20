@@ -18,10 +18,9 @@ namespace Services.DTOs
         public string UserEmail { get; set; }
 
         public string UserContactNo { get; set; }
-        public int RoleId { get; set; }
         public bool IsActive { get; set; }
 
-        public ContactDto(int id, int supplierId, string supplierName, int userId, string userName,string userEmail, string userContactNo, int roleId, bool isActive)
+        public ContactDto(int id, int supplierId, string supplierName, int userId, string userName, string userEmail, string userContactNo, bool isActive)
         {
             Id = id;
             SupplierId = supplierId;
@@ -30,7 +29,6 @@ namespace Services.DTOs
             UserName = userName;
             UserEmail = userEmail;
             UserContactNo = userContactNo;
-            RoleId = roleId;
             IsActive = isActive;
         }
 

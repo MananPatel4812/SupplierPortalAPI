@@ -13,68 +13,22 @@ namespace Services
 {
     public class SupplierServices : ISupplierServices
     {
-        private IUserFactory _userFactory;
         private ISupplierFactory _supplierFactory;
         private readonly ILogger _logger;
-        private IUserEntityDomainMapper _userEntityDomainMapper;
         private ISupplierEntityDomainMapper _supplierEntityDomainMapper;
         private ISupplierDomainDtoMapper _supplierDomainDtoMapper;
         private ISupplierDataActions _persister;
 
-        public SupplierServices(ILoggerFactory loggerFactory, ISupplierFactory supplierFactory, 
-            IUserFactory userFactory, IUserEntityDomainMapper userEntityDomainMapper,
+        public SupplierServices(ILoggerFactory loggerFactory, ISupplierFactory supplierFactory,
             ISupplierEntityDomainMapper supplierEntityDomainMapper,
             ISupplierDomainDtoMapper supplierDomainDtoMapper,
             ISupplierDataActions persister) 
         { 
             _logger = loggerFactory.CreateLogger<SupplierServices>();
             _supplierFactory = supplierFactory;
-            _userFactory= userFactory;
-            _userEntityDomainMapper = userEntityDomainMapper;
             _supplierEntityDomainMapper = supplierEntityDomainMapper;
             _supplierDomainDtoMapper = supplierDomainDtoMapper;
             _persister = persister;
-        }
-
-        //User
-        public string AddUpdateUser(UserDto userDto)
-        {
-            //add user
-            if(userDto.Id == 0)
-            {
-                var user = _userFactory.CreateNewUser(userDto.Name, userDto.Email, userDto.ContactNo, userDto.RoleId, userDto.IsActive);
-
-                var entity = _userEntityDomainMapper.ConvertUserDomainToEntity(user);
-                _persister.AddUser(entity);
-            }
-            else
-            {
-                 //Fetch record by Id
-                var user = RetrieveAndConvertUser(userDto.Id ?? 0);
-                user.UpdateUser(userDto.Name, userDto.Email, userDto.ContactNo, userDto.RoleId, userDto.IsActive);
-                //Convert Domain to Entity
-                var entity = _userEntityDomainMapper.ConvertUserDomainToEntity(user);
-                _persister.UpdateUser(entity);
-            }
-
-            return "success";
-        }
-
-        private User RetrieveAndConvertUser(int userId)
-        {
-            var userEntity = _persister.GetUserById(userId);
-            if (userEntity == null)
-            {
-                throw new Exception("User not found !!");
-            }
-            return ConfigureUser(userEntity);
-        }
-
-        private User ConfigureUser(UserEntity userEntity)
-        {
-            //Convert Entity to Domain
-            var userDomain = _userEntityDomainMapper.ConvertUserEntityToDomain(userEntity);
-            return userDomain;
         }
 
         //Supplier
@@ -97,7 +51,7 @@ namespace Services
                 _persister.UpdateSupplier(entity);
 
             }
-            return "Success";
+            return "Supplier added successfully....";
         }
 
         private Supplier RetrieveAndConvertSupplier(int supplierId)
@@ -110,8 +64,6 @@ namespace Services
             return ConfigureSupplier(supplierEntity);
         }
 
-        
-
         private Supplier ConfigureSupplier(SupplierEntity supplierEntity)
         {
             //Convert Entity to Domain
@@ -121,7 +73,7 @@ namespace Services
 
         public IEnumerable<SupplierDto> GetAllSuppliers()
         {
-            var supplierList = _persister.GetAllSuppliers();
+            var supplierList = _persister.GetAllSuppliers().Where(x => x.IsActive == true);
             var allSuppliers = _supplierEntityDomainMapper.ConvertSuppliersListEntityToDomain(supplierList);
             var Suppliers = _supplierDomainDtoMapper.ConvertSuppliersToDtos(allSuppliers);
             return Suppliers;
@@ -130,30 +82,33 @@ namespace Services
         //Contact
         public string AddUpdateContact(ContactDto contactDto)
         {
-            var message = "";
-            
+            var userId = 0;
             var supplierEntity = _persister.GetSupplierById(contactDto.SupplierId);
-
-            var userId = _persister.AddUser(new UserEntity
-            {
-                Id = contactDto.UserId,
-                Name = contactDto.UserName,
-                Email = contactDto.UserEmail,
-                ContactNo = contactDto.UserContactNo,
-                RoleId = contactDto.RoleId,
-                IsActive = contactDto.IsActive
-            });
-
-            if (userId != null)
-            { message = $"User {contactDto.UserName} added successfully... ";  }
-
-            var userVO = new UserVO(userId, contactDto.UserName, contactDto.UserEmail, contactDto.UserContactNo, contactDto.RoleId, contactDto.IsActive);
 
             //Mapper
             var supplier = _supplierEntityDomainMapper.ConvertSupplierEntityToDomain(supplierEntity);
 
             if (contactDto.Id == 0)
             {
+                if (contactDto.UserId == 0)
+                {
+                    supplier.ValidateUserContactNo(contactDto.UserContactNo);
+
+                    //ADD User
+                    userId = _persister.AddUser(new UserEntity
+                    {
+                       Id = contactDto.UserId,
+                       Name = contactDto.UserName,
+                       Email = contactDto.UserEmail,
+                       ContactNo = contactDto.UserContactNo,
+                       IsActive = contactDto.IsActive
+                    });
+                }
+                else
+                { throw new Exception("Please enter contactId for update user !!"); }
+
+                var userVO = new UserVO(userId, contactDto.UserName, contactDto.UserEmail, contactDto.UserContactNo, contactDto.IsActive);
+                   
                 var contact = supplier.AddSupplierContact(contactDto.Id, supplier, userVO);
 
                 //Convert Domain to Entity
@@ -162,10 +117,39 @@ namespace Services
             }
             else
             {
+                var contactEntity = _persister.GetContactById(contactDto.Id);
+
+                if (contactEntity.SupplierId != contactDto.SupplierId)
+                {
+                    throw new Exception("Supplier cannot be changed !!");
+                }
+
+                if (contactDto.UserId != 0)
+                {
+                    //UPDATE User Details
+                    userId = _persister.UpdateUser(new UserEntity
+                    {
+                        Id = contactDto.UserId,
+                        Name = contactDto.UserName,
+                        Email = contactDto.UserEmail,
+                        ContactNo = contactDto.UserContactNo,
+                        IsActive = contactDto.IsActive
+                    });
+                }
+                else
+                { throw new Exception("Please enter userId for update !!"); }
+
+                var userVO = new UserVO(userId, contactDto.UserName, contactDto.UserEmail, contactDto.UserContactNo, contactDto.IsActive);
+
+                var contact = supplier.UpdateSupplierContact(contactDto.Id, supplier, userVO);
+
+                //Convert Domain to Entity
+                 contactEntity = _supplierEntityDomainMapper.ConvertContactDomainToEntity(contact);
+                _persister.UpdateContact(contactEntity);
 
             }
 
-            return message + "!! Contact done Successfully";
+            return "Contact done Successfully";
         }
     }
 }

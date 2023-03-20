@@ -14,6 +14,24 @@ namespace DataAccess.DataActions
             _context = context;
         }
 
+        //Dispose Methods
+        protected void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_context != null)
+                {
+                    _context.Dispose();
+                }
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         //User
         public int AddUser(UserEntity userEntity)
         {
@@ -24,8 +42,11 @@ namespace DataAccess.DataActions
             }
             else
             {
+                var roles = _context.RoleEntities.Where(x => x.Name == "External").FirstOrDefault();
+                userEntity.RoleId = roles.Id;
                 userEntity.CreatedOn = DateTime.UtcNow;
                 userEntity.CreatedBy = "System";
+                
                 _context.UserEntities.Add(userEntity);
                 _context.SaveChanges();
                 return userEntity.Id;
@@ -54,24 +75,7 @@ namespace DataAccess.DataActions
             return user;
         }
 
-        protected void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (_context != null)
-                {
-                    _context.Dispose();
-                }
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        public bool UpdateUser(UserEntity userEntity)
+        public int UpdateUser(UserEntity userEntity)
         {
             var entity = _context.UserEntities.FirstOrDefault(x => x.Id == userEntity.Id);
 
@@ -100,7 +104,7 @@ namespace DataAccess.DataActions
 
                 _context.UserEntities.Update(entity);
                 _context.SaveChanges();
-                return true;
+                return entity.Id;
             }
         }
 
@@ -206,6 +210,7 @@ namespace DataAccess.DataActions
         public bool AddContact(ContactEntity contact)
         {
             contact.CreatedBy = "System";
+            contact.CreatedOn = DateTime.UtcNow;
             _context.ContactEntities.Add(contact);
             _context.SaveChanges();
             return true;
@@ -217,20 +222,23 @@ namespace DataAccess.DataActions
             return allContacts;
         }
 
-        public IEnumerable<ContactEntity> GetAllContactsBySupplier(int supplierId)
+        public ContactEntity GetContactById(int contactId)
         {
-            var supplierContacts = _context.ContactEntities.Include(x => x.Supplier)
+            var contact = _context.ContactEntities.Include(x => x.Supplier)
                                                            .Include(x => x.User)
-                                                           .Where(x => x.SupplierId == supplierId)
-                                                           .ToList();
-            return supplierContacts;
+                                                           .Where(x => x.Id == contactId)
+                                                           .FirstOrDefault();
+            return contact;
         }
 
-        public bool UpdateContact(ContactEntity contact, int contactId)
+        public bool UpdateContact(ContactEntity contact)
         {
-            var contactEntity = _context.ContactEntities.Where(x => x.Id == contactId).FirstOrDefault();
+            var contactEntity = _context.ContactEntities.Where(x => x.Id == contact
+            .Id).FirstOrDefault();
             contactEntity.SupplierId = contact.SupplierId;
             contactEntity.UserId = contact.UserId;
+            contactEntity.UpdatedOn = DateTime.UtcNow;
+            contactEntity.UpdatedBy = "System";
 
             _context.ContactEntities.Update(contactEntity);
             _context.SaveChanges();

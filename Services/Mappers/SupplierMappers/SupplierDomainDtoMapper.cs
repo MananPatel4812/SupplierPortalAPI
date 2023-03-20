@@ -19,7 +19,7 @@ namespace Services.Mappers.SupplierMappers
             var facilityDtos = new List<FacilityDto>();
             foreach (var item in supplier.Contacts)
             {
-                contactDtos.Add(new ContactDto(item.Id, item.SupplierId, supplier.Name, item.UserVO.Id, item.UserVO.Name, item.UserVO.Email, item.UserVO.ContactNo, item.UserVO.RoleId, item.UserVO.IsActive));
+                contactDtos.Add(new ContactDto(item.Id, item.SupplierId, supplier.Name, item.UserVO.Id, item.UserVO.Name, item.UserVO.Email, item.UserVO.ContactNo,  item.UserVO.IsActive));
             }
             foreach (var item in supplier.Facilities)
             {
