@@ -19,6 +19,8 @@ namespace SupplierPortalAPI.Controllers
             _service = supplierServices;
         }
 
+        #region Add-Update Methods
+
         [HttpPost("AddUpdateSupplier")]
         public string AddUpdateSupplier(SupplierDto supplierDto)
         {
@@ -31,11 +33,14 @@ namespace SupplierPortalAPI.Controllers
             return _service.AddUpdateContact(contactDto);
         }
 
-        /*[HttpPost("AddUpdateFacility")]
-        public string AddUpdateFacility(FacilityDto facilityDto) 
+        [HttpPost("AddFacility")]
+        public string AddFacility(FacilityDto facilityDto) 
         {
-            return "";
-        }*/
+            return _service.AddFacility(facilityDto);
+        }
+        #endregion
+
+        #region Get Methods
 
         [HttpGet("GetSupplierById")]
         public SupplierDto GetSupplierById(int supplierId) 
@@ -49,5 +54,7 @@ namespace SupplierPortalAPI.Controllers
             var list = _service.GetAllSuppliers();
             return list;
         }
+
+        #endregion
     }
 }

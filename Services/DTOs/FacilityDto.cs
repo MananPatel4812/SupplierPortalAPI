@@ -16,11 +16,12 @@ namespace Services.DTOs
         public string ReportingTypeName { get; set; }
         public int SupplyChainStageId { get; set; }
         public string SupplyChainStageName { get; set; }
+        public bool IsActive { get; set; }
         public FacilityDto(int id, string name, string description, bool isPrimary,
             int supplierId, string supplierName, string? GHGRPfacilityId,
             int? associatePipelineId, string? associatePipelineName,
             int reportingTypeId, string reportingTypeName,
-            int supplyChainStageId, string supplyChainStageName ) 
+            int supplyChainStageId, string supplyChainStageName, bool isActive ) 
         { 
             Id = id;
             Name = name;
@@ -35,6 +36,7 @@ namespace Services.DTOs
             ReportingTypeName = reportingTypeName;
             SupplyChainStageId = supplyChainStageId;
             SupplyChainStageName = supplyChainStageName;
+            IsActive = isActive;
         }
     }
 }

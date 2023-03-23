@@ -15,25 +15,26 @@ public class Facility
     public AssociatePipeline AssociatePipelines { get; private set; }
     public ReportingType ReportingTypes { get; private set; }
     public SupplyChainStage SupplyChainStages { get; private set; }
+    public bool IsActive { get; set; }
 
     internal Facility()
     { }
 
-    internal Facility(string name, string description, bool isPrimary, int supplierId,
-        AssociatePipeline associatePipeline, ReportingType reportingType, SupplyChainStage supplyChainStage)
+    internal Facility(string name, string description, bool isPrimary, int supplierId, string? ghgrpFacilityId, AssociatePipeline associatePipeline, ReportingType reportingType, SupplyChainStage supplyChainStage, bool isActive)
     {
         Name = name;
         Description = description;
         IsPrimary = isPrimary;
         SupplierId = supplierId;
+        GHGHRPFacilityId = ghgrpFacilityId;
         AssociatePipelines = associatePipeline;
         ReportingTypes = reportingType;
         SupplyChainStages = supplyChainStage;
+        IsActive = isActive;
     }
 
-    internal Facility(int id, string name, string description, bool isPrimary, int supplierId,
-        AssociatePipeline associatePipeline, ReportingType reportingType, SupplyChainStage supplyChainStage) 
-        : this(name, description, isPrimary, supplierId, associatePipeline, reportingType, supplyChainStage)
+    internal Facility(int id, string name, string description, bool isPrimary, int supplierId, string? ghgrpFacilityId, AssociatePipeline associatePipeline, ReportingType reportingType, SupplyChainStage supplyChainStage, bool isActive) 
+        : this(name, description, isPrimary, supplierId,ghgrpFacilityId, associatePipeline, reportingType, supplyChainStage, isActive)
     {
         Id = id;
     }

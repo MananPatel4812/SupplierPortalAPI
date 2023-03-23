@@ -16,7 +16,14 @@ public interface IReferenceLookUpMapper
     
     IEnumerable<SupplierReportingPeriodStatus> GetSupplierReportingPeriodStatusesLookUp(IEnumerable<SupplierReportingPeriodStatusEntity> supplierReportingPeriodStatusEntities);
 
+
+    //Supplier
+    IEnumerable<AssociatePipeline> GetAssociatePipelinesLookUp(IEnumerable<AssociatePipelineEntity> associatePipelineEntities);
+    IEnumerable<ReportingType> GetReportingTypeLookUp(IEnumerable<ReportingTypeEntity> reportingTypeEntities);
+    IEnumerable<SupplyChainStage> GetSupplyChainStagesLookUp(IEnumerable<SupplyChainStageEntity> supplyChainStageEntities);
+
     IEnumerable<FacilityReportingPeriodDataStatus> GetFacilityReportingPeriodDataStatusLookUp(IEnumerable<FacilityReportingPeriodDataStatusEntity> facilityReportingPeriodDataStatusEntities);
 
     IEnumerable<ReportingType> GetReportingTypeLookUp(IEnumerable<ReportingTypeEntity> reportingTypeEntities);
+
 }
