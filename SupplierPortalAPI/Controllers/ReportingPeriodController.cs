@@ -32,6 +32,14 @@ namespace SupplierPortalAPI.Controllers
             return await _services.SetPeriodSupplier(reportingPeriodSupplierDto);
         }
 
+        [HttpPut("UpdateLockUnlokckStatusOfPeriodSupplier")]
+        public bool PeriodSupplierLockUnlock(int periodSupplierId)
+        {
+            return _services.UpdateLockUnlockPeriodSupplier(periodSupplierId);
+        }
+
+
+
         #endregion
 
         #region Get_All Methods
