@@ -35,7 +35,17 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
     {
         await _context.ReportingPeriodSupplierEntities.AddAsync(reportingPeriodSupplierEntity);
 
+        reportingPeriodSupplierEntity.IsActive = true;
         await _context.SaveChangesAsync();
+        return true;
+    }
+
+    public async Task<bool> AddPeriodFacility(ReportingPeriodFacilityEntity reportingPeriodFacilityEntity)
+    {
+        await _context.ReportingPeriodFacilityEntities.AddAsync(reportingPeriodFacilityEntity);
+        
+        await _context.SaveChangesAsync();
+        
         return true;
     }
 
@@ -227,6 +237,11 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
                                     .Include(x => x.DocumentType)
                                     .Include(x => x.DocumentRequiredStatus)
                                     .ToList();
+    }
+
+    public IEnumerable<ReportingTypeEntity> GetReportingTypes()
+    {
+        return _context.ReportingTypeEntities;
     }
 
     #endregion

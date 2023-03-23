@@ -151,10 +151,9 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
             UpdatedBy = "System";
         }
 
-
-        public PeriodSupplier LoadPeriodSupplier(int id, SupplierVO supplier, int reportingPeriodId, SupplierReportingPeriodStatus supplierReportingPeriodStatus, bool isActive)
+        public PeriodSupplier LoadPeriodSupplier(int id, SupplierVO supplier, int reportingPeriodId, SupplierReportingPeriodStatus supplierReportingPeriodStatus)
         {
-            var reportingPeriodSupplier = new PeriodSupplier(id, supplier, reportingPeriodId, supplierReportingPeriodStatus, isActive);
+            var reportingPeriodSupplier = new PeriodSupplier(id, supplier, reportingPeriodId, supplierReportingPeriodStatus);
 
             if (_periodSupplier.Contains(reportingPeriodSupplier))
             {
@@ -167,9 +166,9 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
 
         }
 
-        public PeriodSupplier AddPeriodSupplier(SupplierVO supplier, int reportingPeriodId, SupplierReportingPeriodStatus supplierReportingPeriodStatus, bool isActive)
+        public PeriodSupplier AddPeriodSupplier(SupplierVO supplier, int reportingPeriodId, SupplierReportingPeriodStatus supplierReportingPeriodStatus)
         {
-            var reportingPeriodSupplier = new PeriodSupplier(supplier, reportingPeriodId, supplierReportingPeriodStatus, isActive);
+            var reportingPeriodSupplier = new PeriodSupplier(supplier, reportingPeriodId, supplierReportingPeriodStatus);
 
             if (_periodSupplier.Contains(reportingPeriodSupplier))
             {
@@ -177,9 +176,11 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
             }
             else
             {
-
-                _periodSupplier.Add(reportingPeriodSupplier);
-
+                if(supplier.IsActive == true && ReportingPeriodStatus.Name == ReportingPeriodStatusValues.InActive)
+                {
+                    _periodSupplier.Add(reportingPeriodSupplier);
+                }
+               
                 return reportingPeriodSupplier;
             }
         }
@@ -196,7 +197,7 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
 
         public void AddPeriodFacilityToPeriodSupplier(int supplierId, FacilityReportingPeriodDataStatus facilityReportingPeriodDataStatus, ReportingType reportingType, int reportingPeriodSupplierId)
         {
-            throw new NotImplementedException();
+            var reportingPeriodFacility = new PeriodFacility();
         }
 
 

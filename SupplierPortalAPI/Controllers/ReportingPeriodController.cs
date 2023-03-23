@@ -32,6 +32,12 @@ namespace SupplierPortalAPI.Controllers
             return await _services.SetPeriodSupplier(reportingPeriodSupplierDto);
         }
 
+        [HttpPost("AddPeriodFacility")]
+        public async Task<string> SetPeriodFacility(ReportingPeriodFacilityDto reportingPeriodFacilityDto)
+        {
+            return await _services.SetPeriodFacility(reportingPeriodFacilityDto);
+        }
+
         #endregion
 
         #region Get_All Methods
@@ -69,6 +75,7 @@ namespace SupplierPortalAPI.Controllers
             else
                 return "PeriodSupplier is not exists !!";
         }
+
         #endregion
     }
 }
