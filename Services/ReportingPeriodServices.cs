@@ -10,7 +10,6 @@ using Services.DTOs.ReadOnlyDTOs;
 using Services.Factories.Interface;
 using Services.Interfaces;
 using Services.Mappers.Interfaces;
-using System.ComponentModel.Design;
 
 namespace Services;
 
@@ -64,6 +63,18 @@ public class ReportingPeriodServices : IReportingPeriodServices
         return _referenceLookUpMapper.GetSupplierReportingPeriodStatusesLookUp(supplierPeriodStatusEntity);
     }
 
+    private SupplierVO GetAndConvertSupplierValueObject(int supplierId)
+    {
+        var supplierEntity = _supplierDataActions.GetSupplierById(supplierId);
+
+        if (supplierEntity == null)
+        {
+            throw new ArgumentNullException("Unable to retrive Supplier");
+        }
+        var supplierVO = _reportingPeriodEntityDomainMapper.ConvertSupplierToSupplierValueObject(supplierEntity);
+        return supplierVO;
+    }
+
     private ReportingPeriod GetAndConvertReportingPeriodSupplierToDomain(int reportingPeriodId)
     {
         var reportingPeriodSuppliers = _reportingPeriodDataActions.GetReportingPeriodSuppliers(reportingPeriodId);
@@ -81,13 +92,13 @@ public class ReportingPeriodServices : IReportingPeriodServices
             var supplierVO = _reportingPeriodEntityDomainMapper.ConvertSupplierToSupplierValueObject(supplierEntity);
             var supplierPeriodStatus = supplierPeriodStatuses.FirstOrDefault(x => x.Id == reportingPeriodSupplier.SupplierReportingPeriodStatusId);
 
-            _reportingPeriod.LoadPeriodSupplier(reportingPeriodSupplier.Id, supplierVO, reportingPeriodId, supplierPeriodStatus ?? new SupplierReportingPeriodStatus(), reportingPeriodSupplier.IsActive);
+            _reportingPeriod.LoadPeriodSupplier(reportingPeriodSupplier.Id, supplierVO, reportingPeriodId, supplierPeriodStatus ?? new SupplierReportingPeriodStatus());
         }
         return reportingPeriod;
 
     }
 
-    private ReportingPeriod RetrieveAndConvertReportingPeriod(int reportingPeriodId)
+    private ReportingPeriod RetrieveAndConvertReportingPeriodAndReportingPeriodSupplier(int reportingPeriodId)
     {
         var reportingPeriodEntity = _reportingPeriodDataActions.GetReportingPeriodById(reportingPeriodId);
         var reportingPeriodTypes = GetAndConvertReportingPeriodType();
@@ -115,6 +126,38 @@ public class ReportingPeriodServices : IReportingPeriodServices
         return reportingPeriodDomain;
 
     }
+
+    //private ReportingPeriod ConfigurePeriodSupplier(ReportingPeriodSupplierEntity reportingPeriodSupplierEntity, ReportingPeriodEntity reportingPeriodEntity,SupplierVO supplierVO,IEnumerable<SupplierReportingPeriodStatus> supplierReportingPeriodStatuses)
+    //{
+    //    var supplierReportingPeriodStatus = supplierReportingPeriodStatuses.Where(x => x.Id == reportingPeriodSupplierEntity.SupplierReportingPeriodStatusId).ToList();
+
+    //    _reportingPeriodEntityDomainMapper.ConvertPeriodSupplierEntityToDomain(RetrieveAndConvertReportingPeriod(reportingPeriodEntity.Id), new List<ReportingPeriodSupplierEntity>() { reportingPeriodSupplierEntity}, supplierReportingPeriodStatus);
+
+    //    return supplierDomain;
+
+    //}
+
+    //private ReportingPeriod RetrieveAndConvertPeriodSupplier(int reportingPeriodId,int supplierId)
+    //{
+    //    var reportingPeriodEntity = RetrieveAndConvertReportingPeriod(reportingPeriodId);
+    //    var supplierEntity = _supplierDataActions.GetSupplierById(supplierId);
+    //    var supplierPeriodStatus = GetAndConvertSupplierPeriodStatus();
+
+    //    if(supplierEntity is null)
+    //    {
+    //        throw new ArgumentNullException("Unable to retrieve Supplier Entity");
+    //    }
+    //    var supplierVO = _reportingPeriodEntityDomainMapper.ConvertSupplierToSupplierValueObject(supplierEntity);
+
+
+
+    //    return reportingPeriodEntity;
+
+
+
+    //}
+
+
 
     #endregion
 
@@ -154,7 +197,7 @@ public class ReportingPeriodServices : IReportingPeriodServices
             //Update ReportingPeriod =>
 
             //Fetch record by id
-            var reportingPeriod = RetrieveAndConvertReportingPeriod(reportingPeriodDto.Id ?? 0);
+            var reportingPeriod = RetrieveAndConvertReportingPeriodAndReportingPeriodSupplier(reportingPeriodDto.Id ?? 0);
             if (reportingPeriod == null)
             {
                 throw new Exception("Unable to retrieve ReportingPeriod");
@@ -177,80 +220,74 @@ public class ReportingPeriodServices : IReportingPeriodServices
     /// <exception cref="Exception"></exception>
     public async Task<string> SetPeriodSupplier(ReportingPeriodSupplierDto reportingPeriodSupplierDto)
     {
-        var reportingPeriodEntity = _reportingPeriodDataActions.GetReportingPeriodById(reportingPeriodSupplierDto.ReportingPeriodId);
+        var reportingPeriodEntity = RetrieveAndConvertReportingPeriodAndReportingPeriodSupplier(reportingPeriodSupplierDto.ReportingPeriodId);
+    
+        var supplierPeriodStatus = GetAndConvertSupplierPeriodStatus().FirstOrDefault(x => x.Id == reportingPeriodSupplierDto.SupplierReportingPeriodStatusId);
 
-        if (reportingPeriodEntity == null)
+        var periodSupplierList = _reportingPeriodDataActions.GetPeriodSuppliers();
+
+        ///First Entry In Database
+        if (periodSupplierList.Count() == 0)
         {
-            throw new ArgumentNullException("Unable to retrive ReportingPeriod");
+            goto AddCase;
+        }
+        var counter = 0;
+
+        foreach (var periodSupplier in periodSupplierList)
+        {
+            if (periodSupplier.SupplierId == periodSupplier.Supplier.Id && periodSupplier.ReportingPeriodId == reportingPeriodEntity.Id)
+            {
+                throw new Exception("ReportingPeriod Supplier already exists!!");
+            }
+            else
+            {
+                counter++;
+            }
         }
 
-        var supplierEntity = _supplierDataActions.GetSupplierById(reportingPeriodSupplierDto.SupplierId);
-
-        if (supplierEntity == null)
+        if (counter > 0)
         {
-            throw new ArgumentNullException("Unable to retrive Supplier");
+            goto AddCase;
         }
 
+    AddCase:
+        {
+            var periodSupplier = reportingPeriodEntity.AddPeriodSupplier(GetAndConvertSupplierValueObject(reportingPeriodSupplierDto.SupplierId), reportingPeriodSupplierDto.ReportingPeriodId,supplierPeriodStatus);
+            var periodSupplierEntity = _reportingPeriodEntityDomainMapper.ConvertReportingPeriodSupplierDomainToEntity(periodSupplier);
+            await _reportingPeriodDataActions.AddPeriodSupplier(periodSupplierEntity);
+        }
+
+
+
+        return "Success";
+    }
+
+    /// <summary>
+    /// Update Lock-Unlock Status of PeriodSupplier
+    /// </summary>
+    /// <param name="periodSupplierId"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public bool UpdateLockUnlockPeriodSupplier(int periodSupplierId)
+    {
+
+        var periodSupplierEntity = _reportingPeriodDataActions.GetPeriodSupplierById(periodSupplierId);
+
+        var reportingPeriodEntity = _reportingPeriodDataActions.GetReportingPeriodById(periodSupplierEntity.ReportingPeriodId);
 
         var reportingPeriodTypes = GetAndConvertReportingPeriodType();
         var reportingPeriodStatuses = GetAndConvertReportingPeriodStatus();
         var supplierPeriodStatuses = GetAndConvertSupplierPeriodStatus();
 
-        var reportingPeriod = _reportingPeriodEntityDomainMapper.ConvertReportingPeriodEntityToDomain(reportingPeriodEntity, reportingPeriodTypes, reportingPeriodStatuses);
+        var periodDomain = _reportingPeriodEntityDomainMapper.ConvertReportingPeriodEntityToDomain(reportingPeriodEntity, reportingPeriodTypes, reportingPeriodStatuses);
 
-        if (supplierEntity.IsActive == true && reportingPeriodEntity.ReportingPeriodStatus.Name == "InActive")
-        {
-            var supplierPeriodStatus = supplierPeriodStatuses.FirstOrDefault(x => x.Id == reportingPeriodSupplierDto.SupplierReportingPeriodStatusId);
+        _reportingPeriodEntityDomainMapper.ConvertPeriodSupplierEntityToDomain(periodDomain, new List<ReportingPeriodSupplierEntity>() { periodSupplierEntity }, supplierPeriodStatuses);
 
-            var supplierVO = _reportingPeriodEntityDomainMapper.ConvertSupplierToSupplierValueObject(supplierEntity);
+        var updatePeriodSupplierStatus = periodDomain.UpdatePeriodSupplierStatus(periodSupplierEntity.Id, supplierPeriodStatuses);
+        periodSupplierEntity = _reportingPeriodEntityDomainMapper.ConvertReportingPeriodSupplierDomainToEntity(updatePeriodSupplierStatus);
 
-            var periodSupplierList = _reportingPeriodDataActions.GetPeriodSuppliers();
-
-            ///First Entry In Database
-            if (periodSupplierList.Count() == 0)
-            {
-                goto AddCase;
-            }
-            var counter = 0;
-
-            foreach (var periodSupplier in periodSupplierList)
-            {
-                if (periodSupplier.SupplierId == supplierVO.Id && periodSupplier.ReportingPeriodId == reportingPeriod.Id)
-                {
-                    throw new Exception("ReportingPeriod Supplier already exists!!");
-                }
-                else
-                {
-                    counter++;
-                }
-            }
-
-            if (counter > 0)
-            {
-                goto AddCase;
-            }
-
-        AddCase:
-            {
-                var periodSupplier = reportingPeriod.AddPeriodSupplier(supplierVO, reportingPeriodSupplierDto.ReportingPeriodId, supplierPeriodStatus, reportingPeriodSupplierDto.IsActive);
-                var periodSupplierEntity = _reportingPeriodEntityDomainMapper.ConvertReportingPeriodSupplierDomainToEntity(periodSupplier);
-                await _reportingPeriodDataActions.AddPeriodSupplier(periodSupplierEntity);
-            }
-
-        }
-        else
-        {
-            if (supplierEntity.IsActive == false)
-            {
-                throw new Exception("Supplier Is InActive");
-            }
-            else
-            {
-                throw new Exception("Reporting Period Should be InActive");
-            }
-        }
-
-        return "Success";
+        _reportingPeriodDataActions.UpdatePeriodSupplierStatus(periodSupplierEntity);
+        return true;
     }
 
     /// <summary>
@@ -261,13 +298,15 @@ public class ReportingPeriodServices : IReportingPeriodServices
     /// <exception cref="NotImplementedException"></exception>
     public bool RemovePeriodSupplier(int periodSupplierId)
     {
+        //var periodSupplierRelevantFacility =  
+
         return _reportingPeriodDataActions.RemovePeriodSupplier(periodSupplierId);
     }
 
 
     #endregion
 
-    #region GetMethods
+    #region Get Methods
     public IEnumerable<InternalReportingPeriodDTO> GetActiveReportingPeriods()
     {
         var activeReportingPeriods = _reportingPeriodDataActions.GetReportingPeriods().Where(x => x.IsActive == true);
@@ -312,5 +351,7 @@ public class ReportingPeriodServices : IReportingPeriodServices
 
         return periodSupplierDto;
     }
+
+
     #endregion
 }

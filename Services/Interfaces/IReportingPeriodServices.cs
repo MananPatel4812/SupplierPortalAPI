@@ -51,6 +51,13 @@ public interface IReportingPeriodServices
     /// <returns></returns>
     bool RemovePeriodSupplier(int PeriodSupplierId);
 
+    /// <summary>
+    /// UpdateLockUnlockStatus
+    /// </summary>
+    /// <param name="periodSupplierId"></param>
+    /// <returns></returns>
+    bool UpdateLockUnlockPeriodSupplier(int periodSupplierId);
+
 
 
 
