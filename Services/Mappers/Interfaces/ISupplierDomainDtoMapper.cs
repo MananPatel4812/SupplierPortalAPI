@@ -8,8 +8,5 @@ namespace Services.Mappers.Interfaces
     {
         SupplierDto ConvertSupplierDomainToDto(Supplier supplier);
         List<SupplierDto> ConvertSuppliersToDtos(IEnumerable<Supplier> suppliers);
-
-        //Contact ConvertContactDtoToDomain(ContactDto contactDto);
-        //ContactDto ConvertContactDomainToDto();
     }
 }

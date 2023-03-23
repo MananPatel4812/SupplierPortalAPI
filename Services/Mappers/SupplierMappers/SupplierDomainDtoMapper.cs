@@ -7,12 +7,6 @@ namespace Services.Mappers.SupplierMappers
 {
     public class SupplierDomainDtoMapper : ISupplierDomainDtoMapper
     {
-        /* public Contact ConvertContactDtoToDomain(ContactDto contactDto)
-            {
-                var userVO = new UserVO(contactDto.UserId, contactDto.UserName, contactDto.UserEmail, contactDto.UserContactNo, contactDto.RoleId, contactDto.IsActive);
-                var contact = new Contact(contactDto.Id, contactDto.SupplierId, userVO);
-            }
-        */
         public SupplierDto ConvertSupplierDomainToDto(Supplier supplier)
         {
             var contactDtos = new List<ContactDto>();
@@ -23,7 +17,7 @@ namespace Services.Mappers.SupplierMappers
             }
             foreach (var item in supplier.Facilities)
             {
-                facilityDtos.Add(new FacilityDto(item.Id, item.Name, item.Description, item.IsPrimary, item.SupplierId, supplier.Name, item.GHGHRPFacilityId, item.AssociatePipelines.Id, item.AssociatePipelines.Name, item.ReportingTypes.Id, item.ReportingTypes.Name, item.SupplyChainStages.Id, item.SupplyChainStages.Name));
+                facilityDtos.Add(new FacilityDto(item.Id, item.Name, item.Description, item.IsPrimary, item.SupplierId, supplier.Name, item.GHGHRPFacilityId, item.AssociatePipelines.Id, item.AssociatePipelines.Name, item.ReportingTypes.Id, item.ReportingTypes.Name, item.SupplyChainStages.Id, item.SupplyChainStages.Name, item.IsActive));
             }
             return new SupplierDto(supplier.Id, supplier.Name, supplier.Alias, supplier.Email, supplier.ContactNo, supplier.IsActive, facilityDtos, contactDtos);
         }

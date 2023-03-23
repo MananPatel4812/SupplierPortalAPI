@@ -11,6 +11,8 @@ namespace Services.Mappers.ReportingPeriodMappers
 {
     public class ReferenceLookupMapper : IReferenceLookUpMapper
     {
+       
+
         public IEnumerable<ReportingPeriodStatus> GetReportingPeriodStatusesLookUp(IEnumerable<ReportingPeriodStatusEntity> reportingPeriodStatusEntities)
         {
             foreach (var item in reportingPeriodStatusEntities)
@@ -26,11 +28,37 @@ namespace Services.Mappers.ReportingPeriodMappers
                 yield return new ReportingPeriodType(item.Id, item.Name);
             }
         }
+
         public IEnumerable<SupplierReportingPeriodStatus> GetSupplierReportingPeriodStatusesLookUp(IEnumerable<SupplierReportingPeriodStatusEntity> supplierReportingPeriodStatusEntities)
         {
             foreach (var item in supplierReportingPeriodStatusEntities)
             {
                 yield return new SupplierReportingPeriodStatus(item.Id, item.Name);
+            }
+        }
+
+        //SupplierFacility
+        public IEnumerable<AssociatePipeline> GetAssociatePipelinesLookUp(IEnumerable<AssociatePipelineEntity> associatePipelineEntities)
+        {
+            foreach (var item in associatePipelineEntities)
+            {
+                yield return new AssociatePipeline(item.Id, item.Name);
+            }
+        }
+
+        public IEnumerable<ReportingType> GetReportingTypeLookUp(IEnumerable<ReportingTypeEntity> reportingTypeEntities)
+        {
+            foreach (var item in reportingTypeEntities)
+            {
+                yield return new ReportingType(item.Id, item.Name);
+            }
+        }
+
+        public IEnumerable<SupplyChainStage> GetSupplyChainStagesLookUp(IEnumerable<SupplyChainStageEntity> supplyChainStageEntities)
+        {
+            foreach (var item in supplyChainStageEntities)
+            {
+                yield return new SupplyChainStage(item.Id, item.Name);
             }
         }
     }

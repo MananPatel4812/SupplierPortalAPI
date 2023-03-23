@@ -229,6 +229,11 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
                                     .ToList();
     }
 
+    public IEnumerable<ReportingTypeEntity> GetReportingTypes()
+    {
+        return _context.ReportingTypeEntities;
+    }
+
     #endregion
 
     #region GetById
