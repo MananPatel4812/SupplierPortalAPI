@@ -32,6 +32,8 @@ namespace DataAccess.DataActions.Interfaces
 
         Task<bool> UpdateReportingPeriodSupplierDocument(ReportingPeriodSupplierDocumentEntity reportingPeriodSupplierDocument);
 
+        bool UpdatePeriodSupplierStatus(ReportingPeriodSupplierEntity periodSupplierEntity);
+
         #endregion
 
         #region Remove Methods
@@ -72,6 +74,8 @@ namespace DataAccess.DataActions.Interfaces
         ReportingPeriodEntity GetReportingPeriodById(int reportingPeriodId);
 
         ReportingPeriodSupplierEntity GetPeriodSupplierById(int periodSupplierId);
+
+        ICollection<ReportingPeriodSupplierEntity> GetperiodSupplierById(int periodSupplierId);
 
         IEnumerable<ReportingPeriodTypeEntity> GetReportingPeriodTypeById(int reportingPeriodTypeId);
         

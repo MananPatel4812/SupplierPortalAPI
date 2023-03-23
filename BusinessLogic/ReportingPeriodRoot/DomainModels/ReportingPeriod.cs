@@ -1,15 +1,8 @@
-﻿using BusinessLogic.ReferenceLookups;
+using BusinessLogic.ReferenceLookups;
 using BusinessLogic.ReportingPeriodRoot.Interfaces;
 using BusinessLogic.SupplierRoot.ValueObjects;
 using BusinessLogic.ValueConstants;
 using DataAccess.Entities;
-using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogic.ReportingPeriodRoot.DomainModels
 {
@@ -65,6 +58,7 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         {
             var reportingPeriodName = REPORTING_PERIOD_NAME_PREFIX;
             switch (reportingPeriodType.Name)
+
             {
                 case ReportingPeriodTypeValues.Annual:
                     reportingPeriodName = $"{reportingPeriodName} Yearly";
@@ -181,9 +175,46 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
                     _periodSupplier.Add(reportingPeriodSupplier);
                 }
                
-                return reportingPeriodSupplier;
             }
+
+            return reportingPeriodSupplier;
         }
+
+        public PeriodSupplier UpdatePeriodSupplierStatus(int periodSupplierId, IEnumerable<SupplierReportingPeriodStatus> supplierReportingPeriodStatuses)
+        {
+            var periodSupplier = _periodSupplier.Where(x => x.Id == periodSupplierId).FirstOrDefault();
+
+            if (periodSupplier is null)
+            {
+                throw new ArgumentNullException("Unable to retrieve Period Supplier");
+            }
+
+            if (periodSupplier.Id == periodSupplierId)
+            {
+                if (periodSupplier.SupplierReportingPeriodStatus.Name == SupplierReportingPeriodStatusValues.Locked)
+                {
+                    var unlockedStatus = supplierReportingPeriodStatuses.Where(x => x.Name == "Unlocked").FirstOrDefault();
+                    periodSupplier.UpdateSupplierReportingPeriodStatus(unlockedStatus);
+                }
+                else
+                {
+                    periodSupplier.SupplierReportingPeriodStatus.Name = "Locked";
+                }
+            }
+            else
+            {
+                throw new ArgumentNullException("Unable to retrieve Period Supplier");
+
+            }
+
+
+            return periodSupplier;
+        }
+
+        //public PeriodSupplier RemovePeriodSupplier(int periodSupplierId)
+        //{
+        //   //var periodSupplierRelevantFacility = 
+        //}
 
         public PeriodFacilityDocument AddDataSubmissionDocumentForReportingPeriod(int supplierId, int periodFacilityId, FacilityRequiredDocumentTypeEntity facilityRequiredDocumentType, IEnumerable<DocumentRequirementStatus> documentRequirementStatus)
         {
@@ -220,5 +251,7 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         {
             throw new NotImplementedException();
         }
+
+
     }
 }

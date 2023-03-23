@@ -2,12 +2,7 @@ using DataAccess.DataActionContext;
 using DataAccess.DataActions.Interfaces;
 using DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace DataAccess.DataActions;
 
@@ -34,7 +29,6 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
     public async Task<bool> AddPeriodSupplier(ReportingPeriodSupplierEntity reportingPeriodSupplierEntity)
     {
         await _context.ReportingPeriodSupplierEntities.AddAsync(reportingPeriodSupplierEntity);
-
         reportingPeriodSupplierEntity.IsActive = true;
         await _context.SaveChangesAsync();
         return true;
@@ -150,18 +144,36 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
 
         return true;
     }
+
+    public bool UpdatePeriodSupplierStatus(ReportingPeriodSupplierEntity periodSupplierEntity)
+    {
+        var periodSupplier = _context.ReportingPeriodSupplierEntities
+            .Include(x => x.SupplierReportingPeriodStatus)
+            .Where(x => x.Id == periodSupplierEntity.Id).FirstOrDefault();
+        periodSupplier.SupplierReportingPeriodStatusId = periodSupplierEntity.SupplierReportingPeriodStatusId;
+
+        _context.ReportingPeriodSupplierEntities.Update(periodSupplier);
+        _context.SaveChanges();
+        return true;
+    }
     #endregion
 
     #region Remove Methods
 
     public bool RemovePeriodSupplier(int periodSupplierId)
     {
-        var periodSupplier = _context.ReportingPeriodSupplierEntities.Where(x => x.Id == periodSupplierId).FirstOrDefault();
+        var periodSupplier = _context.ReportingPeriodSupplierEntities.Where(x => x.Id == periodSupplierId)
+            .Include(x=>x.ReportingPeriodFacilityEntities).FirstOrDefault();
 
+        //var periodSupplierRelevantFacility = _context.ReportingPeriodSupplierEntities.Where(x=>x.Id == periodSupplierId).Include(x=>x .ReportingPeriodFacilityEntities).ToList();
         if(periodSupplier == null)
         {
             return false;
         }
+        //if(periodSupplierRelevantFacility.Count() != 0 )
+        //{
+        //    throw new Exception("Supplier has relevant facilities");
+        //}
 
         _context.ReportingPeriodSupplierEntities.Remove(periodSupplier);
         _context.SaveChanges();
@@ -291,6 +303,17 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
                                 .FirstOrDefault(x => x.Id == periodSupplierId);
         return periodSupplier;
     }
+
+    public ICollection<ReportingPeriodSupplierEntity> GetperiodSupplierById(int periodSupplierId)
+    {
+        var periodSupplier = _context.ReportingPeriodSupplierEntities
+                                .Include(x => x.Supplier)
+                                .Include(x => x.ReportingPeriod)
+                                .Include(x => x.SupplierReportingPeriodStatus)
+                                .Where(x => x.Id == periodSupplierId);
+        return periodSupplier.ToList();
+    }
+
     public async Task<IEnumerable<ReportingPeriodFacilityEntity>> GetReportingPeriodFacilities(int SupplierId, int ReportingPeriodId)
     {
         return await _context.ReportingPeriodFacilityEntities
@@ -345,5 +368,6 @@ public class ReportingPeriodDataActionsManager : IReportingPeriodDataActions
         Dispose(true);
         GC.SuppressFinalize(this);
     }
+
     
 }

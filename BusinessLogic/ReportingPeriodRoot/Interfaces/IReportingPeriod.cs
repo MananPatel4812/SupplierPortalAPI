@@ -32,6 +32,9 @@ namespace BusinessLogic.ReportingPeriodRoot.Interfaces
 
         PeriodSupplier AddPeriodSupplier(SupplierVO supplier, int reportingPeriodId, SupplierReportingPeriodStatus supplierReportingPeriodStatus);
 
+        PeriodSupplier UpdatePeriodSupplierStatus(int periodSupplierId, IEnumerable<SupplierReportingPeriodStatus> supplierReportingPeriodStatuses);
+
+       // PeriodSupplier RemovePeriodSupplier(int periodSupplierId);
         void AddPeriodFacilityToPeriodSupplier(int supplierId,FacilityReportingPeriodDataStatus facilityReportingPeriodDataStatus,ReportingType reportingType,int reportingPeriodSupplierId);
 
         void AddDocumentToPeriodSupplierFacility(DocumentType documentType,DocumentStatus documentStatus);
