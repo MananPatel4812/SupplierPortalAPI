@@ -10,16 +10,16 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
 {
     public class PeriodFacility
     {
-        private HashSet<Facility> facilities;
-        private HashSet<FacilityReportingPeriodDataStatus> facilityReportingPeriodDataStatuses;
-        private HashSet<ReportingType> reportingTypes;
+        private HashSet<Facility> _facilities;
+        private HashSet<FacilityReportingPeriodDataStatus> _facilityReportingPeriodDataStatuses;
+        private HashSet<ReportingType> _reportingTypes;
         //private HashSet<ReportingPeriodSupplier> ReportingPeriodSuppliers;
 
         public PeriodFacility()
         {
-            facilities = new HashSet<Facility>();
-            facilityReportingPeriodDataStatuses = new HashSet<FacilityReportingPeriodDataStatus>();
-            reportingTypes = new HashSet<ReportingType>();
+            _facilities = new HashSet<Facility>();
+            _facilityReportingPeriodDataStatuses = new HashSet<FacilityReportingPeriodDataStatus>();
+            _reportingTypes = new HashSet<ReportingType>();
         }
 
         public PeriodFacility(int id) : this()
@@ -33,11 +33,11 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         {
             get
             {
-                if (facilities == null)
+                if (_facilities == null)
                 {
                     return new List<Facility>();
                 }
-                return facilities.ToList();
+                return _facilities.ToList();
             }
         }
 
@@ -45,11 +45,11 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         {
             get
             {
-                if (facilityReportingPeriodDataStatuses == null)
+                if (_facilityReportingPeriodDataStatuses == null)
                 {
                     return new List<FacilityReportingPeriodDataStatus>();
                 }
-                return facilityReportingPeriodDataStatuses.ToList();
+                return _facilityReportingPeriodDataStatuses.ToList();
             }
         }
 
@@ -57,11 +57,11 @@ namespace BusinessLogic.ReportingPeriodRoot.DomainModels
         {
             get
             {
-                if (reportingTypes == null)
+                if (_reportingTypes == null)
                 {
                     return new List<ReportingType>();
                 }
-                return reportingTypes.ToList();
+                return _reportingTypes.ToList();
             }
         }
     }

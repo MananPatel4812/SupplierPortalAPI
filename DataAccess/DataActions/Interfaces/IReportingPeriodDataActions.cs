@@ -16,6 +16,8 @@ namespace DataAccess.DataActions.Interfaces
 
         Task<bool> AddPeriodSupplier(ReportingPeriodSupplierEntity reportingPeriodSupplierEntity);
 
+        Task<bool> AddPeriodFacility(ReportingPeriodFacilityEntity reportingPeriodFacilityEntity);
+
         Task<bool> AddReportingPeriodFacilityDocument(ReportingPeriodFacilityDocumentEntity reportingPeriodFacilityDocument);
 
         Task<bool> AddReportingPeriodSupplierDocument(ReportingPeriodSupplierDocumentEntity reportingPeriodSupplierDocument);
@@ -29,6 +31,8 @@ namespace DataAccess.DataActions.Interfaces
         Task<bool> UpdateReportingPeriodFacilityDocument(ReportingPeriodFacilityDocumentEntity reportingPeriodFacilityDocument);
 
         Task<bool> UpdateReportingPeriodSupplierDocument(ReportingPeriodSupplierDocumentEntity reportingPeriodSupplierDocument);
+
+        bool UpdatePeriodSupplierStatus(ReportingPeriodSupplierEntity periodSupplierEntity);
 
         #endregion
 
@@ -61,6 +65,8 @@ namespace DataAccess.DataActions.Interfaces
         IEnumerable<ReportingTypeEntity> GetReportingTypes();
         
 
+        IEnumerable<ReportingTypeEntity> GetReportingTypes();
+
         #endregion
 
         #region GetById Methods
@@ -70,6 +76,8 @@ namespace DataAccess.DataActions.Interfaces
         ReportingPeriodEntity GetReportingPeriodById(int reportingPeriodId);
 
         ReportingPeriodSupplierEntity GetPeriodSupplierById(int periodSupplierId);
+
+        ICollection<ReportingPeriodSupplierEntity> GetperiodSupplierById(int periodSupplierId);
 
         IEnumerable<ReportingPeriodTypeEntity> GetReportingPeriodTypeById(int reportingPeriodTypeId);
         

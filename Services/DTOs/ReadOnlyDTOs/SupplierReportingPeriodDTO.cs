@@ -28,4 +28,9 @@ public class SupplierReportingPeriodDTO
         SupplierReportingPeriodStatusId = supplierReportingPeriodStatusId;
         SupplierReportingPeriodStatus = supplierReportingPeriodStatus;
     }
+
+    public SupplierReportingPeriodDTO()
+    {
+
+    }
 }

@@ -27,6 +27,13 @@ public interface IReportingPeriodServices
     Task<string> AddUpdateReportingPeriod(ReportingPeriodDto reportingPeriodDto);
 
     /// <summary>
+    /// Add PeriodFacility
+    /// </summary>
+    /// <param name="reportingPeriodFacilityDto"></param>
+    /// <returns></returns>
+    Task<string> SetPeriodFacility(ReportingPeriodFacilityDto reportingPeriodFacilityDto);
+
+    /// <summary>
     /// Get Active ReportingPeriods
     /// </summary>
     /// <returns></returns>
@@ -50,6 +57,13 @@ public interface IReportingPeriodServices
     /// <param name="PeriodSupplierId"></param>
     /// <returns></returns>
     bool RemovePeriodSupplier(int PeriodSupplierId);
+
+    /// <summary>
+    /// UpdateLockUnlockStatus
+    /// </summary>
+    /// <param name="periodSupplierId"></param>
+    /// <returns></returns>
+    bool UpdateLockUnlockPeriodSupplier(int periodSupplierId);
 
 
 

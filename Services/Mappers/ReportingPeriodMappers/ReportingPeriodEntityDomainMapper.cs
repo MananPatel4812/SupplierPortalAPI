@@ -9,6 +9,16 @@ namespace Services.Mappers.ReportingPeriodMappers;
 
 public class ReportingPeriodEntityDomainMapper : IReportingPeriodEntityDomainMapper
 {
+
+    //public PeriodSupplier ConvertPeriodSuppliersEntityToDomain(ReportingPeriod reportingPeriod, ReportingPeriodSupplierEntity reportingPeriodSupplierEntity, IEnumerable<SupplierReportingPeriodStatus> supplierReportingPeriodStatuses, SupplierVO supplierVO)
+    //{
+    //    var supplierReportingPeriodSelectedStatus = supplierReportingPeriodStatuses.Where(x => x.Id == reportingPeriodSupplierEntity.SupplierReportingPeriodStatusId).FirstOrDefault();
+
+    //    var periodSupplier = new PeriodSupplier(reportingPeriodSupplierEntity.Id, supplierVO, reportingPeriod.Id, supplierReportingPeriodSelectedStatus);
+
+    //    return periodSupplier;
+    //}
+
     public void ConvertPeriodSupplierEntityToDomain(ReportingPeriod periodDomain, ICollection<ReportingPeriodSupplierEntity> reportingPeriodSupplierEntities, IEnumerable<SupplierReportingPeriodStatus> supplierReportingPeriodStatuses)
     {
         foreach (var item in reportingPeriodSupplierEntities)
@@ -17,7 +27,7 @@ public class ReportingPeriodEntityDomainMapper : IReportingPeriodEntityDomainMap
             //var facilityVO = GenerateFacilityVO(item.ReportingPeriodFacilityEntities);
             var selectedSupplierStatus = supplierReportingPeriodStatuses.First(x => x.Id == item.SupplierReportingPeriodStatusId);
 
-            periodDomain.LoadPeriodSupplier(item.Id, supplierVO, item.ReportingPeriodId, selectedSupplierStatus, item.IsActive);
+            periodDomain.LoadPeriodSupplier(item.Id, supplierVO, item.ReportingPeriodId, selectedSupplierStatus);
 
         }
 
@@ -64,10 +74,9 @@ public class ReportingPeriodEntityDomainMapper : IReportingPeriodEntityDomainMap
             reportingPeriodSelectedType, 
             reportingPeriodEntity.CollectionTimePeriod, 
             reportingPeriodSelectedStatus, 
-            reportingPeriodEntity.StartDate, reportingPeriodEntity.EndDate, 
+            reportingPeriodEntity.StartDate, 
+            reportingPeriodEntity.EndDate, 
             reportingPeriodEntity.IsActive);
-
-        
 
         return reportingPeriod;
 
@@ -117,5 +126,14 @@ public class ReportingPeriodEntityDomainMapper : IReportingPeriodEntityDomainMap
             supplierVOs.Add(ConvertSupplierToSupplierValueObject(supplierEntity));
         }
         return supplierVOs;
+    }
+
+    public PeriodSupplier ConvertPeriodSuppliersEntityToDomain(ReportingPeriod reportingPeriod, ReportingPeriodSupplierEntity reportingPeriodSupplierEntity, IEnumerable<SupplierReportingPeriodStatus> supplierReportingPeriodStatuses,SupplierVO supplierVO)
+    {
+        var supplierReportingPeriodSelectedStatus = supplierReportingPeriodStatuses.Where(x => x.Id == reportingPeriodSupplierEntity.SupplierReportingPeriodStatusId).FirstOrDefault();
+
+        var periodSupplier = new PeriodSupplier(reportingPeriodSupplierEntity.Id,supplierVO, reportingPeriod.Id,supplierReportingPeriodSelectedStatus);
+
+        return periodSupplier;
     }
 }

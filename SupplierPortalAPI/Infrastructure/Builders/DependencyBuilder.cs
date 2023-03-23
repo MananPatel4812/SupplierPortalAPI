@@ -21,22 +21,22 @@ namespace SupplierPortalAPI.Infrastructure.Builders
             //services.AddScoped<ISupplierServices, SupplierServices>();
 
             //Supplier
-            services.AddTransient<ISupplierServices, SupplierServices>();
-            services.AddTransient<ISupplierDataActions, SupplierDataActionsManager>();
-            services.AddTransient<ISupplierFactory, SupplierFactory>();
-            services.AddTransient<ISupplierEntityDomainMapper, SupplierEntityDomainMapper>();
-            services.AddTransient<ISupplierDomainDtoMapper, SupplierDomainDtoMapper>();
+            services.AddScoped<ISupplierServices, SupplierServices>();
+            services.AddScoped<ISupplierDataActions, SupplierDataActionsManager>();
+            services.AddScoped<ISupplierFactory, SupplierFactory>();
+            services.AddSingleton<ISupplierEntityDomainMapper, SupplierEntityDomainMapper>();
+            services.AddSingleton<ISupplierDomainDtoMapper, SupplierDomainDtoMapper>();
 
             //ReportingPeriod
-            services.AddTransient<IReportingPeriod, ReportingPeriod>();
-            services.AddTransient<IReportingPeriodServices, ReportingPeriodServices>();
-            services.AddTransient<IReportingPeriodDataActions, ReportingPeriodDataActionsManager>();
-            services.AddTransient<IReportingPeriodFactory, ReportingPeriodFactory>();
-            services.AddTransient<IReportingPeriodDomainDtoMapper, ReportingPeriodDomainDtoMapper>();
-            services.AddTransient<IReportingPeriodEntityDomainMapper, ReportingPeriodEntityDomainMapper>();
-            services.AddTransient<IReadOnlyEntityToDtoMapper, ReadOnlyEntityToDtoMapper>();
-            services.AddTransient<IReportingPeriod, ReportingPeriod>();
-            services.AddTransient<IReferenceLookUpMapper, ReferenceLookupMapper>();
+            services.AddScoped<IReportingPeriod, ReportingPeriod>();
+            services.AddScoped<IReportingPeriodServices, ReportingPeriodServices>();
+            services.AddScoped<IReportingPeriodDataActions, ReportingPeriodDataActionsManager>();
+            services.AddScoped<IReportingPeriodFactory, ReportingPeriodFactory>();
+            services.AddSingleton<IReportingPeriodDomainDtoMapper, ReportingPeriodDomainDtoMapper>();
+            services.AddSingleton<IReportingPeriodEntityDomainMapper, ReportingPeriodEntityDomainMapper>();
+            services.AddSingleton<IReadOnlyEntityToDtoMapper, ReadOnlyEntityToDtoMapper>();
+            services.AddScoped<IReportingPeriod, ReportingPeriod>();
+            services.AddSingleton<IReferenceLookUpMapper, ReferenceLookupMapper>();
             //services.AddScoped<IServiceCollection, ServiceCollection>();    
         }
 
