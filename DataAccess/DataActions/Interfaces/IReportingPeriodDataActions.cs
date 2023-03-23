@@ -16,6 +16,8 @@ namespace DataAccess.DataActions.Interfaces
 
         Task<bool> AddPeriodSupplier(ReportingPeriodSupplierEntity reportingPeriodSupplierEntity);
 
+        Task<bool> AddPeriodFacility(ReportingPeriodFacilityEntity reportingPeriodFacilityEntity);
+
         Task<bool> AddReportingPeriodFacilityDocument(ReportingPeriodFacilityDocumentEntity reportingPeriodFacilityDocument);
 
         Task<bool> AddReportingPeriodSupplierDocument(ReportingPeriodSupplierDocumentEntity reportingPeriodSupplierDocument);
@@ -60,6 +62,8 @@ namespace DataAccess.DataActions.Interfaces
         IEnumerable<DocumentTypeEntity> GetDocumentType();
 
         IEnumerable<FacilityRequiredDocumentTypeEntity> GetFacilityRequiredDocumentType();
+
+        IEnumerable<ReportingTypeEntity> GetReportingTypes();
 
         #endregion
 

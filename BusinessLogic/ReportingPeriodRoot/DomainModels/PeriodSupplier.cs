@@ -1,4 +1,4 @@
-﻿using BusinessLogic.ReferenceLookups;
+using BusinessLogic.ReferenceLookups;
 using BusinessLogic.ReportingPeriodRoot.ValueObjects;
 using BusinessLogic.SupplierRoot.DomainModels;
 using BusinessLogic.SupplierRoot.ValueObjects;
@@ -26,9 +26,7 @@ public class PeriodSupplier
     }
 
     internal PeriodSupplier()
-    {
-
-    }
+    { }
 
     public int Id { get; private set; }
     public SupplierVO Supplier { get; private set; }

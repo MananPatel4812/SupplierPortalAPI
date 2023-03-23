@@ -74,10 +74,9 @@ public class ReportingPeriodEntityDomainMapper : IReportingPeriodEntityDomainMap
             reportingPeriodSelectedType, 
             reportingPeriodEntity.CollectionTimePeriod, 
             reportingPeriodSelectedStatus, 
-            reportingPeriodEntity.StartDate, reportingPeriodEntity.EndDate, 
+            reportingPeriodEntity.StartDate, 
+            reportingPeriodEntity.EndDate, 
             reportingPeriodEntity.IsActive);
-
-        
 
         return reportingPeriod;
 
@@ -127,5 +126,14 @@ public class ReportingPeriodEntityDomainMapper : IReportingPeriodEntityDomainMap
             supplierVOs.Add(ConvertSupplierToSupplierValueObject(supplierEntity));
         }
         return supplierVOs;
+    }
+
+    public PeriodSupplier ConvertPeriodSuppliersEntityToDomain(ReportingPeriod reportingPeriod, ReportingPeriodSupplierEntity reportingPeriodSupplierEntity, IEnumerable<SupplierReportingPeriodStatus> supplierReportingPeriodStatuses,SupplierVO supplierVO)
+    {
+        var supplierReportingPeriodSelectedStatus = supplierReportingPeriodStatuses.Where(x => x.Id == reportingPeriodSupplierEntity.SupplierReportingPeriodStatusId).FirstOrDefault();
+
+        var periodSupplier = new PeriodSupplier(reportingPeriodSupplierEntity.Id,supplierVO, reportingPeriod.Id,supplierReportingPeriodSelectedStatus);
+
+        return periodSupplier;
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -21,9 +21,12 @@ namespace Services.DTOs
 
         public int SupplierReportingPeriodStatusId { get; set; }
 
-        public string SupplierReportingPeriodStatus { get; set; }
+        public string SupplierReportingPeriodStatus { get;set; }
+
+       // public bool IsActive { get; set; }
 
         public ReportingPeriodSupplierDto(int id, int supplierId, string supplierName, int reportingPeriodId, string reportingPeriod, int supplierReportingPeriodStatusId, string supplierReportingPeriodStatus)
+
         {
             Id = id;
             SupplierId = supplierId;
@@ -32,6 +35,7 @@ namespace Services.DTOs
             ReportingPeriod = reportingPeriod;
             SupplierReportingPeriodStatusId = supplierReportingPeriodStatusId;
             SupplierReportingPeriodStatus = supplierReportingPeriodStatus;
+          //  IsActive = isActive;
         }
 
 

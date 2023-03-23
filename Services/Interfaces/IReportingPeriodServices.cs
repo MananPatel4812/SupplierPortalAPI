@@ -27,6 +27,13 @@ public interface IReportingPeriodServices
     Task<string> AddUpdateReportingPeriod(ReportingPeriodDto reportingPeriodDto);
 
     /// <summary>
+    /// Add PeriodFacility
+    /// </summary>
+    /// <param name="reportingPeriodFacilityDto"></param>
+    /// <returns></returns>
+    Task<string> SetPeriodFacility(ReportingPeriodFacilityDto reportingPeriodFacilityDto);
+
+    /// <summary>
     /// Get Active ReportingPeriods
     /// </summary>
     /// <returns></returns>

@@ -24,4 +24,7 @@ public interface IReportingPeriodEntityDomainMapper
     SupplierVO ConvertSupplierToSupplierValueObject(SupplierEntity supplierEntity,IEnumerable<SupplyChainStage>? supplyChainStages = null,IEnumerable<ReportingType>? reportingTypes = null);
 
     IEnumerable<SupplierVO> ConvertSupplierEntityToSupplierValueObject(IEnumerable<SupplierEntity> supplierEntities);
+
+    PeriodSupplier ConvertPeriodSuppliersEntityToDomain(ReportingPeriod reportingPeriod, ReportingPeriodSupplierEntity reportingPeriodSupplierEntity, IEnumerable<SupplierReportingPeriodStatus> supplierReportingPeriodStatuses, SupplierVO supplierVO);
+
 }
